@@ -5,8 +5,10 @@
   "main": "index.js",
   "homepage": "https://sla6ak.github.io/team-project-js-filmoteka",
   "scripts": {
-    "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /team-project-js-filmoteka/"
+    "dev": "parcel src/*.html -p 1234 --open",
+    "clean": "rm -rf dist/*",
+    "build:parcel": "parcel build src/*.html --public-url /team-project-js-filmoteka/",
+    "build": "npm run clean && npm run build:parcel"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,9 @@
     "parcel-plugin-nuke-dist": "^1.0.1",
     "posthtml-include": "^1.6.2",
     "sass": "^1.32.8"
+  },
+  "dependencies": {
+    "parcel-plugin-imagemin": "^4.0.2",
+    "parcel-plugin-svg-sprite": "^1.4.1"
   }
 }
