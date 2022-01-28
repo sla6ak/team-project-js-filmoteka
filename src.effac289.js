@@ -17,4 +17,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{"./class-pagination":"kFz5"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var s=require("./js/class-localsave");const e=new s.LocalSave;e.start(),console.log(e.getRefs());
 },{"./sass/main.scss":"clu1","./js/class-localsave":"AVyS"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js-filmoteka/src.2228a028.js.map
+//# sourceMappingURL=/team-project-js-filmoteka/src.effac289.js.map
