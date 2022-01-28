@@ -1,49 +1,39 @@
 {{#each this}}
-  <li class='collection__item'>
-    <article class='card'>
-      <a href='' class='card__link'>
-        {{#if poster_path}}
-          <img
-            class='card__img'
-            src='https://www.themoviedb.org/t/p/w500{{poster_path}}'
-            onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'"
-            loading='lazy'
-            alt='{{title}}'
-            title='{{title}}'
-            data-id='{{id}}'
-          />
-        {{else}}
-          <img
-            class='card__img'
-            src='https://i.pinimg.com/originals/74/3d/b2/743db230d891b47c1d8c66b161111b91.jpg'
-            loading='lazy'
-            alt='{{title}}'
-            title='{{title}}'
-            data-id='{{id}}'
-          />
-        {{/if}}
-      </a>
-      <div class='card__wrap'>
-        <a href=''>
-          <h2 class='card__title' data-id='{{id}}'>{{title}}</h2>
-        </a>
-        <div class='card__data'>
-          <ul class='card__genres'>
-            {{#if genres}}
-              {{#each genres}}
-                <li class='card__genre'><a href='' class='card__text'>{{name}}{{#unless
-                      @last
-                    }},{{/unless}}</a></li>
-              {{/each}}
-            {{else}}<li class='card__genre card__text'>N/A</li>
-            {{/if}}
-          </ul>
-          {{#if year}}
-            <p class='card__year card__text'>| {{year}}</p>
-          {{else}}<p class='card__text'>| N/A</p>
-          {{/if}}
-        </div>
-      </div>
-    </article>
+  <li class='film-list-item' data-id='{{id}}'>
+    <picture>
+      {{#if poster_path}}
+        <source
+          srcset='https://image.tmdb.org/t/p/w500{{poster_path}}'
+          media='(min-width: 1024px)'
+        />
+        <source
+          srcset='https://image.tmdb.org/t/p/w440_and_h660_face{{poster_path}}'
+          media='(min-width: 768px)'
+        />
+        <source
+          srcset='https://image.tmdb.org/t/p/w220_and_h330_face{{poster_path}}'
+          media='(min-width: 320px)'
+        />
+        <img
+          class='film-image'
+          src='https://image.tmdb.org/t/p/w440_and_h660_face{{poster_path}}'
+          alt='film poster'
+        />
+      {{else}}
+        <img
+          class='film-image'
+          style='height:auto'
+          src='https://via.placeholder.com/400x600?text=YOU%27RE+AWESOME+:)'
+          alt='film poster'
+        />
+      {{/if}}
+    </picture>
+    <div class='film-list-wrapper'>
+      <h3 class='film-name'>"{{title}}"</h3>
+      <p class='film-about'>{{genre_ids}}
+        |
+        {{release_date}}
+        <span class='mark'>{{vote_average}}</span></p>
+    </div>
   </li>
 {{/each}}
