@@ -11,6 +11,8 @@
   background-color: $modal-votes-bg-color;
   flex-direction: column;
   @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 19px;
     flex-direction: row;
   }
 }
