@@ -6,4 +6,7 @@
 // Стили для файла с примером HTML-фрагмента
 @import './utilites/colors';
 @import './base/base_style';
+@import './base/container';
+
 @import './footer/footer.scss';
+@import './layout/render-section.scss';

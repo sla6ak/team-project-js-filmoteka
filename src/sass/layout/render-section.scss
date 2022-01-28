@@ -1,0 +1,78 @@
+.render-box {
+  @media screen and (min-width: 320px) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+    padding-bottom: 25px;
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -30px;
+    margin-left: -30px;
+  }
+}
+
+.film-card {
+  outline: 2px solid rgb(0, 153, 255);
+
+  &__img-zaglushka {
+    height: 398px;
+    border-radius: 5px;
+    background-color: rgb(111, 175, 172);
+  }
+
+  &__discribe-container {
+    padding-top: 10px;
+  }
+
+  &__info {
+    display: flex;
+  }
+
+  &__film-name,
+  &__film-ganre {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $primary-text-color;
+  }
+
+  &__film-ganre {
+    color: $accent-modal-color;
+  }
+
+  &__film-rating {
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: $accent-modal-color;
+    color: $header-text-color;
+  }
+
+  @media screen and (min-width: 320px) {
+    width: 280px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 294px;
+    flex-basis: calc(100% / 2 - 30px);
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 274px;
+    flex-basis: calc(100% / 3 - 30px);
+  }
+}
