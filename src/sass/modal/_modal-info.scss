@@ -1,0 +1,137 @@
+// .is-hidden {
+//     opacity: 0;
+//     pointer-events: none;
+// }
+
+.modal-film__full-info {
+    width: 280px;
+    padding: 48px 20px 41px 20px;
+
+    @media screen and (min-width:768px) {
+    display: flex;
+    width: 618px;
+    padding: 42px 30px;
+ }
+
+  @media screen and (min-width:1280px) {
+    width: 882px;
+    padding: 50px 30px 40px 30px;
+ }
+}
+
+.film-info {
+     @media screen and (min-width:768px) {
+ }
+
+}
+
+.pic {
+    width: 240px;
+    height: 356px;
+
+    margin-bottom: 30px;
+
+    object-fit: cover;
+
+    @media screen and (min-width:768px) {
+    width: 264px;
+    height: 373px;
+    margin-right: 32px;
+}
+
+    @media screen and (min-width:1280px) {
+    width: 396px;
+    height: 478px;
+    margin-right: 30px;
+}
+
+}
+
+.film-name {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.15;
+
+    color: $primary-text;
+
+    margin-bottom: 20px;
+}
+
+.ffilm-spec__name {
+    font-weight: 500;
+    line-height: 1.33;
+
+    color: $modal-text;
+
+}
+
+.film-spec__value--numb,
+.film-spec__value--text {
+    font-weight: 500;
+    line-height: 1.17;
+
+    color: $primary-text;
+}
+
+.film-spec__value--text {
+    line-height: 1.33;
+}
+
+.film-spec {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+td {
+    padding: 5px;
+    width: 50px;
+}
+
+.about {
+    font-weight: 500;
+    line-height: 1.33;
+    text-transform: uppercase;
+
+    color: $primary-text;
+
+    margin-bottom: 10px;
+}
+
+.about-text {
+    font-weight: 500;
+    line-height: 1.67;
+
+    margin-bottom: 21px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.watched-btn,
+.queue-btn {
+    width: 112px;
+    height: 44px;
+
+    background: $accent-modal;
+    border-radius: 5px;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    text-transform: uppercase;
+
+     @media screen and (min-width:768px) {
+     width: 125px;
+ }
+}
+
+.queue-btn {
+    border: 1px solid #000000;
+    background: #fff;
+
+    @media screen and (min-width:768px) {
+    margin-left: 14px;
+}
+}
