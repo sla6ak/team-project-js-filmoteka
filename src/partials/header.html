@@ -1,13 +1,40 @@
-<article class="header-box">
-  <header class="header">
-    <div class="header__top">
-      <div class="header__logo">Filmoteka</div>
-      <ul class="header__menu">
-        <li class="header__home">home</li>
-        <li class="header__library">library</li>
-      </ul>
+<header class="header">
+  <div class="container">
+    <!-- Робить Валентина -->
+    <div class="theme-bar"></div>
+    <!-- Навігація хедера -->
+    <div class="page-header">
+      <a class="page-header__logo" href="#">
+        <svg class="page-header__icon" width="24" height="24">
+          <use href="./images/svg/film.svg"></use>
+        </svg>
+        <span class="page-header__text">Filmoteka</span>
+      </a>
+      <nav class="page-header__nav">
+        <button class="button-nav" type="button" name="home">HOME</button>
+        <button class="button-nav" type="button" name="library">MY LIBRARY</button>
+      </nav>
     </div>
-    <label for="inputname"></label>
-    <input placeholder="input film" type="text" id="inputname" />
-  </header>
-</article>
+    <div class="search-block">
+      <form class="search-block__form">
+        <input
+          class="form-input"
+          type="text"
+          name="search"
+          placeholder="Поиск фильмов"
+          autocomplete="off"
+        />
+        <button class="form-btn" type="submit" name="search-btn"></button>
+      </form>
+      <!-- Показуэмо цей блок якщо пошук не дав результатів -->
+      <p class="search-block__notification">
+        Search result not successful. Enter the correct movie name and
+      </p>
+    </div>
+    <!-- Блок бібліотеки показуєм при переключенні по кнопці library  -->
+    <div class="library-block">
+      <button class="library-block__btn" type="submit" name="watched">WATCHED</button>
+      <button class="library-block__btn" type="submit" name="queue">QUEUE</button>
+    </div>
+  </div>
+</header>
