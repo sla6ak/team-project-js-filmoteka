@@ -4,37 +4,75 @@
     <div class="theme-bar"></div>
     <!-- Навігація хедера -->
     <div class="page-header">
-      <a class="page-header__logo" href="#">
+      <a class="page-header__logo js-logo" href="#">
         <svg class="page-header__icon" width="24" height="24">
           <use href="./images/svg/film.svg"></use>
         </svg>
         <span class="page-header__text">Filmoteka</span>
       </a>
       <nav class="page-header__nav">
-        <button class="button-nav" type="button" name="home">HOME</button>
-        <button class="button-nav" type="button" name="library">MY LIBRARY</button>
+        <button class="button-nav js-home" type="button" name="home">HOME</button>
+        <button class="button-nav js-library" type="button" name="library">MY LIBRARY</button>
       </nav>
     </div>
-    <div class="search-block">
+    <!-- ***********этот див будет исчезать из верстки в библиотеке****************** -->
+    <div class="search-block js-blok-search">
       <form class="search-block__form">
         <input
           class="form-input"
           type="text"
           name="search"
-          placeholder="Поиск фильмов"
+          placeholder="Enter Film"
           autocomplete="off"
         />
-        <button class="form-btn" type="submit" name="search-btn"></button>
+        <!-- повесим слушатель события дебоунс на инпут текста -->
+        <!-- <button class="form-btn" type="submit" name="search-btn"></button> -->
+        <svg class="" width="24" height="24">
+          <use href="./images/svg/search 2.svg"></use>
+        </svg>
       </form>
       <!-- Показуэмо цей блок якщо пошук не дав результатів -->
-      <p class="search-block__notification">
+      <p class="search-block__notification visually-hidden js-error-search">
         Search result not successful. Enter the correct movie name and
       </p>
     </div>
     <!-- Блок бібліотеки показуєм при переключенні по кнопці library  -->
-    <div class="library-block">
-      <button class="library-block__btn" type="submit" name="watched">WATCHED</button>
-      <button class="library-block__btn" type="submit" name="queue">QUEUE</button>
+    <div class="library-block visually-hidden js-blok-library">
+      <button class="library-block__btn js-watched" type="submit" name="watched">WATCHED</button>
+      <button class="library-block__btn js-queue" type="submit" name="queue">QUEUE</button>
+    </div>
+    <!-- дивы ниже для настроек сайта переключение языка и темы. прошу спозиционировать их абсолютом от правого нижнего края хедера и от левого соответственно -->
+
+    <div class="language js-language">
+      <!-- два дива расположены в ряд если нажат один он становиться крупнее второго и ярче добавляем тему curent-language -->
+      <div class="en curent-language js-en">
+        <svg class="en__icon" width="24" height="24">
+          <use href="./images/svg/British_Flag_clip_art.svg"></use>
+        </svg>
+        <p>en</p>
+      </div>
+      <div class="ua js-ua">
+        <p>ua</p>
+        <svg class="ua__icon" width="24" height="24">
+          <use href="./images/svg/Ukraine_clip_art.svg"></use>
+        </svg>
+      </div>
+    </div>
+
+    <div class="thema">
+      <!-- две свгшки сменяют друг друга при клике по кнопке -->
+      <div class="time">
+        <!-- в js вешаем клас curent-time анимирующий смену суток -->
+        <svg class="js-son" width="24" height="24">
+          <use href="./images/svg/cool.svg"></use>
+        </svg>
+        <svg class="js-moon curent-time" width="24" height="24">
+          <use href="./images/svg/cool2.svg"></use>
+        </svg>
+      </div>
+      <!-- текстконтент чекбокса меняеться при каждом клике son/moon -->
+      <!-- кнопку сделать максимально прозрачной без бортов и незаметной -->
+      <button class="js-thema">son</button>
     </div>
   </div>
 </header>
