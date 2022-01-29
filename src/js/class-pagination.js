@@ -36,7 +36,7 @@ export class Paginations extends Thema {
 
     this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
 
-    this.pagination.on('afterMove', evt => {
+    this.pagination.on('afterMove', async evt => {
       console.log(evt);
       window.scrollTo({
         top: 0,
