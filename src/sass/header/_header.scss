@@ -110,8 +110,7 @@
   transition: all 0.25s linear;
   position: relative;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: $accent-color;
   }
 
@@ -129,8 +128,7 @@
     transform-origin: right;
   }
 
-  &:hover:before,
-  &:focus:before {
+  &:hover:before {
     transform: scaleX(1);
     transition: transform 0.25s;
     transform-origin: left;
