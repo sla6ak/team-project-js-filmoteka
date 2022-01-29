@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="container">
+  <div class="container header-container">
     <!-- Робить Валентина -->
     <div class="theme-bar"></div>
     <!-- Навігація хедера -->
@@ -11,7 +11,13 @@
         <span class="page-header__text">Filmoteka</span>
       </a>
       <nav class="page-header__nav">
-        <button class="button-nav js-home" type="button" name="home">HOME</button>
+        <button
+          class="button-nav button-nav--current button-nav--home js-home"
+          type="button"
+          name="home"
+        >
+          HOME
+        </button>
         <button class="button-nav js-library" type="button" name="library">MY LIBRARY</button>
       </nav>
     </div>
@@ -22,12 +28,12 @@
           class="form-input"
           type="text"
           name="search"
-          placeholder="Enter Film"
+          placeholder="Поиск фильмов"
           autocomplete="off"
         />
         <!-- повесим слушатель события дебоунс на инпут текста -->
         <!-- <button class="form-btn" type="submit" name="search-btn"></button> -->
-        <svg class="" width="24" height="24">
+        <svg class="form-btn" width="24" height="24">
           <use href="./images/svg/search 2.svg"></use>
         </svg>
       </form>
