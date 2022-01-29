@@ -5,4 +5,6 @@ const init = new LocalSave();
 (() => {
   init.start();
   console.log(init.getRefs());
+  init.themaStart();
+  init.languageStart();
 })();

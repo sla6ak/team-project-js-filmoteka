@@ -42,3 +42,19 @@ a {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+// в хедере надо писать
+.moon-time {
+  background-color: rgb(85, 85, 85);
+}
+.curent-time {
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+}
+.language {
+  cursor: pointer;
+}
+.curent-language {
+  opacity: 0.5;
+}
