@@ -1,6 +1,5 @@
 import { Thema } from './class-thems';
 import Pagination from 'tui-pagination';
-import '../../node_modules/tui-pagination/dist/tui-pagination.min.css';
 
 export class Paginations extends Thema {
   constructor() {
@@ -9,9 +8,9 @@ export class Paginations extends Thema {
 
   buildPagination = () => {
     const optionPagin = {
-      totalItems: 10,
+      totalItems: 100,
       itemsPerPage: 10,
-      visiblePages: 10,
+      visiblePages: 5,
       page: 1,
       centerAlign: true,
       firstItemClassName: 'tui-first-child',
@@ -33,22 +32,18 @@ export class Paginations extends Thema {
           '</a>',
       },
     };
-    const pagination = new Pagination(this.refs.containerPagination, optionPagin);
 
-    pagination.on('beforeMove', evt => {
+    this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
+
+    this.pagination.on('afterMove', async evt => {
       console.log(evt);
-      const { page } = evt;
-      const result = ajax.call({ page });
-      console.log(result);
 
-      if (result) {
-        pagination.movePageTo(page);
-      } else {
-        return false;
-      }
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
     });
-
-    console.log(pagination);
   };
   //   get x() {
   //     console.log();
