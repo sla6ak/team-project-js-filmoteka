@@ -2,7 +2,7 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
-    this.curentLanguale = 'en';
+    this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
       body: document.querySelector('.js-body'),
@@ -33,6 +33,7 @@ export class Film {
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
+      containerPagination: document.getElementById('tui-pagination-container'), // контейнер для пагинации
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
       // logo: document.querySelector('.js-logo'),

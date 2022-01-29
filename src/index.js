@@ -7,4 +7,5 @@ const init = new LocalSave();
   console.log(init.getRefs());
   init.themaStart();
   init.languageStart();
+  init.buildPagination();
 })();
