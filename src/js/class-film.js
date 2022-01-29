@@ -2,7 +2,7 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
-    this.curentLanguale = 'en';
+    this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
       body: document.querySelector('.js-body'),
