@@ -1,6 +1,5 @@
 import { Thema } from './class-thems';
 import Pagination from 'tui-pagination';
-import '../../node_modules/tui-pagination/dist/tui-pagination.min.css';
 
 export class Paginations extends Thema {
   constructor() {
@@ -38,6 +37,7 @@ export class Paginations extends Thema {
 
     this.pagination.on('afterMove', async evt => {
       console.log(evt);
+
       window.scrollTo({
         top: 0,
         left: 0,
