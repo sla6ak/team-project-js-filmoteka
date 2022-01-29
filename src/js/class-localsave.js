@@ -1,6 +1,6 @@
-import { Pagination } from './class-pagination';
+import { Paginations } from './class-pagination';
 
-export class LocalSave extends Pagination {
+export class LocalSave extends Paginations {
   constructor() {
     super();
   }

@@ -33,6 +33,7 @@ export class Film {
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
+      containerPagination: document.getElementById('tui-pagination-container'), // контейнер для пагинации
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
       // logo: document.querySelector('.js-logo'),
