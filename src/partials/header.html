@@ -1,7 +1,5 @@
 <header class="header">
-  <div class="container">
-    <!-- Робить Валентина -->
-    <div class="theme-bar"></div>
+  <div class="container header-container">
     <!-- Навігація хедера -->
     <div class="page-header">
       <a class="page-header__logo js-logo" href="#">
@@ -11,7 +9,13 @@
         <span class="page-header__text">Filmoteka</span>
       </a>
       <nav class="page-header__nav">
-        <button class="button-nav js-home" type="button" name="home">HOME</button>
+        <button
+          class="button-nav button-nav--current button-nav--home js-home"
+          type="button"
+          name="home"
+        >
+          HOME
+        </button>
         <button class="button-nav js-library" type="button" name="library">MY LIBRARY</button>
       </nav>
     </div>
@@ -22,12 +26,12 @@
           class="form-input"
           type="text"
           name="search"
-          placeholder="Enter Film"
+          placeholder="Search film"
           autocomplete="off"
         />
         <!-- повесим слушатель события дебоунс на инпут текста -->
         <!-- <button class="form-btn" type="submit" name="search-btn"></button> -->
-        <svg class="" width="24" height="24">
+        <svg class="form-btn" width="12" height="12">
           <use href="./images/svg/search 2.svg"></use>
         </svg>
       </form>
@@ -49,10 +53,10 @@
         <svg class="en__icon" width="24" height="24">
           <use href="./images/svg/British_Flag_clip_art.svg"></use>
         </svg>
-        <p>en</p>
+        <p>EN</p>
       </div>
       <div class="ua js-ua">
-        <p>ua</p>
+        <p>UA</p>
         <svg class="ua__icon" width="24" height="24">
           <use href="./images/svg/Ukraine_clip_art.svg"></use>
         </svg>
@@ -72,7 +76,11 @@
       </div>
       <!-- текстконтент чекбокса меняеться при каждом клике son/moon -->
       <!-- кнопку сделать максимально прозрачной без бортов и незаметной -->
-      <button class="js-thema">son</button>
+      <label class="switch">
+        <input type="checkbox" class="js-thema" />
+        <span class="slider round"></span>
+      </label>
+      <!-- <button class="js-thema">son</button> -->
     </div>
   </div>
 </header>
