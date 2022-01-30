@@ -7,9 +7,10 @@
 @import './utilites/colors';
 @import './base/base_style';
 @import './base/container';
-@import './header/header';
+@import './layout/header';
 @import './layout/render-section.scss';
-@import './pagination/pagination.scss';
+@import './utilites/pagination.scss';
 @import './layout/footer.scss';
 
+@import './modal/footer-modal';
 @import './modal/modal-info';
