@@ -5,7 +5,7 @@ export class Paginations extends Thema {
   constructor() {
     super();
   }
-
+  // *********getTotalPages()***вернет актуальное значение******
   buildPagination = () => {
     const optionPagin = {
       totalItems: 100,
@@ -45,10 +45,4 @@ export class Paginations extends Thema {
       });
     });
   };
-  //   get x() {
-  //     console.log();
-  //   }
-  //   set x(newWord) {
-  //     console.log();
-  //   }
 }
