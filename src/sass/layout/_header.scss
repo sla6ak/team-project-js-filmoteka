@@ -366,3 +366,25 @@ input:checked + .slider:before {
   width: 0px;
   height: 0px;
 }
+// анімашка
+
+@keyframes changeColor {
+  0% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+.page-header__icon {
+  animation-name: changeColor;
+  animation-duration: 1500ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
