@@ -7,6 +7,7 @@ const init = new LocalSave();
   init.themaStart();
   init.languageStart();
   init.paginationStart();
+  init.EventListenerForInput();
   // const a = init.fetchSearchFilms();
   // console.log(a);
   // console.log(init.fetchPopularFilms());

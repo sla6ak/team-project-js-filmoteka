@@ -12,11 +12,17 @@ export class Paginations extends Thema {
     this.buildPagination();
   };
 
+  paginationSearch = async () => {
+    const respons = await this.fetchSearchFilms();
+    this.renderFilmsCardMarkup(respons);
+    this.buildPagination();
+  };
+
   // *********getTotalPages()***вернет актуальное значение******
   buildPagination = async () => {
     const optionPagin = {
       totalItems: this.totalPages,
-      itemsPerPage: 10,
+      itemsPerPage: 20,
       visiblePages: 5,
       page: this.currentPage,
       centerAlign: true,
