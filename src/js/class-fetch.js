@@ -4,9 +4,9 @@ export class Fetch extends Film {
   constructor() {
     super();
     this.BASE_URL = 'https://api.themoviedb.org/3/';
-    this.API_KEY = '69130d0521ed03b58ebb84abea94c8b9';
+    this.API_KEY = 'c4ff5df06d9c3bc212d0ff99e5222626';
     this.currentPage = 1;
-    this.searchQuery = '';
+    this.searchQuery = 'man';
     this.adult = false;
     this.totalPages = 1;
   }
@@ -35,9 +35,10 @@ export class Fetch extends Film {
       api_key: this.API_KEY,
       language: this.curentLanguage,
     };
+
     const meta = new URLSearchParams(parametrs);
     try {
-      const results = await fetch(`${this.BASE_URL}/genre/movie/list?${meta}`);
+      const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
       const data = await results.json();
       return data.genres;
     } catch (error) {
@@ -56,7 +57,7 @@ export class Fetch extends Film {
     };
     const meta = new URLSearchParams(parametrs);
     try {
-      const results = await fetch(`${this.BASE_URL}/search/movie?${meta}`);
+      const results = await fetch(`${this.BASE_URL}search/movie?${meta}`);
       const data = await results.json();
       this.totalPages = data.total_results;
 

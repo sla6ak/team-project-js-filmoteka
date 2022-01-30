@@ -259,6 +259,10 @@
   display: flex;
   color: $header-text-color;
   align-items: center;
+  opacity: 0.3;
+}
+.curent-language {
+  opacity: 1;
 }
 
 .ua,
@@ -342,11 +346,13 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-.js-son {
+.sol {
   fill: currentColor;
+  color: #ccc;
 }
-.js-moon {
+.moon {
   fill: currentColor;
+  color: rgb(55, 21, 109);
 }
 // необходимо переделать
 .moon-time {
@@ -359,7 +365,4 @@ input:checked + .slider:before {
 }
 .language {
   cursor: pointer;
-}
-.curent-language {
-  opacity: 0.5;
 }
