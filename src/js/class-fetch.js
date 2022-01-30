@@ -7,30 +7,51 @@ export class Fetch extends Film {
     this.API_KEY = '69130d0521ed03b58ebb84abea94c8b9'
 
     this.searchQuery = '';
-    this.page = 1;
-    this.language = this.curentLanguage;
     this.adult = false;
   }
 
   //films for first page
-  async fetchPopularFilms() {
+  async fetchPopularFilms(currentPage) {
+    const parametrs = {
+      api_key: this.API_KEY,
+      page: currentPage,
+      language: this.curentLanguage,
+      include_adult: this.adult,
+    };
+    const meta = new URLSearchParams(parametrs);
     try {
-  const results = await fetch(`${this.BASE_URL}trending/movie/week?api_key=${this.API_KEY}`);
-  const data = await results.json();
-      return data;
+  const results = await fetch(`${this.BASE_URL}trending/movie/week?${meta}`);
+      const data = await results.json();
+      return data.results;
     }
     catch (error) {
       alert("Sorry, something went wrong")
     }
   };
 
+  // get genres list
+async fetchGenresList() {
+    const parametrs = {
+      api_key: this.API_KEY,
+      language: this.curentLanguage,
+    };
+    const meta = new URLSearchParams(parametrs);
+    try {
+      const results = await fetch(`${ this.BASE_URL}/genre/movie/list?${meta}`);
+      const data = await results.json();
+      return data.genres;
+    }
+    catch (error) {
+       alert("Sorry, something went wrong")
+    }
+  };
 
   //films search by name
-  async fetchSearchFilms (page1) {
+  async fetchSearchFilms (currentPage) {
     const parametrs = {
-      api_key: this.api_key,
-      page: page1,
-      language: this.language,
+      api_key: this.API_KEY,
+      page: currentPage,
+      language: this.curentLanguage,
       query: this.searchQuery,
       include_adult: this.adult,
     };
@@ -40,7 +61,6 @@ export class Fetch extends Film {
       const data = await results.json();
       localStorage.setItem('totalPages', data.total_results);
 
-      console.log(data);
       return data.results;
     }
     catch (error) {
@@ -50,14 +70,18 @@ export class Fetch extends Film {
 
 
 //Info about film and video
-  async fetchFilmsInfo (id) {
+  async fetchFilmsInfo(id) {
+    const parametrs = {
+      api_key: this.API_KEY,
+      language: this.curentLanguage,
+    };
+    const meta = new URLSearchParams(parametrs);
     try {
-      const result = await fetch(`${ this.URL }/movie/${id}?${this.API_KEY}&append_to_response=videos`);
+      const result = await fetch(`${ this.BASE_URL }/movie/${id}?${meta}&append_to_response=videos`);
       const data = await result.json();
-
-      console.log(data);
-      return data.results;
-    } catch (error) {
+      return data;
+    }
+    catch (error) {
        alert("Sorry, something went wrong")
     }
   };

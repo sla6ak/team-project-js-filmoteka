@@ -9,3 +9,4 @@ const init = new LocalSave();
   init.languageStart();
   init.buildPagination();
 })();
+
