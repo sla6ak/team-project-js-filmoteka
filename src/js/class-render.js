@@ -19,8 +19,8 @@ export class Render extends Fetch {
   // сюди приходять дані після фетча
 
   // рендер фільмів на головній сторінці
-  renderFilmsCardMarkup = films => {
-    this.refs.renderBox.innertHTML = render({ films });
+  renderFilmsCardMarkup = results => {
+    this.refs.renderBox.innertHTML = render({ results });
   };
 
   onRenderBoxClick = event => {
