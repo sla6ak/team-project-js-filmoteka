@@ -253,7 +253,9 @@
   right: 20px;
   width: 100px;
   height: 24px;
+  cursor: pointer;
 }
+
 .en,
 .ua {
   display: flex;
@@ -261,10 +263,6 @@
   align-items: center;
   opacity: 0.3;
 }
-.curent-language {
-  opacity: 1;
-}
-
 .ua,
 .en {
   transform: scale(1);
@@ -276,6 +274,11 @@
     transform-origin: center;
   }
 }
+.curent-language {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
 .en__icon {
   margin-right: 3px;
 }
@@ -354,7 +357,7 @@ input:checked + .slider:before {
   fill: currentColor;
   color: rgb(55, 21, 109);
 }
-// необходимо переделать
+// Кидає бекграунд на боді при зміні теми
 .moon-time {
   background-color: rgb(85, 85, 85);
 }
@@ -362,7 +365,4 @@ input:checked + .slider:before {
   opacity: 0;
   width: 0px;
   height: 0px;
-}
-.language {
-  cursor: pointer;
 }
