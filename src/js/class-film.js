@@ -30,7 +30,7 @@ export class Film {
       renderBox: document.querySelector('#render'),
       modalWatchedBt: document.querySelector('.js-watched-modal'),
       modalQueueBt: document.querySelector('.js-queue-modal'),
-      // logo: document.querySelector('.js-logo'),
+      modalFilm: document.querySelector('.js-modal-film'), // модалка з одним фільмом
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
       containerPagination: document.getElementById('tui-pagination-container'), // контейнер для пагинации
