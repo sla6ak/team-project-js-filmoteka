@@ -22,6 +22,8 @@ export class Render extends Fetch {
   renderFilmsCardMarkup = async results => {
     console.log('промис', results);
     const resultsFilms = await results;
+    this.refs.renderBox.innerHTML = '';
+
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
     });
