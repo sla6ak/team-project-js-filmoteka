@@ -19,8 +19,12 @@ export class Render extends Fetch {
   // сюди приходять дані після фетча
 
   // рендер фільмів на головній сторінці
-  renderFilmsCardMarkup = results => {
-    this.refs.renderBox.innertHTML = render({ results });
+  renderFilmsCardMarkup = async results => {
+    console.log('промис', results);
+    const resultsFilms = await results;
+    resultsFilms.forEach(element => {
+      this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+    });
   };
 
   onRenderBoxClick = event => {
