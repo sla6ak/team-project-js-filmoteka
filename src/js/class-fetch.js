@@ -42,6 +42,8 @@ export class Fetch extends Film {
     try {
       const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
       const data = await results.json();
+      this.totalPages = data.total_results;
+
       return data.genres;
     } catch (error) {
       alert('Sorry, something went wrong');

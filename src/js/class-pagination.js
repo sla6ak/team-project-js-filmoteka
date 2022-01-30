@@ -5,11 +5,13 @@ export class Paginations extends Thema {
   constructor() {
     super();
   }
+
   paginationStart = async () => {
     const respons = await this.fetchPopularFilms();
     this.renderFilmsCardMarkup(respons);
     this.buildPagination();
   };
+
   // *********getTotalPages()***вернет актуальное значение******
   buildPagination = async () => {
     const optionPagin = {
@@ -41,21 +43,16 @@ export class Paginations extends Thema {
     this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
 
     this.pagination.on('afterMove', async evt => {
-      // localStorage.setItem('currentPage', evt.page);
-      this.currentPage = await evt.page;
-      console.log(this.currentPage);
-
-      this.paginationStart();
+      this.currentPage = evt.page;
+      // console.log(this.currentPage);
 
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'smooth',
       });
+
+      this.paginationStart();
     });
   };
-  // getCurrentPage = () => {
-  //   const curPage = localStorage.getItem('currentPage');
-  //   return JSON.parse(curPage);
-  // };
 }
