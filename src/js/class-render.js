@@ -12,8 +12,8 @@ export class Render extends Fetch {
   //   set x(newWord) {
   //     console.log();
   //   }
-  // додаємо слухаці подій
-  addEventListener = () => {
+  // додаємо слухачі подій
+  addEventListenerOnRenderBox = () => {
     this.refs.renderBox.addEventListener('click', onRenderBoxClick);
   };
   // сюди приходять дані після фетча
