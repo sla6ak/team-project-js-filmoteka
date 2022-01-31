@@ -17,7 +17,6 @@ export class Language extends Render {
     this.refs.footerTextСopyrightThree.classList.add('footer-text-block');
     this.refs.footerTextСopyrightThree.classList.remove('footer-text-none');
     this.refs.footerTextСopyrightFour.innerHTML = 'GoIT Students';
-    // this.refs.footer__link.innerHTML = 'GoIT Students';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
@@ -31,11 +30,11 @@ export class Language extends Render {
     this.refs.logoLang.innerHTML = 'Фiльмотека';
     this.refs.homeBt.innerHTML = 'ДОМIВКА';
     this.refs.libraryBt.innerHTML = 'МОЯ КНИГАРНЯ';
-    this.refs.footerTextСopyrightOne.innerHTML = 'Все права защищены';
-    this.refs.footerTextСopyrightTwo.innerHTML = 'Разработано с';
+    this.refs.footerTextСopyrightOne.innerHTML = 'Усі права захищено';
+    this.refs.footerTextСopyrightTwo.innerHTML = 'Розроблено з';
     this.refs.footerTextСopyrightThree.classList.add('footer-text-none');
     this.refs.footerTextСopyrightThree.classList.remove('footer-text-block');
-    this.refs.footerTextСopyrightFour.innerHTML = 'Студентами GoIT ';
+    this.refs.footerTextСopyrightFour.innerHTML = 'Cтудентами GoIT ';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
