@@ -5,13 +5,26 @@ export class Paginations extends Thema {
   constructor() {
     super();
   }
+
+  paginationStart = async () => {
+    const respons = await this.fetchPopularFilms();
+    this.renderFilmsCardMarkup(respons);
+    this.buildPagination();
+  };
+
+  paginationSearch = async () => {
+    const respons = await this.fetchSearchFilms();
+    this.renderFilmsCardMarkup(respons);
+    this.buildPagination();
+  };
+
   // *********getTotalPages()***вернет актуальное значение******
-  buildPagination = () => {
+  buildPagination = async () => {
     const optionPagin = {
-      totalItems: 100,
-      itemsPerPage: 10,
+      totalItems: this.totalPages,
+      itemsPerPage: 20,
       visiblePages: 5,
-      page: 1,
+      page: this.currentPage,
       centerAlign: true,
       firstItemClassName: 'tui-first-child',
       lastItemClassName: 'tui-last-child',
@@ -36,13 +49,16 @@ export class Paginations extends Thema {
     this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
 
     this.pagination.on('afterMove', async evt => {
-      console.log(evt);
+      this.currentPage = evt.page;
+      // console.log(this.currentPage);
 
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'smooth',
       });
+
+      this.paginationStart();
     });
   };
 }

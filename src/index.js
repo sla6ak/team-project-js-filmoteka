@@ -5,10 +5,8 @@ const init = new LocalSave();
 (() => {
   init.start();
   init.themaStart();
-  init.languageStart();
-  init.buildPagination();
-  init.renderFilmsCardMarkup(init.fetchPopularFilms());
-  // init.addEventListenerOnRenderBox();
+  init.paginationStart();
+  init.EventListenerAll();
   // const a = init.fetchSearchFilms();
   // console.log(a);
   // console.log(init.fetchPopularFilms());

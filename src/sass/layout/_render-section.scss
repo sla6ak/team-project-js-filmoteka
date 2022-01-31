@@ -1,6 +1,13 @@
+.render {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 .render-box {
   padding-top: 20px;
   padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
   // @media screen and (min-width: 320px) {
   //   padding-bottom: 20px;
   // }
@@ -8,8 +15,7 @@
   @media screen and (min-width: 768px) {
     padding-top: 60px;
     padding-bottom: 25px;
-
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     margin-top: -30px;
     margin-left: -30px;
@@ -92,6 +98,7 @@
   }
 
   &__film-ganre {
+    display: flex;
     color: $accent-modal-color;
     width: 33px;
     overflow: hidden;
