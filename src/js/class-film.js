@@ -25,6 +25,8 @@ export class Film {
       imgMoon: document.querySelector('.js-moon'),
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
+      headerWathedBtn: document.querySelector('.js-watched-header'),
+      headerQueueBtn: document.querySelector('.js-queue-header'),
 
       // logo: document.querySelector('.js-logo'),
       // *******************рендер-модалка***********************
@@ -36,6 +38,7 @@ export class Film {
       aboutLang: document.querySelector('.js-about__leng'),
       containerPagination: document.querySelector('#tui-pagination-container'), // контейнер для пагинации
       prewiuModalka: document.querySelector('.js-prewiu-img'),
+      closeModalInfoBtn: document.querySelector('.js-closeModalInfo'),
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),

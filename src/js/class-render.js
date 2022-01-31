@@ -25,6 +25,7 @@ export class Render extends Fetch {
     // console.log('film');
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
+    this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     this.fullModal = await this.fetchFilmsInfo(event.target.dataset.source);
     this.refs.aboutApi.innerHTML = this.fullModal.overview;
@@ -55,4 +56,22 @@ export class Render extends Fetch {
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
   };
+
+// закрытие модалки по клику на крестик
+  onModalCloseCross = () => {
+    this.refs.backdropCardFilm.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.closeModalInfoBtn.removeEventListener('click', this.onModalCloseCross);
+  }
+
+  onWatchedClick = () => {
+    this.refs.headerWathedBtn.classList.replace('queue-btn', 'watched-btn');
+    this.refs.headerQueueBtn.classList.replace('watched-btn', 'queue-btn');
+  }
+  onQueueClick = () => {
+    this.refs.headerWathedBtn.classList.replace('watched-btn', 'queue-btn');
+    this.refs.headerQueueBtn.classList.replace('queue-btn', 'watched-btn');
+  }
 }
+
+
