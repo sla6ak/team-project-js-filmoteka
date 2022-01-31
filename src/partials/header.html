@@ -6,7 +6,7 @@
         <svg class="page-header__icon" width="24" height="24">
           <use href="./images/svg/film.svg"></use>
         </svg>
-        <span class="page-header__text">Filmoteka</span>
+        <span class="page-header__text js-logo-leng">Filmoteka</span>
       </a>
       <nav class="page-header__nav">
         <button
@@ -20,10 +20,15 @@
       </nav>
     </div>
     <!-- ***********этот див будет исчезать из верстки в библиотеке****************** -->
+    <div class="buttons visually-hidden js-blok-btnheader">
+      <button class="watched-btn js-watched-modal" type="button">add to Watched</button>
+      <button class="queue-btn js-queue-modal" type="button">add to queue</button>
+    </div>
+    <!-- *****************этот див будет исчезать из верстки в библиотеке************************** -->
     <div class="search-block js-blok-search">
       <form class="search-block__form">
         <input
-        id="inputname"
+          id="inputname"
           class="form-input"
           type="text"
           name="search"

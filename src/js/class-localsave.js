@@ -6,13 +6,33 @@ export class LocalSave extends Paginations {
     super();
   }
 
-  EventListenerForInput = () => {
+  EventListenerAll = () => {
     // console.log(this.refs.inputFilm);
-
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
+    this.refs.enBox.addEventListener('click', () => {
+      this.onEnClick();
+      if (this.searchQuery === null) {
+        this.paginationStart();
+      } else {
+        this.paginationSearch();
+      }
+    });
+    this.refs.uaBox.addEventListener('click', () => {
+      this.onUaClick();
+      if (this.searchQuery === null) {
+        this.paginationStart();
+      } else {
+        this.paginationSearch();
+      }
+    });
+    this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
+    this.refs.homeBt.addEventListener('click', this.onHomeClick);
   };
 
   onInputSearch = evt => {
+    if (evt.target.value == false) {
+      return;
+    }
     this.searchQuery = evt.target.value;
 
     this.paginationSearch();

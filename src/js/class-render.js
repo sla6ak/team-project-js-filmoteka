@@ -3,40 +3,56 @@ import render from '../templates/film-details.hbs';
 
 export class Render extends Fetch {
   constructor(films) {
-    // this.renderBox = document.querySelector('#render');
     super(films);
+    // это полная инфа о фильме
+    this.fullInfoModal = null;
   }
-  //   get x() {
-  //     console.log();
-  //   }
-  //   set x(newWord) {
-  //     console.log();
-  //   }
-  // додаємо слухачі подій
-  addEventListenerOnRenderBox = () => {
-    this.refs.renderBox.addEventListener('click', onRenderBoxClick);
-  };
-  // сюди приходять дані після фетча
 
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
-    console.log('промис', results);
     const resultsFilms = await results;
     this.refs.renderBox.innerHTML = '';
-
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
     });
+    this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
 
-  onRenderBoxClick = event => {
-    if (event.target.className !== '.film-card') {
+  onRenderBoxClick = async event => {
+    if (event.target.className !== 'film-image') {
       return;
     }
+    // console.log('film');
+    this.refs.backdropCardFilm.classList.remove('visually-hidden');
+    this.refs.body.classList.add('no-scroll');
+    this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
+    this.fullModal = await this.fetchFilmsInfo(event.target.dataset.source);
+    this.refs.aboutApi.innerHTML = this.fullModal.overview;
+    this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
+    <div class="youtube">
+    <img src="../images/yout.png" data-source="" alt="" class="youtube-img">
+    </div>`;
 
     // перевіряємо чи клік був на карточці з фільмом
     // якщо так, очищуємо вміст модалки через innertHTML = ''
     // рендеримо розмітку модалки, підставляємо туди дані і додаємо розмітку через
     // insertAdjacentHTML('beforeend', murkup);
+  };
+
+  // функция закрывает модалку по бекдропу
+  onModalClouseClick = evn => {
+    if (evn.target.className !== 'backdrop') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropCardFilm.classList.add('visually-hidden');
+  };
+  onLibraryClick = () => {
+    this.refs.blokSearch.classList.add('visually-hidden');
+    this.refs.blokBtnHeader.classList.remove('visually-hidden');
+  };
+  onHomeClick = () => {
+    this.refs.blokSearch.classList.remove('visually-hidden');
+    this.refs.blokBtnHeader.classList.add('visually-hidden');
   };
 }

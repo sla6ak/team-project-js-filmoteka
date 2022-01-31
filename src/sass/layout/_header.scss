@@ -293,7 +293,7 @@
   display: flex;
 }
 .time {
-  color: $accent-color;
+  // background-color: rgba(255, 255, 255, 0.16);
   margin-right: 10px;
 }
 .switch {
@@ -350,17 +350,15 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 .sol {
-  fill: currentColor;
-  color: #ccc;
+  fill: #ccc;
+  // color: #ccc;
 }
 .moon {
-  fill: currentColor;
-  color: rgb(55, 21, 109);
+  fill: rgb(70, 20, 151);
+  // color: rgb(55, 21, 109);
 }
 // Кидає бекграунд на боді при зміні теми
-.moon-time {
-  background-color: rgb(85, 85, 85);
-}
+
 .curent-time {
   opacity: 0;
   width: 0px;
