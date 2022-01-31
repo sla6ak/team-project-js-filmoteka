@@ -14,7 +14,7 @@ export class Render extends Fetch {
   //   }
   // додаємо слухачі подій
   addEventListenerOnRenderBox = () => {
-    this.refs.renderBox.addEventListener('click', onRenderBoxClick);
+    this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
   // сюди приходять дані після фетча
 
@@ -28,7 +28,8 @@ export class Render extends Fetch {
   };
 
   onRenderBoxClick = event => {
-    if (event.target.className !== '.film-card') {
+    console.log(event.target.className);
+    if (event.currentTarget.className !== '.film-card') {
       return;
     }
 

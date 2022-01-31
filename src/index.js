@@ -8,6 +8,7 @@ const init = new LocalSave();
   init.languageStart();
   init.buildPagination();
   init.renderFilmsCardMarkup(init.fetchPopularFilms());
+  // init.addEventListenerOnRenderBox();
   // const a = init.fetchSearchFilms();
   // console.log(a);
   // console.log(init.fetchPopularFilms());

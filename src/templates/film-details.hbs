@@ -15,13 +15,13 @@
           media='(min-width: 320px)'
         />
         <img
-          class='film-image'
+          class='film-card__img-zaglushka film-image'
           src='https://image.tmdb.org/t/p/w440_and_h660_face{{poster_path}}'
           alt='film poster'
         />
       {{else}}
         <img
-          class='film-image'
+          class='film-card__img-zaglushka film-image'
           style='height:auto'
           src='https://via.placeholder.com/400x600?text=YOU%27RE+AWESOME+:)'
           alt='film poster'
@@ -29,11 +29,24 @@
       {{/if}}
     </picture>
     <div class='film-card__discribe-container'>
-      <h3 class='film-card__film-name'>"{{title}}"</h3>
-      <p class='film-card__film-ganre'>{{genre_ids}}
+      {{#if original_title}}
+      <h3 class='film-card__film-name'>{{original_title}}</h3>
+      {{else}}
+      <h3 class='film-card__film-name'>{{title}}</h3>
+      {{/if}}
+      <div class='film-card__film-caption'>
+        <ul class='film-card__film-items'>
+          {{#each genre_ids}}
+            <li class='film-card__film-item'>{{this}}</li>
+          {{/each}}
+        </ul>
+        <span class='film-card__film-date'>{{release_date}}</span>
+        <span class='film-card__film-rating'>{{vote_average}}</span>
+      </div>
+      {{!-- <p class='film-card__film-ganre'>{{genre_ids}}
         |
         {{release_date}}
         <span class='film-card__film-rating'>{{vote_average}}</span></p>
-    </div>
+    </div> --}}
   </li>
 {{/each}}
