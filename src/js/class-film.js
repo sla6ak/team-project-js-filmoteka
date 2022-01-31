@@ -46,6 +46,9 @@ export class Film {
       modalGanre: document.querySelector('.js-current-film-ganre'),
       // modalAbout: document.querySelector('.js-current-film-overview'),
 
+      backdropVideo: document.querySelector('.modal-youtube'),
+      modalVideo: document.querySelector('.modal-youtube__box'),
+
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
