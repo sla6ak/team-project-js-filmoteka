@@ -15,6 +15,7 @@ export class Film {
       queueBt: document.querySelector('.js-queue'),
       blokLibrary: document.querySelector('.js-blok-library'),
       blokSearch: document.querySelector('.js-blok-search'),
+      blokBtnHeader: document.querySelector('.js-blok-btnheader'),
       languageBt: document.querySelector('.js-language'),
       enBox: document.querySelector('.js-en'),
       uaBox: document.querySelector('.js-ua'),
@@ -23,20 +24,25 @@ export class Film {
       imgSon: document.querySelector('.js-son'),
       imgMoon: document.querySelector('.js-moon'),
       textThema: document.querySelector('.js-thema'),
-      // logo: document.querySelector('.js-logo'),
-      // logo: document.querySelector('.js-logo'),
+      logoLang: document.querySelector('.js-logo-leng'),
+
       // logo: document.querySelector('.js-logo'),
       // *******************рендер-модалка***********************
       renderBox: document.querySelector('#render'),
       modalWatchedBt: document.querySelector('.js-watched-modal'),
       modalQueueBt: document.querySelector('.js-queue-modal'),
-      modalFilm: document.querySelector('.js-modal-film'), // модалка з одним фільмом
+      backdropCardFilm: document.querySelector('#backdropFilmCard'), // модалка з одним фільмом
+      aboutApi: document.querySelector('.js-about__api'),
+      aboutLang: document.querySelector('.js-about__leng'),
+      containerPagination: document.querySelector('#tui-pagination-container'), // контейнер для пагинации
+      prewiuModalka: document.querySelector('.js-prewiu-img'),
+      // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
-      containerPagination: document.getElementById('tui-pagination-container'), // контейнер для пагинации
+      // logo: document.querySelector('.js-logo'),
+      // logo: document.querySelector('.js-logo'),
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
-      // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
     };

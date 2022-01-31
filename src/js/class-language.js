@@ -4,20 +4,31 @@ export class Language extends Render {
   constructor() {
     super();
   }
-  languageStart = () => {
-    this.refs.enBox.addEventListener('click', this.onEnClick);
-    this.refs.uaBox.addEventListener('click', this.onUaClick);
-  };
-  onEnClick = event => {
+  onEnClick = () => {
     this.curentLanguage = 'en';
     this.refs.enBox.classList.add('curent-language');
     this.refs.uaBox.classList.remove('curent-language');
     console.log('en');
+    this.refs.logoLang.innerHTML = 'Filmoteka';
+    this.refs.homeBt.innerHTML = 'HOME';
+    this.refs.libraryBt.innerHTML = 'MY LIBRARY';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
   };
   onUaClick = () => {
-    this.curentLanguage = 'ua';
+    this.curentLanguage = 'uk';
     this.refs.uaBox.classList.add('curent-language');
     this.refs.enBox.classList.remove('curent-language');
     console.log('ua');
+    this.refs.logoLang.innerHTML = 'Фiльмотека';
+    this.refs.homeBt.innerHTML = 'ДОМIВКА';
+    this.refs.libraryBt.innerHTML = 'МОЯ КНИГАРНЯ';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+    // this.refs.logoLang.innerHTML = 'Фiльмотека';
   };
 }
