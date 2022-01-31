@@ -6,6 +6,7 @@ export class Render extends Fetch {
     super(films);
     // это полная инфа о фильме
     this.fullInfoModal = null;
+    this.videoKeyYoutube = '';
   }
 
   // рендер фільмів на головній сторінці
@@ -37,6 +38,31 @@ export class Render extends Fetch {
     // якщо так, очищуємо вміст модалки через innertHTML = ''
     // рендеримо розмітку модалки, підставляємо туди дані і додаємо розмітку через
     // insertAdjacentHTML('beforeend', murkup);
+  };
+
+  onTrailerClick = () => {
+    this.refs.backdropVideo.classList.remove('visually-hidden');
+    this.refs.modalVideo.innerHTML = `<div class="modal">
+    <iframe class='iframe'
+    id="vimeo-player"
+      src="https://www.youtube.com/embed/${this.videoKeyYoutube}/frameborder=%220%22%20allow=%22accelerometer;%20autoplay;%20encrypted-media;%20gyroscope;%20picture-in-picture%22"
+      width="640"
+      height="360"
+      frameborder="0"
+      allowfullscreen
+      allow="autoplay; encrypted-media"></iframe>
+    </div>`;
+    this.refs.backdropVideo.addEventListener('click', this.onVideoClick);
+  };
+
+  onVideoClick = event => {
+    event.preventDefault();
+
+    if (event.target.className !== 'backdrop-video') {
+      return;
+    }
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    this.refs.modalVideo.innerHTML = '';
   };
 
   // функция закрывает модалку по бекдропу
