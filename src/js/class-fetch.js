@@ -90,4 +90,8 @@ export class Fetch extends Film {
   getTotalPages = () => {
     return this.totalPages;
   };
+
+   returnVideoLink() {
+  return `https://www.youtube.com/watch?v=${this.videoLink}`;
+  }
 }

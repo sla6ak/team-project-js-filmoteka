@@ -27,6 +27,8 @@ export class LocalSave extends Paginations {
     });
     this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
     this.refs.homeBt.addEventListener('click', this.onHomeClick);
+    this.refs.headerWathedBtn.addEventListener('click', this.onWatchedClick);
+    this.refs.headerQueueBtn.addEventListener('click', this.onQueueClick);
   };
 
   onInputSearch = evt => {
@@ -39,6 +41,8 @@ export class LocalSave extends Paginations {
 
     console.log(evt.target.value);
   };
+
+
 
   // setCurrentPage = () => {
   //   localStorage.setItem('currentPage', this.currentPage);
