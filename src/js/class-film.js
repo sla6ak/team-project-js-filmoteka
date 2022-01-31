@@ -25,6 +25,13 @@ export class Film {
       imgMoon: document.querySelector('.js-moon'),
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
+      footerTextСopyrightOne: document.querySelector('.footer-text-one'),
+      footerTextСopyrightTwo: document.querySelector('.footer-text-two'),
+      footerTextСopyrightThree: document.querySelector('.footer-text-block'),
+      footerTextСopyrightFour: document.querySelector('.footer__link'),
+      
+     
+
 
       // logo: document.querySelector('.js-logo'),
       // *******************рендер-модалка***********************
