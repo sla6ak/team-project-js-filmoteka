@@ -39,6 +39,8 @@ export class Film {
       containerPagination: document.querySelector('#tui-pagination-container'), // контейнер для пагинации
       prewiuModalka: document.querySelector('.js-prewiu-img'),
       closeModalInfoBtn: document.querySelector('.js-closeModalInfo'),
+      backdropVideo: document.querySelector('.modal-youtube'),
+      modalVideo: document.querySelector('.modal-youtube__box'),
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
