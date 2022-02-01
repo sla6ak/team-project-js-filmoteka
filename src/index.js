@@ -5,7 +5,7 @@ const init = new LocalSave();
 (() => {
   // init.start();
   // init.themaStart();
-  init.lokalSave();
+  init.lokalStart();
   // init.paginationStart();
   init.EventListenerAll();
   // const a = init.fetchSearchFilms();
