@@ -4,6 +4,7 @@ export class Thema extends Language {
   constructor() {
     super();
   }
+  
   themaStart = () => {
     this.refs.themaBt.addEventListener('click', this.onThemaClick);
   };
