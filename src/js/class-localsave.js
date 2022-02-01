@@ -5,7 +5,17 @@ export class LocalSave extends Paginations {
   constructor() {
     super();
   }
-
+  lokalSave = () => {
+    this.getLanguage();
+    this.getThema();
+    if (this.getInputText() !== null) {
+      this.paginationSearch()
+    } else {
+     this.paginationStart(); 
+    }
+    
+    
+}
   EventListenerAll = () => {
     // console.log(this.refs.inputFilm);
     // Лісенер на інпут
@@ -24,7 +34,7 @@ export class LocalSave extends Paginations {
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       this.setLanguage();
-      if (this.searchQuery === null) {
+      if (getInputText()  === null) {
         this.paginationStart();
       } else {
         this.paginationSearch();
@@ -36,11 +46,11 @@ export class LocalSave extends Paginations {
       this.setThema();
     });
     // Лісенер на кліки по вибору сторінки
-    this.refs.containerPagination.addEventListener('click', () => {
-      this.paginationStart();
-      console.log(this.currentPage);
-      this.setCurrentPage();
-    })
+    // this.refs.containerPagination.addEventListener('click', () => {
+    //   this.paginationStart();
+    //   // console.log(this.currentPage);
+    //   this.setCurrentPage();
+    // })
     // Лісенер на кліки по кнопці
     this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
     
@@ -68,8 +78,9 @@ export class LocalSave extends Paginations {
   }
   //  Додаємо дані про тему в локалку
   setThema = () => {
-   localStorage.setItem('thema', JSON.stringify(true));
+   localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
   }
+  // this.refs.body.classList.value
   // Додаємо дані про вибрану сторінку
   setCurrentPage = () => {
     localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
@@ -79,23 +90,36 @@ export class LocalSave extends Paginations {
   getInputText = () => {
     const inputText = localStorage.getItem('search-input-text');
     if (inputText) {
-      return inputText;
+      this.refs.inputFilm.value = inputText;
+      this.searchQuery = inputText;
+      // console.log(this.searchQuery)
     }
   }
   // Получаємо дані з локалки для мови
   getLanguage = () => {
     const selectLanguage = localStorage.getItem('language');
     if (selectLanguage) {
-      return selectLanguage;
+      this.curentLanguage = selectLanguage;
+      // console.log(this.curentLanguage)
+      if (this.curentLanguage === 'en') {
+        this.onEnClick()
+        
+      } else {
+        this.onUaClick()
+      }
     }
   }
+
   // Получаємо дані з локалки для теми
   getThema = () => {
     const selectThema = localStorage.getItem('thema');
-     if (selectThema) {
-       this.onThemaClick();
+    if (selectThema) {
+      // console.log(selectThema)
+      if(selectThema === "true")
+        this.onThemaClick();
     }
   }
+
   // дані для сторінки
   getCurrentPage = () => {
     const currentPage = localStorage.getItem('currentPage');
