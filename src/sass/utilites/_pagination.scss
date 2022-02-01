@@ -104,7 +104,12 @@
 .tui-pagination .tui-prev-is-ellip {
   padding: 0;
   line-height: 1;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 }
+
 .tui-pagination .tui-prev {
   margin-right: 10px;
 }
