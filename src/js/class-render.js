@@ -105,10 +105,14 @@ export class Render extends Fetch {
   onLibraryClick = () => {
     this.refs.blokSearch.classList.add('visually-hidden');
     this.refs.blokBtnHeader.classList.remove('visually-hidden');
+    this.refs.libraryBt.classList.add('button-nav--current');
+    this.refs.homeBt.classList.remove('button-nav--current');
   };
   onHomeClick = () => {
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
+    this.refs.libraryBt.classList.remove('button-nav--current');
+    this.refs.homeBt.classList.add('button-nav--current');
   };
 
   // закрытие модалки по клику на крестик
