@@ -50,6 +50,17 @@
     text-transform: uppercase;
   }
 
+  &__film-votes {
+    width: 100%;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 1px 4px;
+    margin-left: 3px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
   &__film-name,
   &__film-ganre {
     font-weight: 500;
@@ -82,6 +93,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: unset;
+    margin-right: 10px;
   }
 
   &__film-date:before {
@@ -106,11 +118,12 @@
 
   &__film-rating {
     width: 36px;
-    display: flex;
+    // display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    margin-left: 10px;
+    padding: 1px 10px;
+    margin-right: 3px;
     font-weight: 500;
     font-size: 12px;
     line-height: 14px;
