@@ -5,7 +5,7 @@ export class LocalSave extends Paginations {
   constructor() {
     super();
   }
-  lokalSave = () => {
+  lokalStart = () => {
     this.getLanguage();
     this.getThema();
     if (this.getInputText() !== null) {
@@ -34,7 +34,7 @@ export class LocalSave extends Paginations {
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       this.setLanguage();
-      if (getInputText()  === null) {
+      if (this.searchQuery  === null) {
         this.paginationStart();
       } else {
         this.paginationSearch();
@@ -95,6 +95,7 @@ export class LocalSave extends Paginations {
     if (inputText) {
       this.refs.inputFilm.value = inputText;
       this.searchQuery = inputText;
+      return inputText;
       // console.log(this.searchQuery)
     }
   }
