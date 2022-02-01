@@ -16,6 +16,8 @@ export class Render extends Fetch {
     this.refs.renderBox.innerHTML = '';
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+      const entriesGanres = Object.entries(element);
+      console.log(element);
     });
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
@@ -123,11 +125,11 @@ export class Render extends Fetch {
   };
 
   onWatchedClick = () => {
-    this.refs.headerWathedBtn.classList.replace('queue-btn', 'watched-btn');
-    this.refs.headerQueueBtn.classList.replace('watched-btn', 'queue-btn');
+    this.refs.headerWathedBtn.classList.replace('back-dark', 'back-orange');
+    this.refs.headerQueueBtn.classList.replace('back-orange', 'back-dark');
   };
   onQueueClick = () => {
-    this.refs.headerWathedBtn.classList.replace('watched-btn', 'queue-btn');
-    this.refs.headerQueueBtn.classList.replace('queue-btn', 'watched-btn');
+    this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
+    this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
 }
