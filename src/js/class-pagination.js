@@ -51,7 +51,7 @@ export class Paginations extends Thema {
     this.pagination.on('afterMove', async evt => {
       this.currentPage = evt.page;
       // console.log(this.currentPage);
-
+      this.setCurrentPage();
       window.scrollTo({
         top: 0,
         left: 0,
@@ -60,5 +60,9 @@ export class Paginations extends Thema {
 
       this.paginationStart();
     });
+  };
+  // Зберігаєм в локалку вибрану сторінку
+   setCurrentPage = () => {
+    localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
   };
 }
