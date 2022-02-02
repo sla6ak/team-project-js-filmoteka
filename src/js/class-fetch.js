@@ -5,11 +5,13 @@ export class Fetch extends Film {
     super();
     this.BASE_URL = 'https://api.themoviedb.org/3/';
     this.API_KEY = 'c4ff5df06d9c3bc212d0ff99e5222626';
-    this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300';
+    // this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300';
+    this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w440_and_h660_face';
     this.currentPage = 1;
     this.searchQuery = null;
     this.adult = false;
     this.totalPages = 1;
+    this.ganresList = '';
   }
 
   //films for first page
@@ -43,8 +45,8 @@ export class Fetch extends Film {
     try {
       const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
       const data = await results.json();
-      this.totalPages = data.total_results;
-
+      this.ganresList = data.genres;
+      // console.log(this.ganresList);
       return data.genres;
     } catch (error) {
       alert('Sorry, something went wrong');
@@ -87,11 +89,13 @@ export class Fetch extends Film {
       alert('Sorry, something went wrong');
     }
   }
+
   getTotalPages = () => {
     return this.totalPages;
   };
 
-   returnVideoLink() {
-  return `https://www.youtube.com/watch?v=${this.videoLink}`;
-  }
+  // непонятно где эта переменная виделинк лежит и что в ней?
+  // returnVideoLink() {
+  //   return `https://www.youtube.com/watch?v=${this.videoLink}`;
+  // }
 }

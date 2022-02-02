@@ -2,6 +2,8 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
+    this.arrQueue = [];
+    this.arrWatched = [];
     this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
@@ -25,30 +27,40 @@ export class Film {
       imgMoon: document.querySelector('.js-moon'),
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
-// translate_footer
+      header: document.querySelector('.header'),
+      // **********************pender*******************************
+      // titleCard: '',
+      // ******************************
+      // translate_footer
+      footer: document.querySelector('.footer'),
       footerTextСopyrightOne: document.querySelector('.footer-text-one'),
       footerTextСopyrightTwo: document.querySelector('.footer-text-two'),
       footerTextСopyrightThree: document.querySelector('.footer-text-block'),
       footerTextСopyrightFour: document.querySelector('.footer__link'),
-      
-     
 
       headerWathedBtn: document.querySelector('.js-watched-header'),
       headerQueueBtn: document.querySelector('.js-queue-header'),
-
+      // ======================= посилання на статичні елементи модалки
+      voteTitle: document.querySelector('.js-vote'),
+      popularityTitle: document.querySelector('.js-popularity'),
+      originalTitle: document.querySelector('.js-title'),
+      genreTitle: document.querySelector('.js-genre'),
+      aboutTitle: document.querySelector('.js-about'),
 
       // logo: document.querySelector('.js-logo'),
-      // *******************рендер-модалка***********************
+      //===================рендер-модалка
       renderBox: document.querySelector('#render'),
       modalWatchedBt: document.querySelector('.js-watched-modal'),
       modalQueueBt: document.querySelector('.js-queue-modal'),
-      backdropCardFilm: document.querySelector('#backdropFilmCard'), // модалка з одним фільмом
+      backdropCardFilm: document.querySelector('#backdropFilmCard'),
+      // модалка з одним фільмом
       aboutApi: document.querySelector('.js-about__api'),
       aboutLang: document.querySelector('.js-about__leng'),
-      containerPagination: document.querySelector('#tui-pagination-container'), // контейнер для пагинации
+      containerPagination: document.querySelector('#tui-pagination-container'),
+      // контейнер для пагинации
       prewiuModalka: document.querySelector('.js-prewiu-img'),
 
-      closeModalInfoBtn: document.querySelector('.js-closeModalInfo'),
+      closeModalInfoBtn: document.querySelector('.js-close-modal-info'),
 
       // ========= поля для заміни на модалці фільму ========
       modalImage: document.querySelector('.js-current-film-poster'),
@@ -60,9 +72,11 @@ export class Film {
       modalGanre: document.querySelector('.js-current-film-ganre'),
       // modalAbout: document.querySelector('.js-current-film-overview'),
 
+      // backdropVideo: document.querySelector('.modal-youtube'),
+      // modalVideo: document.querySelector('.modal-youtube__box'),
 
-      backdropVideo: document.querySelector('.modal-youtube'),
-      modalVideo: document.querySelector('.modal-youtube__box'),
+      backdropVideo: document.querySelector('.js-modal-youtube__backdrop'),
+      modalVideo: document.querySelector('.js-modal-youtube__box'),
 
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),

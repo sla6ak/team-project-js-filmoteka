@@ -144,6 +144,7 @@
     margin-right: 40px;
   }
 }
+
 .search-block {
   margin-bottom: 59px;
 }
@@ -366,20 +367,25 @@ input:checked + .slider:before {
 }
 // анімашка
 
-@keyframes changeColor {
+@keyframes changeFilm {
   0% {
-    transform: translateY(-3px);
+    transform: translateY(24px);
   }
   50% {
-    transform: translateY(3px);
+    transform: translateY(0px);
   }
   100% {
-    transform: translateY(-3px);
+    transform: translateY(-24px);
   }
 }
-.page-header__icon {
-  animation-name: changeColor;
-  animation-duration: 1500ms;
+
+.page-header__icon,
+.page-header__icon--tree,
+.page-header__icon--second {
+  display: flex;
+  height: 24px;
+  animation-name: changeFilm;
+  animation-duration: 1000ms;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   &:hover {
@@ -387,6 +393,20 @@ input:checked + .slider:before {
   }
 }
 
+.old-film {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  height: 24px;
+  width: 24px;
+}
+.old-film__lenta {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -24px;
+  left: 0px;
+}
 .watched-btn {
   min-width: 130px;
   min-height: 44px;
@@ -397,9 +417,9 @@ input:checked + .slider:before {
   text-transform: uppercase;
   color: #fff;
 
-  border-radius: 5px;
-  background-color: $accent-modal-color;
-  border-color: transparent;
+  @media screen and (min-width: 768px) {
+    margin-right: 15px;
+  }
 }
 
 .queue-btn {
@@ -413,9 +433,8 @@ input:checked + .slider:before {
   color: #fff;
 
   border-radius: 5px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   background: rgba(0, 0, 0, 0.56);
-  
 }
 
 .buttons-header {
@@ -423,12 +442,18 @@ input:checked + .slider:before {
   justify-content: space-between;
 
   @media screen and (min-width: 768px) {
-  justify-content: center;
-}
+    justify-content: center;
+  }
 }
 
-.watched-btn:not(:last-child) {
-  @media screen and (min-width: 768px) {
-  margin-right: 15px;
+.back-orange {
+  border-radius: 5px;
+  background-color: $accent-modal-color;
+  border-color: transparent;
 }
+
+.back-dark {
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  background: rgba(0, 0, 0, 0.56);
 }
