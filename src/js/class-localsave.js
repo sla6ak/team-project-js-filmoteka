@@ -22,10 +22,12 @@ export class LocalSave extends Paginations {
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
       this.goHomePage();
+      this.onHomeClick();
     });
     // Лісерен хоум
     this.refs.homeBt.addEventListener('click', () => {
       this.goHomePage();
+      this.onHomeClick();
     });
     // Лісенер на інпут
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
