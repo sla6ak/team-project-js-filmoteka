@@ -79,14 +79,6 @@ export class Render extends Fetch {
     this.refs.backdropVideo.addEventListener('click', this.onVideoClouseClick);
   };
 
-  onVideoClouseClick = event => {
-    if (event.target.className !== 'js-modal-youtube__backdrop') {
-      return;
-    }
-    this.refs.backdropVideo.classList.add('visually-hidden');
-    this.refs.modalVideo.innerHTML = '';
-  };
-
   // функция закрывает модалку по бекдропу
   onModalClouseClick = evn => {
     if (evn.target.className !== 'backdrop') {
@@ -94,6 +86,15 @@ export class Render extends Fetch {
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
+  };
+
+  // функция закрывает модалку с трейлером по бекдропу
+  onVideoClouseClick = event => {
+    if (event.target.className !== 'js-modal-youtube__backdrop') {
+      return;
+    }
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    this.refs.modalVideo.innerHTML = '';
   };
 
   onEscKeyPres = evn => {
