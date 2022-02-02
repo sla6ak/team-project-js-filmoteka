@@ -23,11 +23,24 @@ export class Render extends Fetch {
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
-      const entriesGanres = Object.entries(element);
-      // console.log(element);
     });
+    this.ganresList = await this.fetchGenresList();
+
+  
+  //   resultsFilms.forEach(el => {
+  //     const filmGenres = Object.values(this.ganresList);
+  //     console.log(filmGenres);
+  //     const { id, name } = filmGenres;
+  // if (el.genre_ids === id) {
+  
+  // }
+        
+  //     })
+    
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
+
+  
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
@@ -156,9 +169,6 @@ export class Render extends Fetch {
     this.refs.headerQueueBtn.classList.replace('back-orange', 'back-dark');
   };
   onQueueClick = () => {
-    this.refs.headerWathedBtn.classList.replace('watched-btn', 'queue-btn');
-    this.refs.headerQueueBtn.classList.replace('queue-btn', 'watched-btn');
-
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
