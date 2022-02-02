@@ -62,8 +62,9 @@ export class LocalSave extends Paginations {
     });
 
 
-    this.refs.modalWatchedBt.addEventListener('click',
-      this.onModalWachedBtn);
+    this.refs.modalWatchedBt.addEventListener('click', () => {
+      this.onModalWachedBtn()
+    });
    this.refs.modalQueueBt.addEventListener('click', () => {
       this.onModalQueueBtn()
     });
