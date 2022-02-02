@@ -10,10 +10,11 @@ export class LocalSave extends Paginations {
   lokalStart = () => {
     this.start();
     this.EventListenerAll();
-    this.paginationStart();
+    this.getLocalCurrentPage();
     this.getLocalLanguage();
     this.getLocalThema();
     this.getLocalInputText();
+    this.paginationStart();
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
@@ -71,6 +72,8 @@ export class LocalSave extends Paginations {
   };
 
   onInputSearch = evt => {
+    this.currentPage = 1;
+    this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
       this.paginationStart();
