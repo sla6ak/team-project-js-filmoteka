@@ -19,8 +19,14 @@ export class Render extends Fetch {
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
     const resultsFilms = await results;
+    if (resultsFilms == '') {
+        this.refs.notification.classList.remove('notification-none');
+     return
+    } 
+    this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
+       
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
       const entriesGanres = Object.entries(element);
