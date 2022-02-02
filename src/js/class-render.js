@@ -98,7 +98,7 @@ export class Render extends Fetch {
   };
 
   onVideoClouseClick = event => {
-    if (event.target.className !== 'js-modal-youtube__backdrop') {
+    if (event.target !== this.refs.backdropVideo) {
       return;
     }
     this.refs.backdropVideo.classList.add('visually-hidden');
@@ -135,6 +135,7 @@ export class Render extends Fetch {
   };
 
   onHomeClick = () => {
+    this.refs.containerPagination.classList.remove('visually-hidden');
     this.refs.header.classList.remove('header--library');
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
