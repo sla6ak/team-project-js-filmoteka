@@ -35,6 +35,11 @@ export class LocalSave extends Paginations {
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
       this.setLocalLanguage();
+
+      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+        return;
+      }
+
       if (this.searchQuery === null) {
         this.paginationStart();
       } else {
@@ -45,6 +50,10 @@ export class LocalSave extends Paginations {
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       this.setLocalLanguage();
+
+      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+        return;
+      }
       if (this.searchQuery === null) {
         this.paginationStart();
       } else {
