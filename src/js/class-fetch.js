@@ -90,13 +90,13 @@ export class Fetch extends Film {
       alert('Sorry, something went wrong');
     }
   }
+
   getTotalPages = () => {
     return this.totalPages;
   };
 
-
-  returnVideoLink() {
-    return `https://www.youtube.com/watch?v=${this.videoLink}`;
-  }
-
+  // непонятно где эта переменная виделинк лежит и что в ней?
+  // returnVideoLink() {
+  //   return `https://www.youtube.com/watch?v=${this.videoLink}`;
+  // }
 }

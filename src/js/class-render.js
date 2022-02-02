@@ -9,11 +9,15 @@ export class Render extends Fetch {
     this.videoKeyYoutube = '';
     this.youtubeImg = '';
   }
+  // очистка всего рендера
+  renderBoxCleaner = () => {
+    this.refs.renderBox.innerHTML = '';
+  };
 
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
     const resultsFilms = await results;
-    this.refs.renderBox.innerHTML = '';
+    this.renderBoxCleaner();
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       const entriesGanres = Object.entries(element);
@@ -22,21 +26,21 @@ export class Render extends Fetch {
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
 
+  // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
-    let li = event.target.closest('.film-card');
-    // console.log(li);
-    if (!li) {
+    // ли-ивент это элемент верстки хранящий идишку
+    let liEvent = event.target.closest('.film-card');
+    if (!liEvent) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(li.dataset.source);
-    // console.log(this.fullModal);
+    this.fullModal = await this.fetchFilmsInfo(liEvent.dataset.source);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
 
-    if (this.fullModal.overview.length === 0) {
+    if (this.fullModal.overview.length == false && this.curentLanguage == 'uk') {
       this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
     } else {
       this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
@@ -46,12 +50,6 @@ export class Render extends Fetch {
     // <img src="../images/yout.png" data-source="" alt="" class="youtube-img">
     // </div>`;
     this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
-
-    // =======
-    // код нижче потрібно переглянути. були зміни у коді для рендеру модалки по кліку. а саме li = event.terget('.film-card')
-    // це для того щоб клік ловився на лішці. там і data-source тепер н лішці висить.
-    this.fullModal = await this.fetchFilmsInfo(event.target.dataset.source);
-    // My Work
     if (this.fullModal.videos.results[0]) {
       this.videoKeyYoutube = this.fullModal.videos.results[0].key;
     } else {
@@ -130,6 +128,7 @@ export class Render extends Fetch {
     this.refs.libraryBt.classList.add('button-nav--current');
     this.refs.homeBt.classList.remove('button-nav--current');
   };
+
   onHomeClick = () => {
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
