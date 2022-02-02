@@ -46,8 +46,7 @@ export class Fetch extends Film {
       const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
       const data = await results.json();
       this.ganresList = data.genres;
-      console.log(this.ganresList);
-
+      // console.log(this.ganresList);
       return data.genres;
     } catch (error) {
       alert('Sorry, something went wrong');
@@ -90,13 +89,13 @@ export class Fetch extends Film {
       alert('Sorry, something went wrong');
     }
   }
+
   getTotalPages = () => {
     return this.totalPages;
   };
 
-
-  returnVideoLink() {
-    return `https://www.youtube.com/watch?v=${this.videoLink}`;
-  }
-
+  // непонятно где эта переменная виделинк лежит и что в ней?
+  // returnVideoLink() {
+  //   return `https://www.youtube.com/watch?v=${this.videoLink}`;
+  // }
 }

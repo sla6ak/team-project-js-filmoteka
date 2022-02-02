@@ -6,34 +6,33 @@ export class LocalSave extends Paginations {
     super();
     this.data = '';
   }
+  // ***************стартует всю логику *******************************************
   lokalStart = () => {
     this.start();
     this.EventListenerAll();
-    this.paginationStart()
-    this.getLanguage();
-    this.getThema();
-    // this.getCurrentPage();
-    this.getInputText()
-  
-    
-    
-}
+    this.getLocalCurrentPage();
+    this.getLocalLanguage();
+    this.getLocalThema();
+    this.getLocalInputText();
+    this.paginationStart();
+  };
+  // *******************слушатели событий********************************************
   EventListenerAll = () => {
     // console.log(this.refs.inputFilm);
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
-      this.goHomePage()
-    } )
+      this.goHomePage();
+    });
     // Лісерен хоум
-     this.refs.homeBt.addEventListener('click', () => {
-      this.goHomePage()
-    } )
+    this.refs.homeBt.addEventListener('click', () => {
+      this.goHomePage();
+    });
     // Лісенер на інпут
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
     // Лісенер на клік по мови
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
-      this.setLanguage();
+      this.setLocalLanguage();
       if (this.searchQuery === null) {
         this.paginationStart();
       } else {
@@ -43,8 +42,8 @@ export class LocalSave extends Paginations {
 
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
-      this.setLanguage();
-      if (this.searchQuery  === null) {
+      this.setLocalLanguage();
+      if (this.searchQuery === null) {
         this.paginationStart();
       } else {
         this.paginationSearch();
@@ -53,97 +52,99 @@ export class LocalSave extends Paginations {
     // Лісенер на кліки по вибору теми
     this.refs.themaBt.addEventListener('click', () => {
       this.onThemaClick();
-      this.setThema();
+      this.setLocalThema();
     });
-   
+
     // Лісенер на кліки по кнопці
-    this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
-    
+    this.refs.libraryBt.addEventListener('click', () => {
+      this.onLibraryClick();
+      this.paginationWatched();
+    });
     this.refs.homeBt.addEventListener('click', this.onHomeClick);
-    this.refs.headerWathedBtn.addEventListener('click', this.onWatchedClick);
-    this.refs.headerQueueBtn.addEventListener('click', this.onQueueClick);
+    this.refs.headerWathedBtn.addEventListener('click', () => {
+      this.onWatchedClick();
+      this.paginationWatched();
+    });
+    this.refs.headerQueueBtn.addEventListener('click', () => {
+      this.onQueueClick();
+      this.paginationQueue();
+    });
   };
 
   onInputSearch = evt => {
-    if (!evt.target.value) {
-      localStorage.removeItem("search-input-text");
+    this.currentPage = 1;
+    this.setCurrentPage();
+    if (!evt.target.value.trim()) {
+      localStorage.removeItem('search-input-text');
       this.paginationStart();
       return;
     }
-    this.searchQuery = evt.target.value;
-    this.data = evt.target.value;
-    this.setInput()
+    this.searchQuery = evt.target.value.trim();
+    this.data = evt.target.value.trim();
+    this.setLocalInput();
     this.paginationSearch();
-
   };
+
   goHomePage = evt => {
-    localStorage.removeItem("search-input-text");
+    localStorage.removeItem('search-input-text');
     this.paginationStart();
     this.refs.inputFilm.value = '';
-  }
-
-
+  };
+  // *********************запись данных в локалку********************************
   // Додаємо дані в локалку з інпуту
-  setInput = () => {
-  
-  localStorage.setItem('search-input-text', this.data);
-  }
+  setLocalInput = () => {
+    localStorage.setItem('search-input-text', this.data);
+  };
   // Додаємо дані в локалку з мови
-  setLanguage = () => {
+  setLocalLanguage = () => {
     localStorage.setItem('language', this.curentLanguage);
-  }
+  };
   //  Додаємо дані про тему в локалку
-  setThema = () => {
-   localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
-  }
-
+  setLocalThema = () => {
+    localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
+  };
+  // *******************чтение локалки*********************************************
   // Функція получаємо дані з локалки для інпуту
-  getInputText = () => {
+  getLocalInputText = () => {
     const inputText = localStorage.getItem('search-input-text');
     if (inputText) {
       this.refs.inputFilm.value = inputText;
       this.searchQuery = inputText;
-      this.paginationSearch()
+      this.paginationSearch();
     }
-  }
+  };
   // Получаємо дані з локалки для мови
-  getLanguage = () => {
+  getLocalLanguage = () => {
     const selectLanguage = localStorage.getItem('language');
     if (selectLanguage) {
       this.curentLanguage = selectLanguage;
       // console.log(this.curentLanguage)
       if (this.curentLanguage === 'en') {
-        this.onEnClick() 
+        this.onEnClick();
       } else {
-        this.onUaClick()
+        this.onUaClick();
       }
-    }
-  }
-
-
-  // Получаємо дані з локалки для теми
-  getThema = () => {
-    const selectThema = localStorage.getItem('thema');
-    if (selectThema) {
-      // console.log(selectThema)
-      if(selectThema === "true")
-        this.onThemaClick();
-    }
-  }
-
-  // дані для сторінки
-  getCurrentPage = () => {
-    const currentPage = localStorage.getItem('currentPage');
-    if (currentPage) {
-      this.currentPage = JSON.parse(currentPage);
-      console.log(this.currentPage)
     }
   };
 
-  //   get x() {
-  //     console.log();
-  //   }
-  //   set x(newWord) {
-  //     console.log();
-  //   }
+  // Получаємо дані з локалки для теми
+  getLocalThema = () => {
+    const selectThema = localStorage.getItem('thema');
+    if (selectThema) {
+      // console.log(selectThema)
+      if (selectThema === 'true') this.onThemaClick();
+    }
+  };
+
+  // дані для сторінки
+  getLocalCurrentPage = () => {
+    const currentPage = localStorage.getItem('currentPage');
+    if (currentPage) {
+      this.currentPage = JSON.parse(currentPage);
+      // console.log(this.currentPage);
+    }
+  };
 }
+
+// заметка в классе фильм добавленно два пустых массива
+// куда надо записывать фильмы из локалки оттуда их будут читать классы сверху
