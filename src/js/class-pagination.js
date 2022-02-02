@@ -16,7 +16,6 @@ export class Paginations extends Thema {
 
   paginationSearch = async () => {
     const respons = await this.fetchSearchFilms();
-    console.log(this.refs.containerPagination);
     if (this.totalPages < 20) {
       this.refs.containerPagination.classList.add('visually-hidden');
     }
