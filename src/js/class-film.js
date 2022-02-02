@@ -28,6 +28,8 @@ export class Film {
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
       header: document.querySelector('.header'),
+      notification: document.querySelector('.notification'),
+      notificationText: document.querySelector('.notification-text'),
       // **********************pender*******************************
       // titleCard: '',
       // ******************************
