@@ -8,7 +8,9 @@ export class Render extends Fetch {
     this.fullInfoModal = null;
     this.videoKeyYoutube = '';
     this.youtubeImg = '';
+    this.titleCard = [];
   }
+
   // очистка всего рендера
   renderBoxCleaner = () => {
     this.refs.renderBox.innerHTML = '';
@@ -20,8 +22,9 @@ export class Render extends Fetch {
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+      this.titleCard = document.querySelectorAll('.js-film-card__film-name');
       const entriesGanres = Object.entries(element);
-      console.log(element);
+      // console.log(element);
     });
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
@@ -127,9 +130,12 @@ export class Render extends Fetch {
     this.refs.blokBtnHeader.classList.remove('visually-hidden');
     this.refs.libraryBt.classList.add('button-nav--current');
     this.refs.homeBt.classList.remove('button-nav--current');
+    this.refs.header.classList.add('header--library');
+    this.refs.renderBox.innerHTML = '';
   };
 
   onHomeClick = () => {
+    this.refs.header.classList.remove('header--library');
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
     this.refs.libraryBt.classList.remove('button-nav--current');
@@ -152,4 +158,6 @@ export class Render extends Fetch {
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
+  renderFilmsCardWatched = () => {};
+  renderFilmsCardQueue = () => {};
 }

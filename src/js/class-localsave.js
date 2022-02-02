@@ -55,11 +55,19 @@ export class LocalSave extends Paginations {
     });
 
     // Лісенер на кліки по кнопці
-    this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
-
+    this.refs.libraryBt.addEventListener('click', () => {
+      this.onLibraryClick();
+      this.paginationWatched();
+    });
     this.refs.homeBt.addEventListener('click', this.onHomeClick);
-    this.refs.headerWathedBtn.addEventListener('click', this.onWatchedClick);
-    this.refs.headerQueueBtn.addEventListener('click', this.onQueueClick);
+    this.refs.headerWathedBtn.addEventListener('click', () => {
+      this.onWatchedClick();
+      this.paginationWatched();
+    });
+    this.refs.headerQueueBtn.addEventListener('click', () => {
+      this.onQueueClick();
+      this.paginationQueue();
+    });
   };
 
   onInputSearch = evt => {
@@ -130,7 +138,10 @@ export class LocalSave extends Paginations {
     const currentPage = localStorage.getItem('currentPage');
     if (currentPage) {
       this.currentPage = JSON.parse(currentPage);
-      console.log(this.currentPage);
+      // console.log(this.currentPage);
     }
   };
 }
+
+// заметка в классе фильм добавленно два пустых массива
+// куда надо записывать фильмы из локалки оттуда их будут читать классы сверху

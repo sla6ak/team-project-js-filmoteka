@@ -2,6 +2,8 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
+    this.arrQueue = [];
+    this.arrWatched = [];
     this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
@@ -25,7 +27,12 @@ export class Film {
       imgMoon: document.querySelector('.js-moon'),
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
+      header: document.querySelector('.header'),
+      // **********************pender*******************************
+      // titleCard: '',
+      // ******************************
       // translate_footer
+      footer: document.querySelector('.footer'),
       footerTextСopyrightOne: document.querySelector('.footer-text-one'),
       footerTextСopyrightTwo: document.querySelector('.footer-text-two'),
       footerTextСopyrightThree: document.querySelector('.footer-text-block'),

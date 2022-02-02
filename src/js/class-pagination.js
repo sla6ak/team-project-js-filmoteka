@@ -4,17 +4,20 @@ import Pagination from 'tui-pagination';
 export class Paginations extends Thema {
   constructor() {
     super();
+    this.itemsPerPage = 20;
   }
 
   paginationStart = async () => {
     const respons = await this.fetchPopularFilms();
     this.renderFilmsCardMarkup(respons);
+    this.itemsPerPage = 20;
     this.buildPagination();
   };
 
   paginationSearch = async () => {
     const respons = await this.fetchSearchFilms();
     this.renderFilmsCardMarkup(respons);
+    this.itemsPerPage = 20;
     this.buildPagination();
   };
 
@@ -22,7 +25,7 @@ export class Paginations extends Thema {
   buildPagination = async () => {
     const optionPagin = {
       totalItems: this.totalPages,
-      itemsPerPage: 20,
+      itemsPerPage: this.itemsPerPage,
       visiblePages: 5,
       page: this.currentPage,
       centerAlign: true,
@@ -62,7 +65,21 @@ export class Paginations extends Thema {
     });
   };
   // Зберігаєм в локалку вибрану сторінку
-   setCurrentPage = () => {
+  setCurrentPage = () => {
     localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
+  };
+  paginationWatched = () => {
+    // console.log(this.arrQueue.length);
+    this.totalPages = this.arrQueue.length;
+    this.itemsPerPage = 9;
+    this.buildPagination();
+    this.renderFilmsCardWatched();
+  };
+  paginationQueue = arrQueue => {
+    // console.log(this.arrQueue.length);
+    this.totalPages = this.arrQueue.length;
+    this.itemsPerPage = 9;
+    this.buildPagination();
+    this.renderFilmsCardQueue();
   };
 }
