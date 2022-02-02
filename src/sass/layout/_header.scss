@@ -388,9 +388,6 @@ input:checked + .slider:before {
   animation-duration: 1000ms;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  &:hover {
-    animation-play-state: paused;
-  }
 }
 
 .old-film {
