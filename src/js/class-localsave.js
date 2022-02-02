@@ -61,6 +61,11 @@ export class LocalSave extends Paginations {
       this.paginationWatched();
     });
     this.refs.homeBt.addEventListener('click', this.onHomeClick);
+    this.refs.headerWathedBtn.addEventListener('click', this.onWatchedClick);
+    this.refs.headerQueueBtn.addEventListener('click', this.onQueueClick);
+
+    this.openModalFooter()
+    
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
       this.paginationWatched();

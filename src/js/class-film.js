@@ -85,8 +85,9 @@ export class Film {
       // logo: document.querySelector('.js-logo'),
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
-      // logo: document.querySelector('.js-logo'),
-      // logo: document.querySelector('.js-logo'),
+      backdropFooter: document.querySelector('#js-backdrop-footer'),
+      closeFooterBt: document.querySelector('.js-close-footer'),
+      
     };
   }
   // проверочный метод который я запустил в самом индексе сквозь все классы чтоб убедиться что все настроено
