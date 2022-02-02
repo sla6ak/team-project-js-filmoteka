@@ -4,20 +4,30 @@ import { Paginations } from './class-pagination';
 export class LocalSave extends Paginations {
   constructor() {
     super();
+    this.data = '';
   }
   lokalStart = () => {
+    this.start();
+    this.EventListenerAll();
+    this.paginationStart()
     this.getLanguage();
     this.getThema();
-    if (this.getInputText() !== null) {
-      this.paginationSearch()
-    } else {
-     this.paginationStart(); 
-    }
+    // this.getCurrentPage();
+    this.getInputText()
+  
     
     
 }
   EventListenerAll = () => {
     // console.log(this.refs.inputFilm);
+    // Лісенер лого
+    this.refs.logo.addEventListener('click', () => {
+      this.goHomePage()
+    } )
+    // Лісерен хоум
+     this.refs.homeBt.addEventListener('click', () => {
+      this.goHomePage()
+    } )
     // Лісенер на інпут
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
     // Лісенер на клік по мови
@@ -45,12 +55,7 @@ export class LocalSave extends Paginations {
       this.onThemaClick();
       this.setThema();
     });
-    // Лісенер на кліки по вибору сторінки
-    // this.refs.containerPagination.addEventListener('click', () => {
-    //   this.paginationStart();
-    //   // console.log(this.currentPage);
-    //   this.setCurrentPage();
-    // })
+   
     // Лісенер на кліки по кнопці
     this.refs.libraryBt.addEventListener('click', this.onLibraryClick);
     
@@ -61,19 +66,27 @@ export class LocalSave extends Paginations {
 
   onInputSearch = evt => {
     if (!evt.target.value) {
+      localStorage.removeItem("search-input-text");
+      this.paginationStart();
       return;
     }
     this.searchQuery = evt.target.value;
+    this.data = evt.target.value;
     this.setInput()
     this.paginationSearch();
 
   };
+  goHomePage = evt => {
+    localStorage.removeItem("search-input-text");
+    this.paginationStart();
+    this.refs.inputFilm.value = '';
+  }
 
 
-  
   // Додаємо дані в локалку з інпуту
-  setInput = ()=> {
-  localStorage.setItem('search-input-text', this.searchQuery);
+  setInput = () => {
+  
+  localStorage.setItem('search-input-text', this.data);
   }
   // Додаємо дані в локалку з мови
   setLanguage = () => {
@@ -83,11 +96,6 @@ export class LocalSave extends Paginations {
   setThema = () => {
    localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
   }
-  // this.refs.body.classList.value
-  // Додаємо дані про вибрану сторінку
-  setCurrentPage = () => {
-    localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
-  };
 
   // Функція получаємо дані з локалки для інпуту
   getInputText = () => {
@@ -95,8 +103,7 @@ export class LocalSave extends Paginations {
     if (inputText) {
       this.refs.inputFilm.value = inputText;
       this.searchQuery = inputText;
-      return inputText;
-      // console.log(this.searchQuery)
+      this.paginationSearch()
     }
   }
   // Получаємо дані з локалки для мови
@@ -106,8 +113,7 @@ export class LocalSave extends Paginations {
       this.curentLanguage = selectLanguage;
       // console.log(this.curentLanguage)
       if (this.curentLanguage === 'en') {
-        this.onEnClick()
-        
+        this.onEnClick() 
       } else {
         this.onUaClick()
       }
@@ -128,7 +134,10 @@ export class LocalSave extends Paginations {
   // дані для сторінки
   getCurrentPage = () => {
     const currentPage = localStorage.getItem('currentPage');
-    return JSON.parse(currentPage);
+    if (currentPage) {
+      this.currentPage = JSON.parse(currentPage);
+      console.log(this.currentPage)
+    }
   };
 
   //   get x() {

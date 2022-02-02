@@ -9,7 +9,7 @@ const init = new LocalSave();
   init.lokalStart();
   // init.paginationStart();
 
-  init.EventListenerAll();
+  // init.EventListenerAll();
   // const a = init.fetchSearchFilms();
   // console.log(a);
   // console.log(init.fetchPopularFilms());
