@@ -5,7 +5,8 @@ export class Fetch extends Film {
     super();
     this.BASE_URL = 'https://api.themoviedb.org/3/';
     this.API_KEY = 'c4ff5df06d9c3bc212d0ff99e5222626';
-    this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300';
+    // this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300';
+    this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w440_and_h660_face';
     this.currentPage = 1;
     this.searchQuery = null;
     this.adult = false;
@@ -92,4 +93,10 @@ export class Fetch extends Film {
   getTotalPages = () => {
     return this.totalPages;
   };
+
+
+  returnVideoLink() {
+    return `https://www.youtube.com/watch?v=${this.videoLink}`;
+  }
+
 }

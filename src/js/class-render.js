@@ -23,17 +23,33 @@ export class Render extends Fetch {
   };
 
   onRenderBoxClick = async event => {
-    if (event.target.className !== 'film-image') {
+    let li = event.target.closest('.film-card');
+    // console.log(li);
+    if (!li) {
       return;
     }
-    // console.log('film');
+    this.fullModal = await this.fetchFilmsInfo(li.dataset.source);
+    // console.log(this.fullModal);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
-
     window.addEventListener('keydown', this.onEscKeyPres);
 
+    if (this.fullModal.overview.length === 0) {
+      this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
+    } else {
+      this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
+    }
+    // this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
+    // <div class="youtube">
+    // <img src="../images/yout.png" data-source="" alt="" class="youtube-img">
+    // </div>`;
+    this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+
+    // =======
+    // код нижче потрібно переглянути. були зміни у коді для рендеру модалки по кліку. а саме li = event.terget('.film-card')
+    // це для того щоб клік ловився на лішці. там і data-source тепер н лішці висить.
     this.fullModal = await this.fetchFilmsInfo(event.target.dataset.source);
     // My Work
     if (this.fullModal.videos.results[0]) {
@@ -48,9 +64,11 @@ export class Render extends Fetch {
     <div class="youtube">
     <img src="" data-source="" alt="" class="youtube-img">
     </div>`;
+    // ==== закінчується код який треба передивитись
+
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
     this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
-    this.refs.modalVotes.textContent = `/ ${this.fullModal.vote_count}`;
+    this.refs.modalVotes.textContent = `${this.fullModal.vote_count}`;
     this.refs.modalPopularity.textContent = `${this.fullModal.popularity.toFixed(1)}`;
     this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
     let ganres = this.fullModal.genres.map(g => g.name).join(', ');
@@ -93,6 +111,7 @@ export class Render extends Fetch {
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
+    this.refs.modalImage.src = '';
   };
 
   onEscKeyPres = evn => {
@@ -101,6 +120,7 @@ export class Render extends Fetch {
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
+    this.refs.modalImage.src = '';
     window.removeEventListener('keydown', this.onEscKeyPres);
   };
 
@@ -121,6 +141,7 @@ export class Render extends Fetch {
   onModalCloseCross = () => {
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.body.classList.remove('no-scroll');
+    this.refs.modalImage.src = '';
     this.refs.closeModalInfoBtn.removeEventListener('click', this.onModalCloseCross);
   };
 
