@@ -1,5 +1,6 @@
 import { Fetch } from './class-fetch';
 import render from '../templates/film-details.hbs';
+import i from '../images/yout.png';
 
 export class Render extends Fetch {
   constructor(films) {
@@ -31,11 +32,14 @@ export class Render extends Fetch {
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
 
     window.addEventListener('keydown', this.onEscKeyPres);
+    // My work
+    window.addEventListener('keydown', this.onYoutubeModalEscKeyPress);
 
     this.fullModal = await this.fetchFilmsInfo(event.target.dataset.source);
     // My Work
     if (this.fullModal.videos.results[0]) {
       this.videoKeyYoutube = this.fullModal.videos.results[0].key;
+      this.youtubeImg = i;
     } else {
       this.videoKeyYoutube = '';
       this.youtubeImg = '';
@@ -44,7 +48,7 @@ export class Render extends Fetch {
     this.refs.aboutApi.innerHTML = this.fullModal.overview;
     this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
     <div class="youtube">
-    <img src="" data-source="" alt="" class="youtube-img">
+    <img src="${this.youtubeImg}" data-source="" alt="" class="youtube-img">
     </div>`;
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
     this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
@@ -100,6 +104,16 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyPres);
+  };
+
+  // My work
+  onYoutubeModalEscKeyPress = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    window.removeEventListener('keydown', this.onYoutubeModalEscKeyPress);
   };
 
   onLibraryClick = () => {
