@@ -76,7 +76,7 @@ export class LocalSave extends Paginations {
     this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
-      this.paginationStart();
+      this.paginationSearch();
       return;
     }
     this.searchQuery = evt.target.value.trim();
@@ -86,6 +86,7 @@ export class LocalSave extends Paginations {
   };
 
   goHomePage = evt => {
+    this.currentPage = 1;
     localStorage.removeItem('search-input-text');
     this.paginationStart();
     this.refs.inputFilm.value = '';

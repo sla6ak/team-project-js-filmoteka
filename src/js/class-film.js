@@ -56,8 +56,9 @@ export class Film {
       // модалка з одним фільмом
       aboutApi: document.querySelector('.js-about__api'),
       aboutLang: document.querySelector('.js-about__leng'),
-      containerPagination: document.querySelector('#tui-pagination-container'),
       // контейнер для пагинации
+      containerPagination: document.querySelector('#tui-pagination-container'),
+
       prewiuModalka: document.querySelector('.js-prewiu-img'),
 
       closeModalInfoBtn: document.querySelector('.js-close-modal-info'),
