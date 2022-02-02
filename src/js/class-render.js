@@ -119,6 +119,39 @@ export class Render extends Fetch {
     this.refs.headerWathedBtn.classList.replace('watched-btn', 'queue-btn');
     this.refs.headerQueueBtn.classList.replace('queue-btn', 'watched-btn');
   }
+
+  openModalFooter = () => {
+    this.refs.ourTeam.addEventListener('click', ()=> {
+      this.refs.backdropFooter.classList.remove('visually-hidden')
+      this.refs.body.classList.add('no-scroll')
+      this.closeModalFooter()
+    })
+  }
+
+  closeModalFooter = () => {
+    this.refs.backdropFooter.addEventListener('click', (event)=>{
+      if(event.target.className !== 'backdrop'){
+        return
+      } 
+      this.refs.backdropFooter.classList.add('visually-hidden')
+      this.refs.body.classList.remove('no-scroll');
+    })
+    this.refs.closeFooterBt.addEventListener('click',()=> {
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    })
+    window.addEventListener('keydown', this.onEscKeyFooter);
+  }
+
+  onEscKeyFooter = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    window.removeEventListener('keydown', this.onEscKeyFooter);
+  };
+  
 }
 
 
