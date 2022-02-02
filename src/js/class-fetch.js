@@ -10,6 +10,7 @@ export class Fetch extends Film {
     this.searchQuery = null;
     this.adult = false;
     this.totalPages = 1;
+    this.ganresList = '';
   }
 
   //films for first page
@@ -43,7 +44,8 @@ export class Fetch extends Film {
     try {
       const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
       const data = await results.json();
-      this.totalPages = data.total_results;
+      this.ganresList = data.genres;
+      console.log(this.ganresList);
 
       return data.genres;
     } catch (error) {
@@ -90,8 +92,4 @@ export class Fetch extends Film {
   getTotalPages = () => {
     return this.totalPages;
   };
-
-   returnVideoLink() {
-  return `https://www.youtube.com/watch?v=${this.videoLink}`;
-  }
 }
