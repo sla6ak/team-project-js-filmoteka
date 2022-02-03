@@ -22,10 +22,12 @@ export class LocalSave extends Paginations {
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
       this.goHomePage();
+      this.onHomeClick();
     });
     // Лісерен хоум
     this.refs.homeBt.addEventListener('click', () => {
       this.goHomePage();
+      this.onHomeClick();
     });
     // Лісенер на інпут
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
@@ -33,6 +35,11 @@ export class LocalSave extends Paginations {
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
       this.setLocalLanguage();
+
+      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+        return;
+      }
+
       if (this.searchQuery === null) {
         this.paginationStart();
       } else {
@@ -43,6 +50,10 @@ export class LocalSave extends Paginations {
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       this.setLocalLanguage();
+
+      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+        return;
+      }
       if (this.searchQuery === null) {
         this.paginationStart();
       } else {
@@ -62,12 +73,16 @@ export class LocalSave extends Paginations {
     });
 
 
+
     this.refs.modalWatchedBt.addEventListener('click', () => {
       this.onModalWachedBtn()
     });
    this.refs.modalQueueBt.addEventListener('click', () => {
       this.onModalQueueBtn()
     });
+
+    this.openModalFooter()
+   
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
       this.paginationWatched();
@@ -96,7 +111,7 @@ export class LocalSave extends Paginations {
     this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
-      this.paginationStart();
+      this.paginationSearch();
       return;
     }
     this.searchQuery = evt.target.value.trim();
@@ -106,6 +121,7 @@ export class LocalSave extends Paginations {
   };
 
   goHomePage = evt => {
+    this.currentPage = 1;
     localStorage.removeItem('search-input-text');
     localStorage.removeItem('currentPage');
     this.refs.inputFilm.value = '';

@@ -28,6 +28,8 @@ export class Film {
       textThema: document.querySelector('.js-thema'),
       logoLang: document.querySelector('.js-logo-leng'),
       header: document.querySelector('.header'),
+      notification: document.querySelector('.notification'),
+      notificationText: document.querySelector('.notification-text'),
       // **********************pender*******************************
       // titleCard: '',
       // ******************************
@@ -56,8 +58,9 @@ export class Film {
       // модалка з одним фільмом
       aboutApi: document.querySelector('.js-about__api'),
       aboutLang: document.querySelector('.js-about__leng'),
-      containerPagination: document.querySelector('#tui-pagination-container'),
       // контейнер для пагинации
+      containerPagination: document.querySelector('#tui-pagination-container'),
+
       prewiuModalka: document.querySelector('.js-prewiu-img'),
 
       closeModalInfoBtn: document.querySelector('.js-close-modal-info'),
@@ -85,8 +88,9 @@ export class Film {
       // logo: document.querySelector('.js-logo'),
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
-      // logo: document.querySelector('.js-logo'),
-      // logo: document.querySelector('.js-logo'),
+      backdropFooter: document.querySelector('#js-backdrop-footer'),
+      closeFooterBt: document.querySelector('.js-close-footer'),
+      
     };
   }
   // проверочный метод который я запустил в самом индексе сквозь все классы чтоб убедиться что все настроено

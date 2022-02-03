@@ -27,7 +27,6 @@ export class Fetch extends Film {
       const results = await fetch(`${this.BASE_URL}trending/movie/week?${meta}`);
       const data = await results.json();
       this.totalPages = data.total_results;
-
       return data.results;
     } catch (error) {
       alert('Sorry, something went wrong');
@@ -67,7 +66,6 @@ export class Fetch extends Film {
       const results = await fetch(`${this.BASE_URL}search/movie?${meta}`);
       const data = await results.json();
       this.totalPages = data.total_results;
-
       return data.results;
     } catch (error) {
       alert('Sorry, something went wrong');

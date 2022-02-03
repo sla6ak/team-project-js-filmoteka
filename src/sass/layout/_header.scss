@@ -86,6 +86,20 @@
     color: $accent-color;
   }
 }
+.notification {
+  position: absolute;
+  top: 35px;
+}
+.notification-none {
+  display: none;
+}
+.notification-text {
+  color: $notification-text-color;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+}
 .page-header__text {
   font-weight: 500;
   font-size: 30px;

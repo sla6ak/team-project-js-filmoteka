@@ -20,15 +20,34 @@ export class Render extends Fetch {
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
     const resultsFilms = await results;
+    if (resultsFilms == '') {
+        this.refs.notification.classList.remove('notification-none');
+     return
+    } 
+    this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
+       
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
-      const entriesGanres = Object.entries(element);
-      // console.log(element);
     });
+    this.ganresList = await this.fetchGenresList();
+
+  
+  //   resultsFilms.forEach(el => {
+  //     const filmGenres = Object.values(this.ganresList);
+  //     console.log(filmGenres);
+  //     const { id, name } = filmGenres;
+  // if (el.genre_ids === id) {
+  
+  // }
+        
+  //     })
+    
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
+
+  
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
@@ -100,7 +119,7 @@ export class Render extends Fetch {
   };
 
   onVideoClouseClick = event => {
-    if (event.target.className !== 'js-modal-youtube__backdrop') {
+    if (event.target !== this.refs.backdropVideo) {
       return;
     }
     this.refs.backdropVideo.classList.add('visually-hidden');
@@ -137,6 +156,7 @@ export class Render extends Fetch {
   };
 
   onHomeClick = () => {
+    this.refs.containerPagination.classList.remove('visually-hidden');
     this.refs.header.classList.remove('header--library');
     this.refs.blokSearch.classList.remove('visually-hidden');
     this.refs.blokBtnHeader.classList.add('visually-hidden');
@@ -160,6 +180,41 @@ export class Render extends Fetch {
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
+  
+
+  openModalFooter = () => {
+    this.refs.ourTeam.addEventListener('click', ()=> {
+      this.refs.backdropFooter.classList.remove('visually-hidden')
+      this.refs.body.classList.add('no-scroll')
+      this.closeModalFooter()
+    })
+  }
+
+  closeModalFooter = () => {
+    this.refs.backdropFooter.addEventListener('click', (event)=>{
+      if(event.target.className !== 'backdrop'){
+        return
+      } 
+      this.refs.backdropFooter.classList.add('visually-hidden')
+      this.refs.body.classList.remove('no-scroll');
+    })
+    this.refs.closeFooterBt.addEventListener('click',()=> {
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    })
+    window.addEventListener('keydown', this.onEscKeyFooter);
+  }
+
+  onEscKeyFooter = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    window.removeEventListener('keydown', this.onEscKeyFooter);
+  };
+  
+ 
   renderFilmsCardWatched = () => {};
   renderFilmsCardQueue = () => {};
 }

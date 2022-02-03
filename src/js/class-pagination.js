@@ -9,6 +9,7 @@ export class Paginations extends Thema {
 
   paginationStart = async () => {
     const respons = await this.fetchPopularFilms();
+
     this.renderFilmsCardMarkup(respons);
     this.itemsPerPage = 20;
     this.buildPagination();
@@ -16,6 +17,13 @@ export class Paginations extends Thema {
 
   paginationSearch = async () => {
     const respons = await this.fetchSearchFilms();
+    if (this.totalPages < 20) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages > 20) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
+
     this.renderFilmsCardMarkup(respons);
     this.itemsPerPage = 20;
     this.buildPagination();
@@ -71,6 +79,13 @@ export class Paginations extends Thema {
   paginationWatched = () => {
     // console.log(this.arrQueue.length);
     this.totalPages = this.arrQueue.length;
+    if (this.totalPages < 10) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages > 10) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
+
     this.itemsPerPage = 9;
     this.buildPagination();
     this.renderFilmsCardWatched();
@@ -78,6 +93,13 @@ export class Paginations extends Thema {
   paginationQueue = arrQueue => {
     // console.log(this.arrQueue.length);
     this.totalPages = this.arrQueue.length;
+    if (this.totalPages < 10) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages > 10) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
+
     this.itemsPerPage = 9;
     this.buildPagination();
     this.renderFilmsCardQueue();

@@ -23,6 +23,7 @@ export class Language extends Render {
     this.refs.genreTitle.textContent = 'Genre';
     this.refs.aboutTitle.textContent = 'ABOUT';
     this.refs.inputFilm.placeholder = 'Search film';
+    this.refs.notificationText.innerHTML = 'Search result failed. Enter the correct movie title and';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
@@ -46,6 +47,7 @@ export class Language extends Render {
     this.refs.genreTitle.textContent = 'Жанр';
     this.refs.aboutTitle.textContent = 'ОПИС';
     this.refs.inputFilm.placeholder = 'Пошук фільму';
+    this.refs.notificationText.innerHTML = 'Помилка результату пошуку. Введіть правильну назву фільму';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
     // this.refs.logoLang.innerHTML = 'Фiльмотека';
   };
