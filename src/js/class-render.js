@@ -9,6 +9,7 @@ export class Render extends Fetch {
     this.videoKeyYoutube = '';
     this.youtubeImg = '';
     this.titleCard = [];
+    this.fullModal = '';
   }
 
   // очистка всего рендера
@@ -19,13 +20,18 @@ export class Render extends Fetch {
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
     const resultsFilms = await results;
+    if (resultsFilms == '') {
+      this.refs.notification.classList.remove('notification-none');
+      return;
+    }
+    this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
-      const entriesGanres = Object.entries(element);
-      // console.log(element);
     });
+    this.ganresList = await this.fetchGenresList();
+
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
 
@@ -33,6 +39,7 @@ export class Render extends Fetch {
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
     let liEvent = event.target.closest('.film-card');
+
     if (!liEvent) {
       return;
     }
@@ -48,10 +55,7 @@ export class Render extends Fetch {
     } else {
       this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
     }
-    // this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
-    // <div class="youtube">
-    // <img src="../images/yout.png" data-source="" alt="" class="youtube-img">
-    // </div>`;
+
     this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
     if (this.fullModal.videos.results[0]) {
       this.videoKeyYoutube = this.fullModal.videos.results[0].key;
@@ -59,13 +63,6 @@ export class Render extends Fetch {
       this.videoKeyYoutube = '';
       this.youtubeImg = '';
     }
-    //
-    // this.refs.aboutApi.innerHTML = this.fullModal.overview;
-    // this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
-    // <div class="youtube">
-    // <img src="" data-source="" alt="" class="youtube-img">
-    // </div>`;
-    // ==== закінчується код який треба передивитись
 
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
     this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
@@ -170,7 +167,7 @@ export class Render extends Fetch {
 
   closeModalFooter = () => {
     this.refs.backdropFooter.addEventListener('click', event => {
-      if (event.target.className !== 'backdrop') {
+      if (event.target.className !== 'backdropFooterModal') {
         return;
       }
       this.refs.backdropFooter.classList.add('visually-hidden');

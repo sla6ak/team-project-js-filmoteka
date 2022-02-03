@@ -66,17 +66,23 @@ export class LocalSave extends Paginations {
       this.setLocalThema();
     });
 
-    // Лісенер на кліки по кнопці
+    // Лісенер на кліки по кнопці бібліотека
     this.refs.libraryBt.addEventListener('click', () => {
       this.onLibraryClick();
       this.paginationWatched();
     });
-    this.refs.homeBt.addEventListener('click', this.onHomeClick);
-    this.refs.headerWathedBtn.addEventListener('click', this.onWatchedClick);
-    this.refs.headerQueueBtn.addEventListener('click', this.onQueueClick);
+
+
+
+    this.refs.modalWatchedBt.addEventListener('click', () => {
+      this.onModalWachedBtn()
+    });
+   this.refs.modalQueueBt.addEventListener('click', () => {
+      this.onModalQueueBtn()
+    });
 
     this.openModalFooter()
-    
+   
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
       this.paginationWatched();
@@ -87,6 +93,19 @@ export class LocalSave extends Paginations {
     });
   };
 
+  onModalWachedBtn = evt => {
+    console.log('watched');
+    const dataFilm = this.fullModal;
+    this.arrWatched.push(dataFilm);
+    this.setFilmWached();
+  }
+
+  onModalQueueBtn = (evt) => {
+    console.log('queue')
+    const dataFilm = this.fullModal;
+    this.arrQueue.push(dataFilm);
+    this.setFilmQueue();
+  }
   onInputSearch = evt => {
     this.currentPage = 1;
     this.setCurrentPage();
@@ -104,8 +123,12 @@ export class LocalSave extends Paginations {
   goHomePage = evt => {
     this.currentPage = 1;
     localStorage.removeItem('search-input-text');
-    this.paginationStart();
+    localStorage.removeItem('currentPage');
     this.refs.inputFilm.value = '';
+    this.currentPage = 1;
+    this.paginationStart();
+    
+
   };
   // *********************запись данных в локалку********************************
   // Додаємо дані в локалку з інпуту
@@ -120,6 +143,16 @@ export class LocalSave extends Paginations {
   setLocalThema = () => {
     localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
   };
+  // Записую в локалку дані про фільм перглянуті
+  setFilmWached = () => {
+    localStorage.setItem('wached-film', JSON.stringify(this.arrWatched));
+
+  }
+  // Записую в локалку дані про фільм додані в чергу
+  setFilmQueue = () => {
+    localStorage.setItem('queue-film', JSON.stringify(this.arrQueue));
+
+  }
   // *******************чтение локалки*********************************************
   // Функція получаємо дані з локалки для інпуту
   getLocalInputText = () => {
