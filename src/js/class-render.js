@@ -198,18 +198,14 @@ export class Render extends Fetch {
     this.renderBoxCleaner();
     if (argumentWatch) {
       console.log('уже смотрел', this.arrWatched.length, this.arrWatched); //тестируем данные длинну и содержимое
-      if (this.arrWatched.length > 0) {
-        this.arrWatched.forEach(element => {
-          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
-        });
-      }
+      this.arrWatched.forEach(element => {
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+      });
     } else {
       console.log('в плане', this.arrQueue.length, this.arrQueue); //тестируем данные длинну и содержимое
-      if (this.arrQueue > 0) {
-        this.arrQueue.forEach(element => {
-          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
-        });
-      }
+      this.arrQueue.forEach(elemt => {
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ elemt }));
+      });
     }
   };
 }

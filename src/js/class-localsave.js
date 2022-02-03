@@ -88,14 +88,12 @@ export class LocalSave extends Paginations {
 
   onModalWachedBtn = () => {
     // console.log(this.fullModal);
-    this.films[0] = this.fullModal;
-    this.arrWatched.push(this.films);
+    this.arrWatched.push(this.fullModal);
     this.setFilmWached();
   };
   onModalQueueBtn = () => {
     // console.log(this.fullModal);
-    this.films[0] = this.fullModal;
-    this.arrQueue.push(this.films);
+    this.arrQueue.push(this.fullModal);
     this.setFilmQueue();
   };
 
@@ -151,19 +149,19 @@ export class LocalSave extends Paginations {
   getArreyWatched = () => {
     const arreyWatched = localStorage.getItem('wached-film');
     if (arreyWatched) {
-      this.arrWatched = arreyWatched;
+      this.arrWatched = JSON.parse(arreyWatched);
     }
   };
   getArreyQueue = () => {
     const arreyQueue = localStorage.getItem('queue-film');
     if (arreyQueue) {
-      this.arrQueue = arreyQueue;
+      this.arrQueue = JSON.parse(arreyQueue);
     }
   };
   getLibraryTrue = () => {
     const libraryIsTrue = localStorage.getItem('is-library');
     if (libraryIsTrue) {
-      this.libraryTrue = libraryIsTrue;
+      this.libraryTrue = JSON.parse(libraryIsTrue);
     }
   };
   // Функція получаємо дані з локалки для інпуту
@@ -207,6 +205,3 @@ export class LocalSave extends Paginations {
     }
   };
 }
-
-// заметка в классе фильм добавленно два пустых массива
-// куда надо записывать фильмы из локалки оттуда их будут читать классы сверху
