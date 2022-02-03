@@ -24,12 +24,14 @@ export class LocalSave extends Paginations {
   EventListenerAll = () => {
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
+      this.onWatchedClick(); //это заглушка перекидывающая пользователя всегда в просмотренные так как стартовая функция рендерит просмотренные
       this.setLibraryTrue(false);
       this.goHomePage();
       this.onHomeClick();
     });
     // Лісерен хоум
     this.refs.homeBt.addEventListener('click', () => {
+      this.onWatchedClick(); //это заглушка перекидывающая пользователя всегда в просмотренные так как стартовая функция рендерит просмотренные
       this.setLibraryTrue(false);
       this.goHomePage();
       this.onHomeClick();
@@ -75,7 +77,7 @@ export class LocalSave extends Paginations {
     });
 
     this.openModalFooter();
-
+    // слушатель для кнопок библиотеки в хедере
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
