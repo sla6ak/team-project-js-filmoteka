@@ -17,8 +17,9 @@ export class LocalSave extends Paginations {
     this.getArreyWatched();
     this.getArreyQueue();
     this.getLocalThema();
-    this.getLocalInputText();
     this.paginationStart();
+    this.getLocalInputText();
+    
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
