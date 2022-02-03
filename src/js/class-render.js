@@ -196,13 +196,18 @@ export class Render extends Fetch {
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
   renderFilmsCardById = async argumentWatch => {
     this.renderBoxCleaner();
-    if (argumentWatch) {
-      this.arrWatched.forEach(async element => {
+    const y = this.currentPage;
+    const start = this.itemsPerPage * (y - 1);
+    const end = this.itemsPerPage * y;
+    this.argumentWatch = argumentWatch;
+
+    if (argumentWatch === true) {
+      this.arrWatched.slice(start, end).forEach(async element => {
         const respW = await this.fetchFilmsInfo(element);
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
       });
     } else {
-      this.arrQueue.forEach(async elemt => {
+      this.arrQueue.slice(start, end).forEach(async elemt => {
         const respQ = await this.fetchFilmsInfo(elemt);
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
       });

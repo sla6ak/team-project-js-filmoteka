@@ -64,6 +64,9 @@ export class LocalSave extends Paginations {
     });
     // Лісенер на кліки по кнопці бібліотека
     this.refs.libraryBt.addEventListener('click', () => {
+      this.currentPage = 1;
+      this.onWatchedClick(); // чтобы возвращало на стартовую вкладку Watched
+
       this.setLibraryTrue(true);
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
@@ -95,10 +98,14 @@ export class LocalSave extends Paginations {
     this.openModalFooter();
     // слушатель для кнопок библиотеки в хедере
     this.refs.headerWathedBtn.addEventListener('click', () => {
+      this.currentPage = 1;
+
       this.onWatchedClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
+      this.currentPage = 1;
+
       this.onQueueClick();
       this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
     });
