@@ -4,25 +4,53 @@ import Pagination from 'tui-pagination';
 export class Paginations extends Thema {
   constructor() {
     super();
+    this.itemsPerPage = 20;
   }
 
-  paginationStart = async () => {
-    const respons = await this.fetchPopularFilms();
+  // этот метод для отрисовки нашей библиотеки
+  paginationLibrarySave = argumentWatch => {
+    if (argumentWatch) {
+      this.totalPages = this.arrWatched.length;
+    } else {
+      this.totalPages = this.arrQueue.length;
+    }
+    if (this.totalPages < 10) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages >= 10) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
+    this.itemsPerPage = 9;
+
+    this.buildPagination();
+    this.renderFilmsCardById(argumentWatch);
+  };
+
+  // этот метод для отрисовки домашней странички
+  paginationStart = async isSerch => {
+    let respons = null;
+    if (isSerch) {
+      respons = await this.fetchSearchFilms();
+    } else {
+      respons = await this.fetchPopularFilms();
+    }
+
+    if (this.totalPages < 20) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages > 20) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
     this.renderFilmsCardMarkup(respons);
+    this.itemsPerPage = 20;
     this.buildPagination();
   };
 
-  paginationSearch = async () => {
-    const respons = await this.fetchSearchFilms();
-    this.renderFilmsCardMarkup(respons);
-    this.buildPagination();
-  };
-
-  // *********getTotalPages()***вернет актуальное значение******
+  // ************это просто фреймворк***********
   buildPagination = async () => {
     const optionPagin = {
       totalItems: this.totalPages,
-      itemsPerPage: 20,
+      itemsPerPage: this.itemsPerPage,
       visiblePages: 5,
       page: this.currentPage,
       centerAlign: true,
@@ -51,14 +79,24 @@ export class Paginations extends Thema {
     this.pagination.on('afterMove', async evt => {
       this.currentPage = evt.page;
       // console.log(this.currentPage);
-
+      this.setCurrentPage();
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'smooth',
       });
 
-      this.paginationStart();
+      if (this.libraryTrue === true) {
+        this.paginationLibrarySave(this.argumentWatch);
+      } else if (this.searchQuery == null) {
+        this.paginationStart(false);
+      } else {
+        this.paginationStart(true);
+      }
     });
+  };
+  // Зберігаєм в локалку вибрану сторінку
+  setCurrentPage = () => {
+    localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
   };
 }
