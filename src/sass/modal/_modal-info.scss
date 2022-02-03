@@ -140,7 +140,7 @@ td {
 
 .add-to-watched-btn,
 .add-to-queue-btn {
-  min-width: 112px;
+  width: 112px;
   min-height: 44px;
 
   border-color: transparent;
@@ -153,10 +153,27 @@ td {
   line-height: 1.33;
   text-transform: uppercase;
 
+  cursor: pointer;
+
   @media screen and (min-width: 768px) {
     min-width: 125px;
   }
+
+  @media screen and (min-width: 1024px) {
+    min-width: 112px;
+  }
+
+  // transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  //   background 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+// .add-to-watched-btn:hover,
+// .add-to-watched-btn:focus {
+//   border: 1px solid $primary-text-color;
+//   // border-color: $primary-text-color;
+//   background: $header-text-color;
+//   color: $primary-text-color;
+// }
 
 .add-to-queue-btn {
   color: $primary-text-color;

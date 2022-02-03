@@ -35,6 +35,12 @@
 }
 .film-card {
   // outline: 2px solid rgb(0, 153, 255);
+  transition: transform 250ms;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
 
   &__img-zaglushka {
     height: 398px;
