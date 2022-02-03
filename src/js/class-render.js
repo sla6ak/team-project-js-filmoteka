@@ -10,6 +10,7 @@ export class Render extends Fetch {
     this.youtubeImg = '';
     this.titleCard = [];
     this.fullModal = '';
+    this.liID;
   }
 
   // очистка всего рендера
@@ -38,18 +39,19 @@ export class Render extends Fetch {
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
-    let liEvent = event.target.closest('.film-card');
-
-    if (!liEvent) {
+    let liId = event.target.closest('.film-card').dataset.source;
+    this.liID = liId;
+    if (!liId) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(liEvent.dataset.source);
+    this.fullModal = await this.fetchFilmsInfo(liId);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
 
+    //проверим есть ли описание к фильму на нашем языке
     if (this.fullModal.overview.length == false) {
       if (this.curentLanguage === 'uk') {
         this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
@@ -76,11 +78,6 @@ export class Render extends Fetch {
     let ganres = this.fullModal.genres.map(g => g.name).join(', ');
     this.refs.modalGanre.textContent = `${ganres}`;
     this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
-
-    // перевіряємо чи клік був на карточці з фільмом
-    // якщо так, очищуємо вміст модалки через innertHTML = ''
-    // рендеримо розмітку модалки, підставляємо туди дані і додаємо розмітку через
-    // insertAdjacentHTML('beforeend', murkup);
   };
 
   onTrailerClick = () => {
@@ -194,15 +191,14 @@ export class Render extends Fetch {
   };
 
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
-  renderFilmsCardById = argumentWatch => {
+  renderFilmsCardById = async argumentWatch => {
     this.renderBoxCleaner();
     if (argumentWatch) {
-      console.log('уже смотрел', this.arrWatched.length, this.arrWatched); //тестируем данные длинну и содержимое
-      this.arrWatched.forEach(element => {
-        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+      this.arrWatched.forEach(async element => {
+        const respW = await this.fetchFilmsInfo(element);
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
       });
     } else {
-      console.log('в плане', this.arrQueue.length, this.arrQueue); //тестируем данные длинну и содержимое
       this.arrQueue.forEach(elemt => {
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ elemt }));
       });

@@ -69,11 +69,13 @@ export class LocalSave extends Paginations {
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
 
-    this.refs.modalWatchedBt.addEventListener('click', () => {
-      this.onModalWachedBtn();
+    this.refs.modalWatchedBt.addEventListener('click', ev => {
+      this.arrWatched.push(this.liID);
+      this.setFilmWached();
     });
-    this.refs.modalQueueBt.addEventListener('click', () => {
-      this.onModalQueueBtn();
+    this.refs.modalQueueBt.addEventListener('click', ev => {
+      ev.target.this.arrQueue.push(this.liID);
+      this.setFilmQueue();
     });
 
     this.openModalFooter();
@@ -86,17 +88,6 @@ export class LocalSave extends Paginations {
       this.onQueueClick();
       this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
     });
-  };
-
-  onModalWachedBtn = () => {
-    // console.log(this.fullModal);
-    this.arrWatched.push(this.fullModal);
-    this.setFilmWached();
-  };
-  onModalQueueBtn = () => {
-    // console.log(this.fullModal);
-    this.arrQueue.push(this.fullModal);
-    this.setFilmQueue();
   };
 
   onInputSearch = evt => {
