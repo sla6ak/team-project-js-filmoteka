@@ -83,6 +83,7 @@ export class Film {
 
       backdropVideo: document.querySelector('.js-modal-youtube__backdrop'),
       modalVideo: document.querySelector('.js-modal-youtube__box'),
+      closeModalYoutubeBtn: document.querySelector('.js-close-youtube-modal'),
 
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
