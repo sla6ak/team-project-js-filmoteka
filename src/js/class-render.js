@@ -9,6 +9,7 @@ export class Render extends Fetch {
     this.videoKeyYoutube = '';
     this.youtubeImg = '';
     this.titleCard = [];
+    this.fullModal = '';
   }
 
   // очистка всего рендера
@@ -52,6 +53,7 @@ export class Render extends Fetch {
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
     let liEvent = event.target.closest('.film-card');
+    
     if (!liEvent) {
       return;
     }
