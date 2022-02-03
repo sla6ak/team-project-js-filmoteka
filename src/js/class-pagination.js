@@ -86,7 +86,7 @@ export class Paginations extends Thema {
         behavior: 'smooth',
       });
       if (this.libraryTrue === true) {
-        this.paginationLibrarySave();
+        this.paginationLibrarySave(this.argumentWatch);
       } else if (this.searchQuery == null) {
         this.paginationStart(false);
       } else {

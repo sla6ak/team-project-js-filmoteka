@@ -4,6 +4,7 @@ export class Film {
     this.films = [];
     // проверим находиться ли позьзователь в библиотеке?
     this.libraryTrue = false;
+    this.argumentWatch = null;
     this.arrQueue = [];
     this.arrWatched = [];
     this.curentLanguage = 'en';

@@ -199,8 +199,9 @@ export class Render extends Fetch {
     const y = this.currentPage;
     const start = this.itemsPerPage * (y - 1);
     const end = this.itemsPerPage * y;
+    this.argumentWatch = argumentWatch;
 
-    if (argumentWatch) {
+    if (argumentWatch === true) {
       this.arrWatched.slice(start, end).forEach(async element => {
         const respW = await this.fetchFilmsInfo(element);
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
