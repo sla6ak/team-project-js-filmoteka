@@ -50,8 +50,12 @@ export class Render extends Fetch {
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
 
-    if (this.fullModal.overview.length == false && this.curentLanguage == 'uk') {
-      this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
+    if (this.fullModal.overview.length == false) {
+      if (this.curentLanguage === 'uk') {
+        this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
+      } else {
+        this.refs.aboutApi.textContent = 'i am sorry this info loose :(';
+      }
     } else {
       this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
     }
@@ -189,5 +193,23 @@ export class Render extends Fetch {
     window.removeEventListener('keydown', this.onEscKeyFooter);
   };
 
-  renderFilmsCardById = () => {};
+  //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
+  renderFilmsCardById = argumentWatch => {
+    this.renderBoxCleaner();
+    if (argumentWatch) {
+      console.log('уже смотрел', this.arrWatched.length, this.arrWatched); //тестируем данные длинну и содержимое
+      if (this.arrWatched.length > 0) {
+        this.arrWatched.forEach(element => {
+          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+        });
+      }
+    } else {
+      console.log('в плане', this.arrQueue.length, this.arrQueue); //тестируем данные длинну и содержимое
+      if (this.arrQueue > 0) {
+        this.arrQueue.forEach(element => {
+          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+        });
+      }
+    }
+  };
 }

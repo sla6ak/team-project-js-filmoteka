@@ -14,6 +14,8 @@ export class LocalSave extends Paginations {
     // проверка где был пользователь
     this.getLibraryTrue();
     this.getLocalLanguage();
+    this.getArreyWatched();
+    this.getArreyQueue();
     this.getLocalThema();
     this.getLocalInputText();
     this.paginationStart();
@@ -62,7 +64,7 @@ export class LocalSave extends Paginations {
     this.refs.libraryBt.addEventListener('click', () => {
       this.setLibraryTrue(true);
       this.onLibraryClick();
-      this.paginationLibrarySave();
+      this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
 
     this.refs.modalWatchedBt.addEventListener('click', () => {
@@ -76,20 +78,24 @@ export class LocalSave extends Paginations {
 
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
-      this.paginationLibrarySave();
+      this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
       this.onQueueClick();
-      this.paginationLibrarySave();
+      this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
     });
   };
 
   onModalWachedBtn = () => {
-    this.arrWatched.push(this.fullModal);
+    // console.log(this.fullModal);
+    this.films[0] = this.fullModal;
+    this.arrWatched.push(this.films);
     this.setFilmWached();
   };
   onModalQueueBtn = () => {
-    this.arrQueue.push(this.fullModal);
+    // console.log(this.fullModal);
+    this.films[0] = this.fullModal;
+    this.arrQueue.push(this.films);
     this.setFilmQueue();
   };
 
@@ -113,7 +119,7 @@ export class LocalSave extends Paginations {
     localStorage.removeItem('currentPage');
     this.refs.inputFilm.value = '';
     this.currentPage = 1;
-    this.paginationStart();
+    this.paginationStart(false);
   };
   // *********************запись данных в локалку********************************
   // Додаємо дані в локалку з інпуту
@@ -142,6 +148,18 @@ export class LocalSave extends Paginations {
     this.libraryTrue = argument;
   };
   // *******************чтение локалки*********************************************
+  getArreyWatched = () => {
+    const arreyWatched = localStorage.getItem('wached-film');
+    if (arreyWatched) {
+      this.arrWatched = arreyWatched;
+    }
+  };
+  getArreyQueue = () => {
+    const arreyQueue = localStorage.getItem('queue-film');
+    if (arreyQueue) {
+      this.arrQueue = arreyQueue;
+    }
+  };
   getLibraryTrue = () => {
     const libraryIsTrue = localStorage.getItem('is-library');
     if (libraryIsTrue) {

@@ -8,7 +8,7 @@ export class Paginations extends Thema {
   }
 
   // этот метод для отрисовки нашей библиотеки
-  paginationLibrarySave = () => {
+  paginationLibrarySave = argumentWatch => {
     // console.log(this.arrQueue.length);
     this.totalPages = this.arrQueue.length;
     if (this.totalPages < 10) {
@@ -19,7 +19,7 @@ export class Paginations extends Thema {
     }
     this.itemsPerPage = 9;
     this.buildPagination();
-    this.renderFilmsCardById();
+    this.renderFilmsCardById(argumentWatch);
   };
 
   // этот метод для отрисовки домашней странички
