@@ -9,8 +9,11 @@ export class Paginations extends Thema {
 
   // этот метод для отрисовки нашей библиотеки
   paginationLibrarySave = argumentWatch => {
-    // console.log(this.arrQueue.length);
-    this.totalPages = this.arrQueue.length;
+    if (argumentWatch) {
+      this.totalPages = this.arrWatched.length;
+    } else {
+      this.totalPages = this.arrQueue.length;
+    }
     if (this.totalPages < 10) {
       this.refs.containerPagination.classList.add('visually-hidden');
     }

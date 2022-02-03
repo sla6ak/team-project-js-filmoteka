@@ -50,36 +50,9 @@ export class Render extends Fetch {
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
-    // проверим есть ли фильмы в массиве сохраненных
-    // console.log(this.arrQueue.includes(liId));
-    // console.log( this.arrWatched.includes( liId ) );
 
-    if (this.arrWatched.includes(liId)) {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
-      } else {
-        this.refs.modalWatchedBt.innerHTML = 'видалити з iсторii';
-      }
-    } else {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalWatchedBt.innerHTML = 'add to Watched';
-      } else {
-        this.refs.modalWatchedBt.innerHTML = 'додати в iсторiю';
-      }
-    }
-    if (this.arrQueue.includes(liId)) {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalQueueBt.innerHTML = 'delite of queue';
-      } else {
-        this.refs.modalQueueBt.innerHTML = 'видалити з вiдкладених';
-      }
-    } else {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalQueueBt.innerHTML = 'add to queue';
-      } else {
-        this.refs.modalQueueBt.innerHTML = 'подивитись пiзнiше';
-      }
-    }
+    // проверим есть ли фильмы в массиве сохраненных
+    this.isFilmsSave();
 
     //проверим есть ли описание к фильму на нашем языке
     if (this.fullModal.overview.length == false) {
@@ -233,6 +206,35 @@ export class Render extends Fetch {
         const respQ = await this.fetchFilmsInfo(elemt);
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
       });
+    }
+  };
+
+  isFilmsSave = () => {
+    if (this.arrWatched.includes(this.liID)) {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
+      } else {
+        this.refs.modalWatchedBt.innerHTML = 'видалити з iсторii';
+      }
+    } else {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalWatchedBt.innerHTML = 'add to Watched';
+      } else {
+        this.refs.modalWatchedBt.innerHTML = 'додати в iсторiю';
+      }
+    }
+    if (this.arrQueue.includes(this.liID)) {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalQueueBt.innerHTML = 'delite of queue';
+      } else {
+        this.refs.modalQueueBt.innerHTML = 'видалити з вiдкладених';
+      }
+    } else {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalQueueBt.innerHTML = 'add to queue';
+      } else {
+        this.refs.modalQueueBt.innerHTML = 'подивитись пiзнiше';
+      }
     }
   };
 }

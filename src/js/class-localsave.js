@@ -69,13 +69,27 @@ export class LocalSave extends Paginations {
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
 
-    this.refs.modalWatchedBt.addEventListener('click', ev => {
-      this.arrWatched.push(this.liID);
+    this.refs.modalWatchedBt.addEventListener('click', () => {
+      if (this.arrWatched.includes(this.liID)) {
+        this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
+        this.paginationLibrarySave(true);
+      } else {
+        this.arrWatched.push(this.liID);
+      }
       this.setFilmWached();
+      this.isFilmsSave();
     });
-    this.refs.modalQueueBt.addEventListener('click', ev => {
-      this.arrQueue.push(this.liID);
+
+    this.refs.modalQueueBt.addEventListener('click', () => {
+      console.log(this.arrQueue.indexOf(this.liID));
+      if (this.arrQueue.includes(this.liID)) {
+        this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
+        this.paginationLibrarySave(false);
+      } else {
+        this.arrQueue.push(this.liID);
+      }
       this.setFilmQueue();
+      this.isFilmsSave();
     });
 
     this.openModalFooter();
