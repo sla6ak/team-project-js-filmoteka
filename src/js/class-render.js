@@ -60,11 +60,11 @@ export class Render extends Fetch {
       this.youtubeImg = '';
     }
     //
-    this.refs.aboutApi.innerHTML = this.fullModal.overview;
-    this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
-    <div class="youtube">
-    <img src="" data-source="" alt="" class="youtube-img">
-    </div>`;
+    // this.refs.aboutApi.innerHTML = this.fullModal.overview;
+    // this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
+    // <div class="youtube">
+    // <img src="" data-source="" alt="" class="youtube-img">
+    // </div>`;
     // ==== закінчується код який треба передивитись
 
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -156,36 +156,32 @@ export class Render extends Fetch {
     this.refs.headerQueueBtn.classList.replace('back-orange', 'back-dark');
   };
   onQueueClick = () => {
-    this.refs.headerWathedBtn.classList.replace('watched-btn', 'queue-btn');
-    this.refs.headerQueueBtn.classList.replace('queue-btn', 'watched-btn');
-
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
-  
 
   openModalFooter = () => {
-    this.refs.ourTeam.addEventListener('click', ()=> {
-      this.refs.backdropFooter.classList.remove('visually-hidden')
-      this.refs.body.classList.add('no-scroll')
-      this.closeModalFooter()
-    })
-  }
+    this.refs.ourTeam.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.remove('visually-hidden');
+      this.refs.body.classList.add('no-scroll');
+      this.closeModalFooter();
+    });
+  };
 
   closeModalFooter = () => {
-    this.refs.backdropFooter.addEventListener('click', (event)=>{
-      if(event.target.className !== 'backdrop'){
-        return
-      } 
-      this.refs.backdropFooter.classList.add('visually-hidden')
+    this.refs.backdropFooter.addEventListener('click', event => {
+      if (event.target.className !== 'backdrop') {
+        return;
+      }
+      this.refs.backdropFooter.classList.add('visually-hidden');
       this.refs.body.classList.remove('no-scroll');
-    })
-    this.refs.closeFooterBt.addEventListener('click',()=> {
-    this.refs.backdropFooter.classList.add('visually-hidden');
-    this.refs.body.classList.remove('no-scroll');
-    })
+    });
+    this.refs.closeFooterBt.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
     window.addEventListener('keydown', this.onEscKeyFooter);
-  }
+  };
 
   onEscKeyFooter = evn => {
     if (evn.code !== 'Escape') {
@@ -195,8 +191,7 @@ export class Render extends Fetch {
     this.refs.backdropFooter.classList.add('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
   };
-  
- 
+
   renderFilmsCardWatched = () => {};
   renderFilmsCardQueue = () => {};
 }
