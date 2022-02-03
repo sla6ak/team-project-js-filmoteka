@@ -189,6 +189,5 @@ export class Render extends Fetch {
     window.removeEventListener('keydown', this.onEscKeyFooter);
   };
 
-  renderFilmsCardWatched = () => {};
-  renderFilmsCardQueue = () => {};
+  renderFilmsCardById = () => {};
 }

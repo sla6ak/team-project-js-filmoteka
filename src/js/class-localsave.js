@@ -11,6 +11,8 @@ export class LocalSave extends Paginations {
     this.start();
     this.EventListenerAll();
     this.getLocalCurrentPage();
+    // проверка где был пользователь
+    this.getLibraryTrue();
     this.getLocalLanguage();
     this.getLocalThema();
     this.getLocalInputText();
@@ -18,14 +20,15 @@ export class LocalSave extends Paginations {
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
-    // console.log(this.refs.inputFilm);
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
+      this.setLibraryTrue(false);
       this.goHomePage();
       this.onHomeClick();
     });
     // Лісерен хоум
     this.refs.homeBt.addEventListener('click', () => {
+      this.setLibraryTrue(false);
       this.goHomePage();
       this.onHomeClick();
     });
@@ -35,16 +38,10 @@ export class LocalSave extends Paginations {
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
       this.setLocalLanguage();
-
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
         return;
       }
-
-      if (this.searchQuery === null) {
-        this.paginationStart();
-      } else {
-        this.paginationSearch();
-      }
+      this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
     });
 
     this.refs.uaBox.addEventListener('click', () => {
@@ -54,70 +51,60 @@ export class LocalSave extends Paginations {
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
         return;
       }
-      if (this.searchQuery === null) {
-        this.paginationStart();
-      } else {
-        this.paginationSearch();
-      }
+      this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
     });
     // Лісенер на кліки по вибору теми
     this.refs.themaBt.addEventListener('click', () => {
       this.onThemaClick();
       this.setLocalThema();
     });
-
     // Лісенер на кліки по кнопці бібліотека
     this.refs.libraryBt.addEventListener('click', () => {
+      this.setLibraryTrue(true);
       this.onLibraryClick();
-      this.paginationWatched();
+      this.paginationLibrarySave();
     });
-
-
 
     this.refs.modalWatchedBt.addEventListener('click', () => {
-      this.onModalWachedBtn()
+      this.onModalWachedBtn();
     });
-   this.refs.modalQueueBt.addEventListener('click', () => {
-      this.onModalQueueBtn()
+    this.refs.modalQueueBt.addEventListener('click', () => {
+      this.onModalQueueBtn();
     });
 
-    this.openModalFooter()
-   
+    this.openModalFooter();
+
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.onWatchedClick();
-      this.paginationWatched();
+      this.paginationLibrarySave();
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
       this.onQueueClick();
-      this.paginationQueue();
+      this.paginationLibrarySave();
     });
   };
 
-  onModalWachedBtn = evt => {
-    console.log('watched');
-    const dataFilm = this.fullModal;
-    this.arrWatched.push(dataFilm);
+  onModalWachedBtn = () => {
+    this.arrWatched.push(this.fullModal);
     this.setFilmWached();
-  }
-
-  onModalQueueBtn = (evt) => {
-    console.log('queue')
-    const dataFilm = this.fullModal;
-    this.arrQueue.push(dataFilm);
+  };
+  onModalQueueBtn = () => {
+    this.arrQueue.push(this.fullModal);
     this.setFilmQueue();
-  }
+  };
+
   onInputSearch = evt => {
     this.currentPage = 1;
     this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
-      this.paginationSearch();
+      this.paginationStart(evt.target.value.trim()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
       return;
     }
     this.searchQuery = evt.target.value.trim();
     this.data = evt.target.value.trim();
     this.setLocalInput();
-    this.paginationSearch();
+    this.paginationStart(evt.target.value.trim()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
   };
 
   goHomePage = evt => {
@@ -127,8 +114,6 @@ export class LocalSave extends Paginations {
     this.refs.inputFilm.value = '';
     this.currentPage = 1;
     this.paginationStart();
-    
-
   };
   // *********************запись данных в локалку********************************
   // Додаємо дані в локалку з інпуту
@@ -146,21 +131,30 @@ export class LocalSave extends Paginations {
   // Записую в локалку дані про фільм перглянуті
   setFilmWached = () => {
     localStorage.setItem('wached-film', JSON.stringify(this.arrWatched));
-
-  }
+  };
   // Записую в локалку дані про фільм додані в чергу
   setFilmQueue = () => {
     localStorage.setItem('queue-film', JSON.stringify(this.arrQueue));
-
-  }
+  };
+  // мутод записывает где находиться пользователь. тру либо фолс - library
+  setLibraryTrue = argument => {
+    localStorage.setItem('is-library', JSON.stringify(argument));
+    this.libraryTrue = argument;
+  };
   // *******************чтение локалки*********************************************
+  getLibraryTrue = () => {
+    const libraryIsTrue = localStorage.getItem('is-library');
+    if (libraryIsTrue) {
+      this.libraryTrue = libraryIsTrue;
+    }
+  };
   // Функція получаємо дані з локалки для інпуту
   getLocalInputText = () => {
     const inputText = localStorage.getItem('search-input-text');
     if (inputText) {
       this.refs.inputFilm.value = inputText;
       this.searchQuery = inputText;
-      this.paginationSearch();
+      this.paginationStart(inputText);
     }
   };
   // Получаємо дані з локалки для мови

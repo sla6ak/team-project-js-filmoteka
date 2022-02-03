@@ -7,29 +7,42 @@ export class Paginations extends Thema {
     this.itemsPerPage = 20;
   }
 
-  paginationStart = async () => {
-    const respons = await this.fetchPopularFilms();
-
-    this.renderFilmsCardMarkup(respons);
-    this.itemsPerPage = 20;
+  // этот метод для отрисовки нашей библиотеки
+  paginationLibrarySave = () => {
+    // console.log(this.arrQueue.length);
+    this.totalPages = this.arrQueue.length;
+    if (this.totalPages < 10) {
+      this.refs.containerPagination.classList.add('visually-hidden');
+    }
+    if (this.totalPages > 10) {
+      this.refs.containerPagination.classList.remove('visually-hidden');
+    }
+    this.itemsPerPage = 9;
     this.buildPagination();
+    this.renderFilmsCardById();
   };
 
-  paginationSearch = async () => {
-    const respons = await this.fetchSearchFilms();
+  // этот метод для отрисовки домашней странички
+  paginationStart = async isSerch => {
+    let respons = null;
+    if (isSerch) {
+      respons = await this.fetchSearchFilms();
+    } else {
+      respons = await this.fetchPopularFilms();
+    }
+
     if (this.totalPages < 20) {
       this.refs.containerPagination.classList.add('visually-hidden');
     }
     if (this.totalPages > 20) {
       this.refs.containerPagination.classList.remove('visually-hidden');
     }
-
     this.renderFilmsCardMarkup(respons);
     this.itemsPerPage = 20;
     this.buildPagination();
   };
 
-  // *********getTotalPages()***вернет актуальное значение******
+  // ************это просто фреймворк***********
   buildPagination = async () => {
     const optionPagin = {
       totalItems: this.totalPages,
@@ -68,40 +81,17 @@ export class Paginations extends Thema {
         left: 0,
         behavior: 'smooth',
       });
-
-      this.paginationStart();
+      if (this.libraryTrue === true) {
+        this.paginationLibrarySave();
+      } else if (this.searchQuery == null) {
+        this.paginationStart(false);
+      } else {
+        this.paginationStart(true);
+      }
     });
   };
   // Зберігаєм в локалку вибрану сторінку
   setCurrentPage = () => {
     localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
-  };
-  paginationWatched = () => {
-    // console.log(this.arrQueue.length);
-    this.totalPages = this.arrQueue.length;
-    if (this.totalPages < 10) {
-      this.refs.containerPagination.classList.add('visually-hidden');
-    }
-    if (this.totalPages > 10) {
-      this.refs.containerPagination.classList.remove('visually-hidden');
-    }
-
-    this.itemsPerPage = 9;
-    this.buildPagination();
-    this.renderFilmsCardWatched();
-  };
-  paginationQueue = arrQueue => {
-    // console.log(this.arrQueue.length);
-    this.totalPages = this.arrQueue.length;
-    if (this.totalPages < 10) {
-      this.refs.containerPagination.classList.add('visually-hidden');
-    }
-    if (this.totalPages > 10) {
-      this.refs.containerPagination.classList.remove('visually-hidden');
-    }
-
-    this.itemsPerPage = 9;
-    this.buildPagination();
-    this.renderFilmsCardQueue();
   };
 }

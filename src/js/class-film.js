@@ -2,6 +2,8 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
+    // проверим находиться ли позьзователь в библиотеке?
+    this.libraryTrue = false;
     this.arrQueue = [];
     this.arrWatched = [];
     this.curentLanguage = 'en';
@@ -90,7 +92,6 @@ export class Film {
       ourTeam: document.querySelector('.js-our-team'),
       backdropFooter: document.querySelector('#js-backdrop-footer'),
       closeFooterBt: document.querySelector('.js-close-footer'),
-      
     };
   }
   // проверочный метод который я запустил в самом индексе сквозь все классы чтоб убедиться что все настроено
