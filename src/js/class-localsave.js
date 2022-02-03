@@ -98,10 +98,14 @@ export class LocalSave extends Paginations {
     this.openModalFooter();
     // слушатель для кнопок библиотеки в хедере
     this.refs.headerWathedBtn.addEventListener('click', () => {
+      this.currentPage = 1;
+
       this.onWatchedClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
+      this.currentPage = 1;
+
       this.onQueueClick();
       this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
     });

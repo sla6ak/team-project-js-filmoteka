@@ -85,6 +85,7 @@ export class Paginations extends Thema {
         left: 0,
         behavior: 'smooth',
       });
+
       if (this.libraryTrue === true) {
         this.paginationLibrarySave(this.argumentWatch);
       } else if (this.searchQuery == null) {
