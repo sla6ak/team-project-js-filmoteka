@@ -192,7 +192,7 @@ export class Render extends Fetch {
 
   closeModalFooter = () => {
     this.refs.backdropFooter.addEventListener('click', (event)=>{
-      if(event.target.className !== 'backdrop'){
+      if(event.target.className !== 'backdropFooterModal'){
         return
       } 
       this.refs.backdropFooter.classList.add('visually-hidden')
