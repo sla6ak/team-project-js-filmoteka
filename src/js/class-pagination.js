@@ -17,10 +17,11 @@ export class Paginations extends Thema {
     if (this.totalPages < 10) {
       this.refs.containerPagination.classList.add('visually-hidden');
     }
-    if (this.totalPages > 10) {
+    if (this.totalPages >= 10) {
       this.refs.containerPagination.classList.remove('visually-hidden');
     }
     this.itemsPerPage = 9;
+
     this.buildPagination();
     this.renderFilmsCardById(argumentWatch);
   };
