@@ -51,6 +51,9 @@ export class Render extends Fetch {
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
 
+    console.log(this.arrQueue.includes(this.fullModal.id));
+    console.log(this.arrWatched.includes(this.fullModal.id));
+
     //проверим есть ли описание к фильму на нашем языке
     if (this.fullModal.overview.length == false) {
       if (this.curentLanguage === 'uk') {
@@ -199,8 +202,9 @@ export class Render extends Fetch {
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
       });
     } else {
-      this.arrQueue.forEach(elemt => {
-        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ elemt }));
+      this.arrQueue.forEach(async elemt => {
+        const respQ = await this.fetchFilmsInfo(elemt);
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
       });
     }
   };

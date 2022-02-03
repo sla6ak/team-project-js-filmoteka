@@ -74,7 +74,7 @@ export class LocalSave extends Paginations {
       this.setFilmWached();
     });
     this.refs.modalQueueBt.addEventListener('click', ev => {
-      ev.target.this.arrQueue.push(this.liID);
+      this.arrQueue.push(this.liID);
       this.setFilmQueue();
     });
 
