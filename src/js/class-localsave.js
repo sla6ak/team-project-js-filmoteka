@@ -64,6 +64,9 @@ export class LocalSave extends Paginations {
     });
     // Лісенер на кліки по кнопці бібліотека
     this.refs.libraryBt.addEventListener('click', () => {
+      this.currentPage = 1;
+      this.onWatchedClick(); // чтобы возвращало на стартовую вкладку Watched
+
       this.setLibraryTrue(true);
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
