@@ -45,6 +45,7 @@ export class Film {
 
       headerWathedBtn: document.querySelector('.js-watched-header'),
       headerQueueBtn: document.querySelector('.js-queue-header'),
+      genres: document.querySelector('.film-card__film-item'),
       // ======================= посилання на статичні елементи модалки
       voteTitle: document.querySelector('.js-vote'),
       popularityTitle: document.querySelector('.js-popularity'),

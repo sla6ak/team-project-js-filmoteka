@@ -32,6 +32,15 @@ export class Render extends Fetch {
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
     this.ganresList = await this.fetchGenresList();
+    resultsFilms.forEach(el => {
+      for (const genre of this.ganresList) {
+        const { id, name } = genre;
+        const [ ids ] = el.genre_ids;
+        if (id === ids) {
+          this.refs.genres.insertAdjacentHTML('beforeend', render());
+        }
+      }
+    })
 
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
@@ -219,26 +228,26 @@ export class Render extends Fetch {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
       } else {
-        this.refs.modalWatchedBt.innerHTML = 'видалити з iсторii';
+        this.refs.modalWatchedBt.innerHTML = 'видалити з історії';
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'add to Watched';
       } else {
-        this.refs.modalWatchedBt.innerHTML = 'додати в iсторiю';
+        this.refs.modalWatchedBt.innerHTML = 'додати в історію';
       }
     }
     if (this.arrQueue.includes(this.liID)) {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'delite of queue';
       } else {
-        this.refs.modalQueueBt.innerHTML = 'видалити з вiдкладених';
+        this.refs.modalQueueBt.innerHTML = 'видалити з відкладенних';
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'add to queue';
       } else {
-        this.refs.modalQueueBt.innerHTML = 'подивитись пiзнiше';
+        this.refs.modalQueueBt.innerHTML = 'подивитись пізніше';
       }
     }
   };
