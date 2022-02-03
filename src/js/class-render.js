@@ -10,6 +10,7 @@ export class Render extends Fetch {
     this.youtubeImg = '';
     this.titleCard = [];
     this.fullModal = '';
+    this.liID;
   }
 
   // очистка всего рендера
@@ -21,58 +22,49 @@ export class Render extends Fetch {
   renderFilmsCardMarkup = async results => {
     const resultsFilms = await results;
     if (resultsFilms == '') {
-        this.refs.notification.classList.remove('notification-none');
-     return
-    } 
+      this.refs.notification.classList.remove('notification-none');
+      return;
+    }
     this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
-       
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
     this.ganresList = await this.fetchGenresList();
 
-  
-  //   resultsFilms.forEach(el => {
-  //     const filmGenres = Object.values(this.ganresList);
-  //     console.log(filmGenres);
-  //     const { id, name } = filmGenres;
-  // if (el.genre_ids === id) {
-  
-  // }
-        
-  //     })
-    
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
-
-  
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
-    let liEvent = event.target.closest('.film-card');
-    
-    if (!liEvent) {
+    let liId = event.target.closest('.film-card').dataset.source;
+    this.liID = liId;
+    if (!liId) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(liEvent.dataset.source);
+    this.fullModal = await this.fetchFilmsInfo(liId);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
     this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
     window.addEventListener('keydown', this.onEscKeyPres);
 
-    if (this.fullModal.overview.length == false && this.curentLanguage == 'uk') {
-      this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
+    // проверим есть ли фильмы в массиве сохраненных
+    this.isFilmsSave();
+
+    //проверим есть ли описание к фильму на нашем языке
+    if (this.fullModal.overview.length == false) {
+      if (this.curentLanguage === 'uk') {
+        this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
+      } else {
+        this.refs.aboutApi.textContent = 'i am sorry this info loose :(';
+      }
     } else {
       this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
     }
-    // this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
-    // <div class="youtube">
-    // <img src="../images/yout.png" data-source="" alt="" class="youtube-img">
-    // </div>`;
+
     this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
     if (this.fullModal.videos.results[0]) {
       this.videoKeyYoutube = this.fullModal.videos.results[0].key;
@@ -80,13 +72,6 @@ export class Render extends Fetch {
       this.videoKeyYoutube = '';
       this.youtubeImg = '';
     }
-    //
-    this.refs.aboutApi.innerHTML = this.fullModal.overview;
-    this.refs.prewiuModalka.innerHTML = `<img src="${this.BASE_IMG_URL}/${this.fullModal.poster_path}" data-source="" alt="" class="modal-img">
-    <div class="youtube">
-    <img src="" data-source="" alt="" class="youtube-img">
-    </div>`;
-    // ==== закінчується код який треба передивитись
 
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
     this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
@@ -96,11 +81,6 @@ export class Render extends Fetch {
     let ganres = this.fullModal.genres.map(g => g.name).join(', ');
     this.refs.modalGanre.textContent = `${ganres}`;
     this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
-
-    // перевіряємо чи клік був на карточці з фільмом
-    // якщо так, очищуємо вміст модалки через innertHTML = ''
-    // рендеримо розмітку модалки, підставляємо туди дані і додаємо розмітку через
-    // insertAdjacentHTML('beforeend', murkup);
   };
 
   onTrailerClick = () => {
@@ -180,30 +160,29 @@ export class Render extends Fetch {
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
-  
 
   openModalFooter = () => {
-    this.refs.ourTeam.addEventListener('click', ()=> {
-      this.refs.backdropFooter.classList.remove('visually-hidden')
-      this.refs.body.classList.add('no-scroll')
-      this.closeModalFooter()
-    })
-  }
+    this.refs.ourTeam.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.remove('visually-hidden');
+      this.refs.body.classList.add('no-scroll');
+      this.closeModalFooter();
+    });
+  };
 
   closeModalFooter = () => {
-    this.refs.backdropFooter.addEventListener('click', (event)=>{
-      if(event.target.className !== 'backdropFooterModal'){
-        return
-      } 
-      this.refs.backdropFooter.classList.add('visually-hidden')
+    this.refs.backdropFooter.addEventListener('click', event => {
+      if (event.target.className !== 'backdropFooterModal') {
+        return;
+      }
+      this.refs.backdropFooter.classList.add('visually-hidden');
       this.refs.body.classList.remove('no-scroll');
-    })
-    this.refs.closeFooterBt.addEventListener('click',()=> {
-    this.refs.backdropFooter.classList.add('visually-hidden');
-    this.refs.body.classList.remove('no-scroll');
-    })
+    });
+    this.refs.closeFooterBt.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
     window.addEventListener('keydown', this.onEscKeyFooter);
-  }
+  };
 
   onEscKeyFooter = evn => {
     if (evn.code !== 'Escape') {
@@ -213,8 +192,49 @@ export class Render extends Fetch {
     this.refs.backdropFooter.classList.add('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
   };
-  
- 
-  renderFilmsCardWatched = () => {};
-  renderFilmsCardQueue = () => {};
+
+  //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
+  renderFilmsCardById = async argumentWatch => {
+    this.renderBoxCleaner();
+    if (argumentWatch) {
+      this.arrWatched.forEach(async element => {
+        const respW = await this.fetchFilmsInfo(element);
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
+      });
+    } else {
+      this.arrQueue.forEach(async elemt => {
+        const respQ = await this.fetchFilmsInfo(elemt);
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
+      });
+    }
+  };
+
+  isFilmsSave = () => {
+    if (this.arrWatched.includes(this.liID)) {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
+      } else {
+        this.refs.modalWatchedBt.innerHTML = 'видалити з iсторii';
+      }
+    } else {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalWatchedBt.innerHTML = 'add to Watched';
+      } else {
+        this.refs.modalWatchedBt.innerHTML = 'додати в iсторiю';
+      }
+    }
+    if (this.arrQueue.includes(this.liID)) {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalQueueBt.innerHTML = 'delite of queue';
+      } else {
+        this.refs.modalQueueBt.innerHTML = 'видалити з вiдкладених';
+      }
+    } else {
+      if (this.curentLanguage === 'en') {
+        this.refs.modalQueueBt.innerHTML = 'add to queue';
+      } else {
+        this.refs.modalQueueBt.innerHTML = 'подивитись пiзнiше';
+      }
+    }
+  };
 }
