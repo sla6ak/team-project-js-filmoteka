@@ -1,5 +1,7 @@
 import { Fetch } from './class-fetch';
 import render from '../templates/film-details.hbs';
+import { debounce } from 'debounce';
+import throttle from 'lodash.throttle';
 
 export class Render extends Fetch {
   constructor(films) {
@@ -33,7 +35,33 @@ export class Render extends Fetch {
     });
     this.ganresList = await this.fetchGenresList();
 
+    this.animat();
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
+  };
+
+  animat = async () => {
+    const cards = this.refs.renderBox.querySelectorAll('.film-image');
+
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+
+      card.addEventListener('mousemove', e => {
+        console.log(e.offsetY);
+        const halfHeight = e.target.offsetHeight / 2;
+        const halfWidth = card.offsetWidth / 2;
+
+        card.style.transform =
+          'rotateX(' +
+          -(e.offsetY - halfHeight) / 8 +
+          'deg) rotateY(' +
+          (e.offsetX - halfWidth) / 8 +
+          'deg)';
+      });
+
+      card.addEventListener('mouseout', evt => {
+        card.style.transform = 'rotate(0)';
+      });
+    }
   };
 
   // отрисовка модалки с полной инфой о фильме

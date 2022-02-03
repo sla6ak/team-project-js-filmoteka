@@ -44,6 +44,7 @@ export class Paginations extends Thema {
     this.renderFilmsCardMarkup(respons);
     this.itemsPerPage = 20;
     this.buildPagination();
+    this.animat();
   };
 
   // ************это просто фреймворк***********
