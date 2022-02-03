@@ -45,22 +45,29 @@ export class Render extends Fetch {
     for (let i = 0; i < cards.length; i++) {
       const card = cards[i];
 
-      card.addEventListener('mousemove', e => {
-        console.log(e.offsetY);
-        const halfHeight = e.target.offsetHeight / 2;
-        const halfWidth = card.offsetWidth / 2;
+      card.addEventListener(
+        'mousemove',
+        throttle(e => {
+          const halfHeight = e.target.offsetHeight / 2;
+          const halfWidth = card.offsetWidth / 2;
 
-        card.style.transform =
-          'rotateX(' +
-          -(e.offsetY - halfHeight) / 8 +
-          'deg) rotateY(' +
-          (e.offsetX - halfWidth) / 8 +
-          'deg)';
-      });
+          card.style.transform =
+            'rotateX(' +
+            -(e.offsetY - halfHeight) / 8 +
+            'deg) rotateY(' +
+            (e.offsetX - halfWidth) / 8 +
+            'deg)';
+        }, 200),
+      );
 
-      card.addEventListener('mouseout', evt => {
-        card.style.transform = 'rotate(0)';
-      });
+      card.addEventListener(
+        'mouseout',
+        debounce(evt => {
+          console.log(evt);
+
+          card.style.transform = 'rotate(0)';
+        }, 200),
+      );
     }
   };
 
