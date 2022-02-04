@@ -37,10 +37,10 @@
       </picture>
 
       <div class='film-card__discribe-container'>
-      {{#if original_title}}
-      <h3 class='film-card__film-name js-film-card__film-name'>{{original_title}}</h3>
-      {{else}}
+      {{#if title}}
       <h3 class='film-card__film-name js-film-card__film-name'>{{title}}</h3>
+      {{else}}
+      <h3 class='film-card__film-name js-film-card__film-name'>{{original_title}}</h3>
       {{/if}}
       <div class='film-card__film-caption'>
         <ul class='film-card__film-items'>

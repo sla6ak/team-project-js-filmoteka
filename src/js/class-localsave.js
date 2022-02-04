@@ -67,6 +67,8 @@ export class LocalSave extends Paginations {
       this.currentPage = 1;
       this.onWatchedClick(); // чтобы возвращало на стартовую вкладку Watched
       this.setLibraryTrue(true);
+      // зразу записую тру для кнопки переглянуті
+      this.setHeaderWatchedBtnTrue(true);
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
@@ -74,21 +76,37 @@ export class LocalSave extends Paginations {
     this.refs.modalWatchedBt.addEventListener('click', () => {
       if (this.arrWatched.includes(this.liID)) {
         this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
-        this.paginationLibrarySave(true);
+        // це треба додавати тільки якщо ми відкрили модалку 
+        // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
+        // +++++
+        if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(true); 
+        }
+        
       } else {
         this.arrWatched.push(this.liID);
+        if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(true); 
+        }
       }
       this.setFilmWached();
       this.isFilmsSave();
     });
     // Лісенер по кліку на модалку кнопка черга
     this.refs.modalQueueBt.addEventListener('click', () => {
-      console.log(this.arrQueue.indexOf(this.liID));
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
-        this.paginationLibrarySave(false);
+        // це треба додавати тільки якщо ми відкрили модалку 
+        // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
+        // ++++++++++
+         if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(false);
+        }
       } else {
         this.arrQueue.push(this.liID);
+        if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(false); 
+        }
       }
       this.setFilmQueue();
       this.isFilmsSave();

@@ -29,6 +29,34 @@ export class Render extends Fetch {
     }
     this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
+
+    this.ganresList = await this.fetchGenresList();
+
+    resultsFilms.forEach(film => {
+      // console.log(film);
+      let genreArr = [];
+      for (let genre_id of film.genre_ids) {
+        // console.log(genre_id);
+        for (let i = 0; i < this.ganresList.length; i += 1) {
+          if (this.ganresList[i].id === genre_id) {
+            genreArr.push(' ' + this.ganresList[i].name);
+            // console.log(genreArr);
+          }
+        }
+      }
+
+      if (genreArr.length >= 3) {
+        genreArr.length = 3;
+        if (this.curentLanguage === 'en') {
+          genreArr[2] = ' Other';
+        } else {
+          genreArr[2] = ' Інші';
+        }
+      }
+
+      film.genre_ids = genreArr;
+    });
+
     resultsFilms.forEach(element => {
       //вот тут ты получаешь объект с жанрами ты можешь подмеить жанры по ключу вставить вместо id туда же ответы а потом кинуть в рендер!
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
@@ -51,12 +79,12 @@ export class Render extends Fetch {
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
-    let liId = event.target.closest('.film-card').dataset.source;
-    this.liID = liId;
+    let liId = event.target.closest('.film-card');
+    // this.liID = liId;
     if (!liId) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(liId);
+    this.fullModal = await this.fetchFilmsInfo(liId.dataset.source);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);

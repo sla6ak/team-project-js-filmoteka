@@ -33,9 +33,8 @@ export class Film {
       header: document.querySelector('.header'),
       notification: document.querySelector('.notification'),
       notificationText: document.querySelector('.notification-text'),
-      // **********************pender*******************************
-      // titleCard: '',
-      // ******************************
+      //=======================pender*******************************
+      //==================================
       // translate_footer
       footer: document.querySelector('.footer'),
       footerTextСopyrightOne: document.querySelector('.footer-text-one'),
