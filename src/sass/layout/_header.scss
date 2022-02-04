@@ -427,6 +427,7 @@ input:checked + .slider:before {
   line-height: 1.33;
   text-transform: uppercase;
   color: #fff;
+  cursor: pointer;
 
   @media screen and (min-width: 768px) {
     margin-right: 15px;
@@ -446,6 +447,7 @@ input:checked + .slider:before {
   border-radius: 5px;
   border: 1px solid #ffffff;
   background: rgba(0, 0, 0, 0.56);
+  cursor: pointer;
 }
 
 .buttons-header {

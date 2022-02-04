@@ -1,5 +1,7 @@
 import { Fetch } from './class-fetch';
 import render from '../templates/film-details.hbs';
+import { debounce } from 'debounce';
+import throttle from 'lodash.throttle';
 
 export class Render extends Fetch {
   constructor(films) {
@@ -32,8 +34,50 @@ export class Render extends Fetch {
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
     this.ganresList = await this.fetchGenresList();
+    resultsFilms.forEach(el => {
+      for (const genre of this.ganresList) {
+        const { id, name } = genre;
+        const [ ids ] = el.genre_ids;
+        if (id === ids) {
+          this.refs.genres.insertAdjacentHTML('beforeend', render());
+        }
+      }
+    })
 
+    this.animat();
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
+  };
+
+  animat = async () => {
+    const cards = this.refs.renderBox.querySelectorAll('.film-image');
+
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+
+      card.addEventListener(
+        'mousemove',
+        throttle(e => {
+          const halfHeight = e.target.offsetHeight / 2;
+          const halfWidth = card.offsetWidth / 2;
+
+          card.style.transform =
+            'rotateX(' +
+            -(e.offsetY - halfHeight) / 8 +
+            'deg) rotateY(' +
+            (e.offsetX - halfWidth) / 8 +
+            'deg)';
+        }, 200),
+      );
+
+      card.addEventListener(
+        'mouseout',
+        debounce(evt => {
+          console.log(evt);
+
+          card.style.transform = 'rotate(0)';
+        }, 200),
+      );
+    }
   };
 
   // отрисовка модалки с полной инфой о фильме
@@ -219,26 +263,26 @@ export class Render extends Fetch {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
       } else {
-        this.refs.modalWatchedBt.innerHTML = 'видалити з iсторii';
+        this.refs.modalWatchedBt.innerHTML = 'видалити з історії';
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'add to Watched';
       } else {
-        this.refs.modalWatchedBt.innerHTML = 'додати в iсторiю';
+        this.refs.modalWatchedBt.innerHTML = 'додати в історію';
       }
     }
     if (this.arrQueue.includes(this.liID)) {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'delite of queue';
       } else {
-        this.refs.modalQueueBt.innerHTML = 'видалити з вiдкладених';
+        this.refs.modalQueueBt.innerHTML = 'видалити з відкладенних';
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'add to queue';
       } else {
-        this.refs.modalQueueBt.innerHTML = 'подивитись пiзнiше';
+        this.refs.modalQueueBt.innerHTML = 'подивитись пізніше';
       }
     }
   };
