@@ -34,9 +34,9 @@
   border-radius: 5px;
 }
 .film-card {
+  // outline: 2px solid rgb(0, 153, 255);
   transition: transform 250ms;
-}
-.film-card {
+
   &:hover,
   &:focus {
     transform: scale(1.05);
@@ -81,7 +81,7 @@
   &__film-caption {
     display: flex;
     align-items: center;
-    justify-content: start;
+    // justify-content: start;
     font-size: 12px;
     line-height: 1.33;
     color: #ff6b08;
@@ -90,7 +90,7 @@
 
   &__film-items {
     display: flex;
-    justify-content: start;
+    // justify-content: start;
   }
 
   &__film-item {
