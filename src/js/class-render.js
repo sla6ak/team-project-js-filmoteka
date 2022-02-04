@@ -1,5 +1,5 @@
 import { Fetch } from './class-fetch';
-import render from '../templates/film-details.handlebars';
+import render from '../templates/film-details.hbs';
 
 export class Render extends Fetch {
   constructor(films) {
