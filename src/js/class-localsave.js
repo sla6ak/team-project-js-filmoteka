@@ -18,7 +18,12 @@ export class LocalSave extends Paginations {
     this.getArreyQueue(); //проверим какие фильмы сохранены в отложеных
     this.getHeaderBtnTrue(); //проверим на какой именно страничке библиотеки был пользователь
     this.getLocalCurrentPage(); //проверяем страницу на которой находился пользователь
-    this.paginationStart(); //наконец стартуем
+    if (this.libraryTrue) {
+      //наконец стартуем
+      this.paginationLibrarySave(this.libraryTrueBt);
+    } else {
+      this.paginationStart(this.searchQuery);
+    }
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
@@ -76,17 +81,16 @@ export class LocalSave extends Paginations {
     this.refs.modalWatchedBt.addEventListener('click', () => {
       if (this.arrWatched.includes(this.liID)) {
         this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку 
+        // це треба додавати тільки якщо ми відкрили модалку
         // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         // +++++
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(true); 
+          this.paginationLibrarySave(true);
         }
-        
       } else {
         this.arrWatched.push(this.liID);
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(true); 
+          this.paginationLibrarySave(true);
         }
       }
       this.setFilmWached();
@@ -96,16 +100,16 @@ export class LocalSave extends Paginations {
     this.refs.modalQueueBt.addEventListener('click', () => {
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку 
+        // це треба додавати тільки якщо ми відкрили модалку
         // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         // ++++++++++
-         if (localStorage.getItem('is-library') !== 'false') {
+        if (localStorage.getItem('is-library') !== 'false') {
           this.paginationLibrarySave(false);
         }
       } else {
         this.arrQueue.push(this.liID);
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(false); 
+          this.paginationLibrarySave(false);
         }
       }
       this.setFilmQueue();
