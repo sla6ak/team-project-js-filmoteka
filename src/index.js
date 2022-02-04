@@ -1,8 +1,8 @@
 import './sass/main.scss';
-import { LocalSave } from './js/class-localsave';
+import { Listener } from './js/classListener';
 
-const init = new LocalSave();
+const init = new Listener();
 
 (() => {
-  init.lokalStart();
+  init.listenerStart();
 })();

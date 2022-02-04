@@ -1,18 +1,15 @@
 import { Fetch } from './class-fetch';
 import render from '../templates/film-details.hbs';
-import { debounce } from 'debounce';
-import throttle from 'lodash.throttle';
 
 export class Render extends Fetch {
   constructor(films) {
     super(films);
     // это полная инфа о фильме
-    this.fullInfoModal = null;
-    this.videoKeyYoutube = '';
-    this.youtubeImg = '';
+    this.fullModal = ''; // ответ сервера по запросу конкретного фильма
+    this.videoKeyYoutube = null; // перезаписываемая url на youTube
+    this.youtubeImg = '../images/no-foto.png'; // презаписываемая ссылка на url картинок
     this.titleCard = [];
-    this.fullModal = '';
-    this.liID;
+    this.liID; // id фильма с которым работает модалка передаем в локальное хранение
   }
 
   // очистка всего рендера
@@ -33,25 +30,18 @@ export class Render extends Fetch {
     this.ganresList = await this.fetchGenresList();
 
     resultsFilms.forEach(film => {
-      // console.log(film);
       let genreArr = [];
       for (let genre_id of film.genre_ids) {
-        // console.log(genre_id);
         for (let i = 0; i < this.ganresList.length; i += 1) {
           if (this.ganresList[i].id === genre_id) {
             genreArr.push(' ' + this.ganresList[i].name);
-            // console.log(genreArr);
           }
         }
       }
 
       if (genreArr.length >= 3) {
         genreArr.length = 3;
-        if (this.curentLanguage === 'en') {
-          genreArr[2] = ' Other';
-        } else {
-          genreArr[2] = ' Інші';
-        }
+        genreArr[2] = this.transleter.genreArr2;
       }
 
       film.genre_ids = genreArr;
@@ -85,11 +75,7 @@ export class Render extends Fetch {
 
     //проверим есть ли описание к фильму на нашем языке
     if (this.fullModal.overview.length == false) {
-      if (this.curentLanguage === 'uk') {
-        this.refs.aboutApi.textContent = 'На жаль, опис фільму українською мовою відсутній :(';
-      } else {
-        this.refs.aboutApi.textContent = 'i am sorry this info loose :(';
-      }
+      this.refs.aboutApi.textContent = this.transleter.aboutApi;
     } else {
       this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
     }
@@ -98,8 +84,8 @@ export class Render extends Fetch {
     if (this.fullModal.videos.results[0]) {
       this.videoKeyYoutube = this.fullModal.videos.results[0].key;
     } else {
-      this.videoKeyYoutube = '';
-      this.youtubeImg = '';
+      this.videoKeyYoutube = null;
+      this.youtubeImg = '../images/no-foto.png';
     }
 
     this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -247,30 +233,14 @@ export class Render extends Fetch {
   //кнопки модалки
   isFilmsSave = () => {
     if (this.arrWatched.includes(this.liID)) {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
-      } else {
-        this.refs.modalWatchedBt.innerHTML = 'видалити з історії';
-      }
+      this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtDel;
     } else {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalWatchedBt.innerHTML = 'add to Watched';
-      } else {
-        this.refs.modalWatchedBt.innerHTML = 'додати в історію';
-      }
+      this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtAdd;
     }
     if (this.arrQueue.includes(this.liID)) {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalQueueBt.innerHTML = 'delite of queue';
-      } else {
-        this.refs.modalQueueBt.innerHTML = 'видалити з відкладенних';
-      }
+      this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtDel;
     } else {
-      if (this.curentLanguage === 'en') {
-        this.refs.modalQueueBt.innerHTML = 'add to queue';
-      } else {
-        this.refs.modalQueueBt.innerHTML = 'подивитись пізніше';
-      }
+      this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtAdd;
     }
   };
 }
