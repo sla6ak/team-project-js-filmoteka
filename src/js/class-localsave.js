@@ -84,13 +84,15 @@ export class LocalSave extends Paginations {
         
       } else {
         this.arrWatched.push(this.liID);
+        if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(true); 
+        }
       }
       this.setFilmWached();
       this.isFilmsSave();
     });
   // Лісенер по кліку на модалку кнопка черга
     this.refs.modalQueueBt.addEventListener('click', () => {
-      console.log(this.arrQueue.indexOf(this.liID));
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
         // це треба додавати тільки якщо ми відкрили модалку 
@@ -101,6 +103,9 @@ export class LocalSave extends Paginations {
         }
       } else {
         this.arrQueue.push(this.liID);
+        if (localStorage.getItem('is-library') !== 'false') {
+          this.paginationLibrarySave(false); 
+        }
       }
       this.setFilmQueue();
       this.isFilmsSave();
