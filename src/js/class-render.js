@@ -96,12 +96,16 @@ export class Render extends Fetch {
       allow="autoplay; encrypted-media"></iframe>
     </div>`;
     this.refs.backdropVideo.addEventListener('click', this.onVideoClouseClick);
+    this.refs.closeModalYoutubeBtn.addEventListener('click', this.onYoutubeModalCloseCross);
+    window.addEventListener('keydown', this.onYoutubeModalEscKeyPress);
   };
 
+  // фунцкия закрыает моадлку с трейлером по бекдропу
   onVideoClouseClick = event => {
     if (event.target !== this.refs.backdropVideo) {
       return;
     }
+    this.refs.body.classList.remove('no-scroll');
     this.refs.backdropVideo.classList.add('visually-hidden');
     this.refs.modalVideo.innerHTML = '';
   };
@@ -114,6 +118,17 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+  };
+
+  // закрытие модалки с трейлером по нажатию на клавишу Esc
+  onYoutubeModalEscKeyPress = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    this.refs.modalVideo.innerHTML = '';
+    window.removeEventListener('keydown', this.onYoutubeModalEscKeyPress);
   };
 
   onEscKeyPres = evn => {
@@ -150,6 +165,14 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.modalImage.src = '';
     this.refs.closeModalInfoBtn.removeEventListener('click', this.onModalCloseCross);
+  };
+
+  // закрытие модалки с трейлером по клику на крестик
+  onYoutubeModalCloseCross = () => {
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.modalVideo.innerHTML = '';
+    this.refs.closeModalYoutubeBtn.removeEventListener('click', this.onYoutubeModalCloseCross);
   };
 
   onWatchedClick = () => {

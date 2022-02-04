@@ -82,8 +82,8 @@ export class Film {
       // modalVideo: document.querySelector('.modal-youtube__box'),
 
       backdropVideo: document.querySelector('.js-modal-youtube__backdrop'),
-      modalVideo: document.querySelector('.js-modal-youtube__box'),
-      closeModalYoutubeBtn: document.querySelector('.js-close-youtube-modal'),
+      modalVideo: document.querySelector('.js-modal-youtube__frame'),
+      closeModalYoutubeBtn: document.querySelector('.js-close-modal-info'),
 
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),
