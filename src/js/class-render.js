@@ -29,20 +29,49 @@ export class Render extends Fetch {
     }
     this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
+
+    this.ganresList = await this.fetchGenresList();
+
+    resultsFilms.forEach(film => {
+      // console.log(film);
+      let genreArr = [];
+      for (let genre_id of film.genre_ids) {
+        // console.log(genre_id);
+        for (let i = 0; i < this.ganresList.length; i += 1) {
+          if (this.ganresList[i].id === genre_id) {
+            genreArr.push(' ' + this.ganresList[i].name);
+            // console.log(genreArr);
+          }
+        }
+      }
+
+      if (genreArr.length >= 3) {
+        genreArr.length = 3;
+        if (this.curentLanguage === 'en') {
+          genreArr[2] = ' Other';
+        } else {
+          genreArr[2] = ' Інші';
+        }
+      }
+
+      film.genre_ids = genreArr;
+    });
+
     resultsFilms.forEach(element => {
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
-    this.ganresList = await this.fetchGenresList();
-    resultsFilms.forEach(el => {
-      for (const genre of this.ganresList) {
-        const { id, name } = genre;
-        const [ ids ] = el.genre_ids;
-        if (id === ids) {
-          this.refs.genres.insertAdjacentHTML('beforeend', render());
-        }
-      }
-    })
+    // console.log(resultsFilms);
+    // console.log(this.ganresList);
+    // resultsFilms.forEach(el => {
+    //   for (const genre of this.ganresList) {
+    //     const { id, name } = genre;
+    //     const [ids] = el.genre_ids;
+    //     if (id === ids) {
+    //       // this.refs.genres.insertAdjacentHTML('beforeend', render());
+    //     }
+    //   }
+    // });
 
     this.animat();
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
@@ -83,12 +112,12 @@ export class Render extends Fetch {
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
-    let liId = event.target.closest('.film-card').dataset.source;
-    this.liID = liId;
+    let liId = event.target.closest('.film-card');
+    // this.liID = liId;
     if (!liId) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(liId);
+    this.fullModal = await this.fetchFilmsInfo(liId.dataset.source);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
