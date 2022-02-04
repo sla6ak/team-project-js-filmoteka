@@ -83,12 +83,12 @@ export class LocalSave extends Paginations {
         // це треба додавати тільки якщо ми відкрили модалку
         // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         // +++++
-        if (localStorage.getItem('is-library') !== 'false') {
+        if (this.libraryTrue) {
           this.paginationLibrarySave(true);
         }
       } else {
         this.arrWatched.push(this.liID);
-        if (localStorage.getItem('is-library') !== 'false') {
+        if (this.libraryTrue) {
           this.paginationLibrarySave(true);
         }
       }
@@ -118,14 +118,14 @@ export class LocalSave extends Paginations {
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.currentPage = 1;
       this.onWatchedClick();
-      this.paginationLibrarySave(true); //true для просмотреных фильмов
       this.setHeaderWatchedBtnTrue(true);
+      this.paginationLibrarySave(this.libraryTrueBt); //true для просмотреных фильмов
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
       this.currentPage = 1;
       this.onQueueClick();
-      this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
       this.setHeaderWatchedBtnTrue(false);
+      this.paginationLibrarySave(); //false для НЕ просмотреных фильмов
     });
   };
 
@@ -221,8 +221,8 @@ export class LocalSave extends Paginations {
       this.libraryTrue = JSON.parse(libraryIsTrue);
       if (this.libraryTrue) {
         // тру или фалс
-        this.getHeaderBtnTrue();
-        this.onLibraryClick();
+        this.getHeaderBtnTrue(); //запустим проверку выбраных библиотек только если мы были в библиотеке
+        this.onLibraryClick(); // отрисуем страницу библиотеки
       }
     }
   };
