@@ -34,9 +34,9 @@
   border-radius: 5px;
 }
 .film-card {
-  // outline: 2px solid rgb(0, 153, 255);
-  // transition: transform 250ms;
-
+  transition: transform 250ms;
+}
+.film-card {
   &:hover,
   &:focus {
     transform: scale(1.05);
