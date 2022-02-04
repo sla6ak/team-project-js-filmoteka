@@ -16,11 +16,10 @@ export class LocalSave extends Paginations {
     this.getLibraryTrue(); //проверяем был ли пользователь в библиотеке или на стартовой странице
     this.getArreyWatched(); //провеерим какие фильмы сохранены в просмотреных
     this.getArreyQueue(); //проверим какие фильмы сохранены в отложеных
-    this.getHeaderBtnTrue(); //проверим на какой именно страничке библиотеки был пользователь
     this.getLocalCurrentPage(); //проверяем страницу на которой находился пользователь
     if (this.libraryTrue) {
       //наконец стартуем
-      this.paginationLibrarySave(this.libraryTrueBt);
+      this.paginationLibrarySave(this.libraryTrueBt); //проверяем в какой кнопке мы
     } else {
       this.paginationStart(this.searchQuery);
     }
@@ -100,15 +99,13 @@ export class LocalSave extends Paginations {
     this.refs.modalQueueBt.addEventListener('click', () => {
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку
-        // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
-        // ++++++++++
-        if (localStorage.getItem('is-library') !== 'false') {
+        // це треба додавати тільки якщо ми відкрили библиотеку
+        if (this.libraryTrue) {
           this.paginationLibrarySave(false);
         }
       } else {
         this.arrQueue.push(this.liID);
-        if (localStorage.getItem('is-library') !== 'false') {
+        if (this.libraryTrue) {
           this.paginationLibrarySave(false);
         }
       }
@@ -181,22 +178,23 @@ export class LocalSave extends Paginations {
     this.libraryTrue = argument;
   };
   setHeaderWatchedBtnTrue = argument => {
+    this.libraryTrueBt = argument;
     localStorage.setItem('is-watched-btn', JSON.stringify(argument));
   };
 
   // *******************чтение локалки*********************************************
   getHeaderBtnTrue = () => {
-    const WatchedBtnTrue = localStorage.getItem('is-watched-btn');
+    const WatchedBtnTrue = localStorage.getItem('is-watched-btn'); //проверим на какой кнопке был пользователь
     if (WatchedBtnTrue) {
-      this.libraryTrueBt = JSON.parse(WatchedBtnTrue);
-      if (WatchedBtnTrue !== false) {
+      this.libraryTrueBt = JSON.parse(WatchedBtnTrue); // тру или фолс
+      if (this.libraryTrueBt) {
         console.log('пагінація переглянуті');
         this.onWatchedClick();
         // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
         // this.paginationLibrarySave(true);
       } else {
         console.log('пагінація додати до перегляду');
-        this.currentPage = 1;
+        // this.currentPage = 1;
         this.onQueueClick();
         // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
         // this.paginationLibrarySave(false);
@@ -218,11 +216,14 @@ export class LocalSave extends Paginations {
   };
 
   getLibraryTrue = () => {
-    const libraryIsTrue = localStorage.getItem('is-library');
-    if (libraryIsTrue !== 'false') {
-      this.onLibraryClick();
-      // Викликаємо отримання даних яка саме вкладка в бібліотеці була активна
-      this.getHeaderBtnTrue();
+    const libraryIsTrue = localStorage.getItem('is-library'); // проверим были ли мы в библиотеке
+    if (libraryIsTrue) {
+      this.libraryTrue = JSON.parse(libraryIsTrue);
+      if (this.libraryTrue) {
+        // тру или фалс
+        this.getHeaderBtnTrue();
+        this.onLibraryClick();
+      }
     }
   };
   // Функція получаємо дані з локалки для інпуту

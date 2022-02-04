@@ -58,20 +58,9 @@ export class Render extends Fetch {
     });
 
     resultsFilms.forEach(element => {
-      //вот тут ты получаешь объект с жанрами ты можешь подмеить жанры по ключу вставить вместо id туда же ответы а потом кинуть в рендер!
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
-    // this.ganresList = await this.fetchGenresList();
-    // resultsFilms.forEach(el => {
-    //   for (const genre of this.ganresList) {!
-    //     const { id, name } = genre;
-    //     const [ ids ] = el.genre_ids;
-    //     if (id === ids) {
-    //       this.refs.genres.insertAdjacentHTML('beforeend', render());
-    //     }
-    //   }
-    // })
 
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
@@ -79,12 +68,12 @@ export class Render extends Fetch {
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
     // ли-ивент это элемент верстки хранящий идишку
-    let liId = event.target.closest('.film-card');
-    // this.liID = liId;
-    if (!liId) {
+    let li = event.target.closest('.film-card');
+    if (!li) {
       return;
     }
-    this.fullModal = await this.fetchFilmsInfo(liId.dataset.source);
+    this.liID = li.dataset.source;
+    this.fullModal = await this.fetchFilmsInfo(this.liID);
     this.refs.backdropCardFilm.classList.remove('visually-hidden');
     this.refs.body.classList.add('no-scroll');
     this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
@@ -236,12 +225,12 @@ export class Render extends Fetch {
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
   renderFilmsCardById = async argumentWatch => {
     this.renderBoxCleaner();
+
     const y = this.currentPage;
     const start = this.itemsPerPage * (y - 1);
     const end = this.itemsPerPage * y;
-    this.argumentWatch = argumentWatch;
 
-    if (argumentWatch === true) {
+    if (argumentWatch) {
       this.arrWatched.slice(start, end).forEach(async element => {
         const respW = await this.fetchFilmsInfo(element);
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
@@ -252,8 +241,10 @@ export class Render extends Fetch {
         this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
       });
     }
+    this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
 
+  //кнопки модалки
   isFilmsSave = () => {
     if (this.arrWatched.includes(this.liID)) {
       if (this.curentLanguage === 'en') {

@@ -4,7 +4,6 @@ import Pagination from 'tui-pagination';
 export class Paginations extends Thema {
   constructor() {
     super();
-    this.itemsPerPage = 20;
   }
 
   // этот метод для отрисовки нашей библиотеки
@@ -14,12 +13,14 @@ export class Paginations extends Thema {
     } else {
       this.totalPages = this.arrQueue.length;
     }
+
     if (this.totalPages < 10) {
       this.refs.containerPagination.classList.add('visually-hidden');
     }
     if (this.totalPages >= 10) {
       this.refs.containerPagination.classList.remove('visually-hidden');
     }
+
     this.itemsPerPage = 9;
 
     this.buildPagination();
