@@ -30,54 +30,22 @@ export class Render extends Fetch {
     this.refs.notification.classList.add('notification-none');
     this.renderBoxCleaner();
     resultsFilms.forEach(element => {
+      //вот тут ты получаешь объект с жанрами ты можешь подмеить жанры по ключу вставить вместо id туда же ответы а потом кинуть в рендер!
       this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
       this.titleCard = document.querySelectorAll('.js-film-card__film-name');
     });
-    this.ganresList = await this.fetchGenresList();
-    resultsFilms.forEach(el => {
-      for (const genre of this.ganresList) {
-        const { id, name } = genre;
-        const [ ids ] = el.genre_ids;
-        if (id === ids) {
-          this.refs.genres.insertAdjacentHTML('beforeend', render());
-        }
-      }
-    })
+    // this.ganresList = await this.fetchGenresList();
+    // resultsFilms.forEach(el => {
+    //   for (const genre of this.ganresList) {!
+    //     const { id, name } = genre;
+    //     const [ ids ] = el.genre_ids;
+    //     if (id === ids) {
+    //       this.refs.genres.insertAdjacentHTML('beforeend', render());
+    //     }
+    //   }
+    // })
 
-    this.animat();
     this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
-  };
-
-  animat = async () => {
-    const cards = this.refs.renderBox.querySelectorAll('.film-image');
-
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-
-      card.addEventListener(
-        'mousemove',
-        throttle(e => {
-          const halfHeight = e.target.offsetHeight / 2;
-          const halfWidth = card.offsetWidth / 2;
-
-          card.style.transform =
-            'rotateX(' +
-            -(e.offsetY - halfHeight) / 8 +
-            'deg) rotateY(' +
-            (e.offsetX - halfWidth) / 8 +
-            'deg)';
-        }, 200),
-      );
-
-      card.addEventListener(
-        'mouseout',
-        debounce(evt => {
-          console.log(evt);
-
-          card.style.transform = 'rotate(0)';
-        }, 200),
-      );
-    }
   };
 
   // отрисовка модалки с полной инфой о фильме
