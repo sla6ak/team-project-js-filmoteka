@@ -11,7 +11,6 @@ export class LocalSave extends Paginations {
     this.start();
     this.EventListenerAll();
     this.getLocalCurrentPage();
-    // проверка где был пользователь
     this.getLibraryTrue();
     this.getLocalLanguage();
     this.getArreyWatched();
@@ -19,7 +18,6 @@ export class LocalSave extends Paginations {
     this.getLocalThema();
     this.paginationStart();
     this.getLocalInputText();
-    
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
@@ -67,12 +65,11 @@ export class LocalSave extends Paginations {
     this.refs.libraryBt.addEventListener('click', () => {
       this.currentPage = 1;
       this.onWatchedClick(); // чтобы возвращало на стартовую вкладку Watched
-
       this.setLibraryTrue(true);
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
-
+  // Лісенер по кліку на модалку кнопка переглянуті
     this.refs.modalWatchedBt.addEventListener('click', () => {
       if (this.arrWatched.includes(this.liID)) {
         this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
@@ -83,7 +80,7 @@ export class LocalSave extends Paginations {
       this.setFilmWached();
       this.isFilmsSave();
     });
-
+  // Лісенер по кліку на модалку кнопка черга
     this.refs.modalQueueBt.addEventListener('click', () => {
       console.log(this.arrQueue.indexOf(this.liID));
       if (this.arrQueue.includes(this.liID)) {
@@ -100,15 +97,18 @@ export class LocalSave extends Paginations {
     // слушатель для кнопок библиотеки в хедере
     this.refs.headerWathedBtn.addEventListener('click', () => {
       this.currentPage = 1;
-
       this.onWatchedClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
+      this.setHeaderWatchedBtnTrue(true);
+      
+
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
       this.currentPage = 1;
-
       this.onQueueClick();
       this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
+      this.setHeaderWatchedBtnTrue(false)
+      
     });
   };
 
@@ -160,7 +160,31 @@ export class LocalSave extends Paginations {
     localStorage.setItem('is-library', JSON.stringify(argument));
     this.libraryTrue = argument;
   };
+  setHeaderWatchedBtnTrue = argument => {
+    localStorage.setItem('is-watched-btn', JSON.stringify(argument));
+  };
+  
   // *******************чтение локалки*********************************************
+  getHeaderBtnTrue = () => {
+    const WatchedBtnTrue = localStorage.getItem('is-watched-btn');
+    if (WatchedBtnTrue) {
+        if (WatchedBtnTrue !== 'false') {
+      console.log('пагінація переглянуті')
+      this.currentPage = 1;
+          this.onWatchedClick();
+          // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
+          // this.paginationLibrarySave(true);
+    } else {
+      console.log('пагінація додати до перегляду')
+      this.currentPage = 1;
+          this.onQueueClick();
+          // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
+          // this.paginationLibrarySave(false);
+      
+    }
+    } 
+  };
+  
   getArreyWatched = () => {
     const arreyWatched = localStorage.getItem('wached-film');
     if (arreyWatched) {
@@ -173,11 +197,14 @@ export class LocalSave extends Paginations {
       this.arrQueue = JSON.parse(arreyQueue);
     }
   };
+
   getLibraryTrue = () => {
     const libraryIsTrue = localStorage.getItem('is-library');
-    if (libraryIsTrue) {
-      this.libraryTrue = JSON.parse(libraryIsTrue);
-    }
+    if (libraryIsTrue !== 'false') {
+      this.onLibraryClick(); 
+      // Викликаємо отримання даних яка саме вкладка в бібліотеці була активна
+      this.getHeaderBtnTrue();
+    } 
   };
   // Функція получаємо дані з локалки для інпуту
   getLocalInputText = () => {
@@ -193,7 +220,6 @@ export class LocalSave extends Paginations {
     const selectLanguage = localStorage.getItem('language');
     if (selectLanguage) {
       this.curentLanguage = selectLanguage;
-      // console.log(this.curentLanguage)
       if (this.curentLanguage === 'en') {
         this.onEnClick();
       } else {
@@ -206,7 +232,6 @@ export class LocalSave extends Paginations {
   getLocalThema = () => {
     const selectThema = localStorage.getItem('thema');
     if (selectThema) {
-      // console.log(selectThema)
       if (selectThema === 'true') this.onThemaClick();
     }
   };
@@ -216,7 +241,6 @@ export class LocalSave extends Paginations {
     const currentPage = localStorage.getItem('currentPage');
     if (currentPage) {
       this.currentPage = JSON.parse(currentPage);
-      // console.log(this.currentPage);
     }
   };
 }
