@@ -196,6 +196,7 @@ export class LocalSave extends Paginations {
         // this.paginationLibrarySave(true);
       } else {
         console.log('пагінація додати до перегляду');
+        this.currentPage = 1;
         this.onQueueClick();
         // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
         // this.paginationLibrarySave(false);
