@@ -429,9 +429,9 @@ input:checked + .slider:before {
   color: #fff;
   cursor: pointer;
 
-  // &:active {
-  //   box-shadow: 0 0 10px 0 #ff6b01a1 inset, 0 0 10px 4px #ff6b01;
-  // }
+  &:active {
+    box-shadow: 0 0 10px 0 #ff6b01 inset, 0 0 10px 4px #ff6b01;
+  }
 
   @media screen and (min-width: 768px) {
     margin-right: 15px;
@@ -467,8 +467,9 @@ input:checked + .slider:before {
   border-radius: 5px;
   background-color: $accent-modal-color;
   border-color: transparent;
+
   &:active {
-    box-shadow: 0 0 10px 0 #ff6b01a1 inset, 0 0 10px 4px #ff6b01;
+    box-shadow: 0 0 10px 0 #ff6b01 inset, 0 0 10px 4px #ff6b01;
   }
 }
 
@@ -478,7 +479,6 @@ input:checked + .slider:before {
   background: rgba(0, 0, 0, 0.56);
 
   &:active {
-    // box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.281) inset, 0 0 10px 4px rgba(255, 255, 255, 0.63);
-    box-shadow: 0 0 10px 0 #ff6b01a1 inset, 0 0 10px 4px #ff6b01;
+    box-shadow: 0 0 10px 0 #ff6b01 inset, 0 0 10px 4px #ff6b01;
   }
 }

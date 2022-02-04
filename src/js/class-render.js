@@ -233,14 +233,22 @@ export class Render extends Fetch {
   //кнопки модалки
   isFilmsSave = () => {
     if (this.arrWatched.includes(this.liID)) {
+
       this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtDel;
+      this.refs.modalWatchedBt.classList.add('delite-of-watched');
     } else {
       this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtAdd;
+      this.refs.modalWatchedBt.classList.remove('delite-of-watched');
     }
     if (this.arrQueue.includes(this.liID)) {
       this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtDel;
+      
+        this.refs.modalQueueBt.classList.add('delite-of-queue');
     } else {
       this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtAdd;
+      
+        this.refs.modalQueueBt.classList.remove('delite-of-queue');
+
     }
   };
 }
