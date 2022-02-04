@@ -31,4 +31,4 @@ var t;!function(e,n){"object"==typeof exports&&"object"==typeof module?module.ex
 },{"debounce":"dLxY","./class-pagination":"kFz5"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var s=require("./js/class-localsave");const a=new s.LocalSave;a.lokalStart();
 },{"./sass/main.scss":"clu1","./js/class-localsave":"AVyS"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js-filmoteka/src.bf28b608.js.map
+//# sourceMappingURL=/team-project-js-filmoteka/src.aae1798e.js.map
