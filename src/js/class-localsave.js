@@ -117,13 +117,13 @@ export class LocalSave extends Paginations {
     this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
-      this.paginationStart(evt.target.value.trim()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
+      this.paginationStart(evt.target.value.trim().toLowerCase()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
       return;
     }
-    this.searchQuery = evt.target.value.trim();
-    this.data = evt.target.value.trim();
+    this.searchQuery = evt.target.value.trim().toLowerCase();
+    this.data = evt.target.value.trim().toLowerCase();
     this.setLocalInput();
-    this.paginationStart(evt.target.value.trim()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
+    this.paginationStart(evt.target.value.trim().toLowerCase()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
   };
 
   goHomePage = evt => {
