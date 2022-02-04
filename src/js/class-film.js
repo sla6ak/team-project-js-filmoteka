@@ -4,9 +4,10 @@ export class Film {
     this.films = [];
     this.libraryTrue = false; // проверим находиться ли позьзователь в библиотеке?
     this.libraryTrueBt = true; //проверим находился ли пользователь в просмотреных или в отложеных
-    this.argumentWatch = null;
+    // this.argumentWatch = null;
     this.arrQueue = [];
     this.arrWatched = [];
+    this.itemsPerPage = 20; //проверка количества страниц
     this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
