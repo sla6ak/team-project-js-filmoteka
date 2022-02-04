@@ -2,8 +2,8 @@ export class Film {
   constructor() {
     this.film = '';
     this.films = [];
-    // проверим находиться ли позьзователь в библиотеке?
-    this.libraryTrue = false;
+    this.libraryTrue = false; // проверим находиться ли позьзователь в библиотеке?
+    this.libraryTrueBt = true; //проверим находился ли пользователь в просмотреных или в отложеных
     this.argumentWatch = null;
     this.arrQueue = [];
     this.arrWatched = [];

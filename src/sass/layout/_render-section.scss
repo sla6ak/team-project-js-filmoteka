@@ -29,10 +29,6 @@
   color: $header-text-color;
 }
 
-.film-image {
-  transition: transform 200ms;
-}
-
 .card__image {
   width: 100%;
   height: 100%;
@@ -40,11 +36,8 @@
   object-fit: cover;
   border-radius: 5px;
 }
-.film-card {
-  perspective: 1000px;
-  // transform-style: preserve-3d;
 
-  // outline: 2px solid rgb(0, 153, 255);
+.film-card {
   transition: transform 250ms;
 
   &:hover,

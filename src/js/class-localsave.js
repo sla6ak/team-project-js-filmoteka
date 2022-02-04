@@ -9,15 +9,21 @@ export class LocalSave extends Paginations {
   // ***************стартует всю логику *******************************************
   lokalStart = () => {
     this.start();
-    this.EventListenerAll();
-    this.getLocalCurrentPage();
-    this.getLibraryTrue();
-    this.getLocalLanguage();
-    this.getArreyWatched();
-    this.getArreyQueue();
-    this.getLocalThema();
-    this.paginationStart();
-    this.getLocalInputText();
+    this.EventListenerAll(); //стартуем объязательные слушатели
+    this.getLocalThema(); //проверим сохраненную тему
+    this.getLocalLanguage(); //проверяем на каком языке была вкладка
+    this.getLocalInputText(); //проверим искал ли он кино или нет
+    this.getLibraryTrue(); //проверяем был ли пользователь в библиотеке или на стартовой странице
+    this.getArreyWatched(); //провеерим какие фильмы сохранены в просмотреных
+    this.getArreyQueue(); //проверим какие фильмы сохранены в отложеных
+    this.getHeaderBtnTrue(); //проверим на какой именно страничке библиотеки был пользователь
+    this.getLocalCurrentPage(); //проверяем страницу на которой находился пользователь
+    if (this.libraryTrue) {
+      //наконец стартуем
+      this.paginationLibrarySave(this.libraryTrueBt);
+    } else {
+      this.paginationStart(this.searchQuery);
+    }
   };
   // *******************слушатели событий********************************************
   EventListenerAll = () => {
@@ -71,40 +77,39 @@ export class LocalSave extends Paginations {
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
-  // Лісенер по кліку на модалку кнопка переглянуті
+    // Лісенер по кліку на модалку кнопка переглянуті
     this.refs.modalWatchedBt.addEventListener('click', () => {
       if (this.arrWatched.includes(this.liID)) {
         this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку 
+        // це треба додавати тільки якщо ми відкрили модалку
         // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         // +++++
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(true); 
+          this.paginationLibrarySave(true);
         }
-        
       } else {
         this.arrWatched.push(this.liID);
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(true); 
+          this.paginationLibrarySave(true);
         }
       }
       this.setFilmWached();
       this.isFilmsSave();
     });
-  // Лісенер по кліку на модалку кнопка черга
+    // Лісенер по кліку на модалку кнопка черга
     this.refs.modalQueueBt.addEventListener('click', () => {
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку 
+        // це треба додавати тільки якщо ми відкрили модалку
         // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         // ++++++++++
-         if (localStorage.getItem('is-library') !== 'false') {
+        if (localStorage.getItem('is-library') !== 'false') {
           this.paginationLibrarySave(false);
         }
       } else {
         this.arrQueue.push(this.liID);
         if (localStorage.getItem('is-library') !== 'false') {
-          this.paginationLibrarySave(false); 
+          this.paginationLibrarySave(false);
         }
       }
       this.setFilmQueue();
@@ -118,15 +123,12 @@ export class LocalSave extends Paginations {
       this.onWatchedClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
       this.setHeaderWatchedBtnTrue(true);
-      
-
     });
     this.refs.headerQueueBtn.addEventListener('click', () => {
       this.currentPage = 1;
       this.onQueueClick();
       this.paginationLibrarySave(false); //false для НЕ просмотреных фильмов
-      this.setHeaderWatchedBtnTrue(false)
-      
+      this.setHeaderWatchedBtnTrue(false);
     });
   };
 
@@ -181,28 +183,26 @@ export class LocalSave extends Paginations {
   setHeaderWatchedBtnTrue = argument => {
     localStorage.setItem('is-watched-btn', JSON.stringify(argument));
   };
-  
+
   // *******************чтение локалки*********************************************
   getHeaderBtnTrue = () => {
     const WatchedBtnTrue = localStorage.getItem('is-watched-btn');
     if (WatchedBtnTrue) {
-        if (WatchedBtnTrue !== 'false') {
-      console.log('пагінація переглянуті')
-      this.currentPage = 1;
-          this.onWatchedClick();
-          // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
-          // this.paginationLibrarySave(true);
-    } else {
-      console.log('пагінація додати до перегляду')
-      this.currentPage = 1;
-          this.onQueueClick();
-          // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
-          // this.paginationLibrarySave(false);
-      
+      this.libraryTrueBt = JSON.parse(WatchedBtnTrue);
+      if (WatchedBtnTrue !== false) {
+        console.log('пагінація переглянуті');
+        this.onWatchedClick();
+        // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
+        // this.paginationLibrarySave(true);
+      } else {
+        console.log('пагінація додати до перегляду');
+        this.onQueueClick();
+        // ТУТ НЕ ЗНАЮ яку функцію додати щоб рендорилась та сама сторінка що і при кліку на кнопку
+        // this.paginationLibrarySave(false);
+      }
     }
-    } 
   };
-  
+
   getArreyWatched = () => {
     const arreyWatched = localStorage.getItem('wached-film');
     if (arreyWatched) {
@@ -219,10 +219,10 @@ export class LocalSave extends Paginations {
   getLibraryTrue = () => {
     const libraryIsTrue = localStorage.getItem('is-library');
     if (libraryIsTrue !== 'false') {
-      this.onLibraryClick(); 
+      this.onLibraryClick();
       // Викликаємо отримання даних яка саме вкладка в бібліотеці була активна
       this.getHeaderBtnTrue();
-    } 
+    }
   };
   // Функція получаємо дані з локалки для інпуту
   getLocalInputText = () => {
