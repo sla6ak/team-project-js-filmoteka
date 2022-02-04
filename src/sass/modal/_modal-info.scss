@@ -151,13 +151,27 @@ td {
 
   border-color: transparent;
   color: #fff;
-  background: $accent-modal-color;
+  // background: $accent-modal-color;
   border-radius: 5px;
+
+  color: $primary-text-color;
+  border: 1px solid #000000;
+  background: #fff;
 
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
+
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+
+  &:active {
+    box-shadow: 0 0 10px 0 $accent-modal-color inset, 0 0 10px 4px $accent-modal-color;
+    border-color: $accent-modal-color;
+    color: $primary-text-color;
+  }
 
   cursor: pointer;
 
@@ -182,11 +196,31 @@ td {
 // }
 
 .add-to-queue-btn {
-  color: $primary-text-color;
-  border: 1px solid #000000;
-  background: #fff;
+  // color: $primary-text-color;
+  // border: 1px solid #000000;
+  // background: #fff;
 
   @media screen and (min-width: 768px) {
     margin-left: 14px;
+  }
+}
+
+.delite-of-watched,
+.delite-of-queue {
+  background: $accent-modal-color;
+  border-color: transparent;
+  color: #fff;
+  transition-property: all;
+  text-decoration: 100ms;
+
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+
+  &:active {
+    box-shadow: 0 0 10px 0 #ff0000 inset, 0 0 10px 4px #ff0000;
+    border-color: #ff0000;
+    background-color: #ff3333;
+    color: black;
   }
 }

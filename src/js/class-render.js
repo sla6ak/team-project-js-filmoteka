@@ -249,27 +249,35 @@ export class Render extends Fetch {
     if (this.arrWatched.includes(this.liID)) {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'delite of Watched';
+        this.refs.modalWatchedBt.classList.add('delite-of-watched');
       } else {
         this.refs.modalWatchedBt.innerHTML = 'видалити з історії';
+        this.refs.modalWatchedBt.classList.add('delite-of-watched');
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalWatchedBt.innerHTML = 'add to Watched';
+        this.refs.modalWatchedBt.classList.remove('delite-of-watched');
       } else {
         this.refs.modalWatchedBt.innerHTML = 'додати в історію';
+        this.refs.modalWatchedBt.classList.remove('delite-of-watched');
       }
     }
     if (this.arrQueue.includes(this.liID)) {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'delite of queue';
+        this.refs.modalQueueBt.classList.add('delite-of-queue');
       } else {
         this.refs.modalQueueBt.innerHTML = 'видалити з відкладенних';
+        this.refs.modalQueueBt.classList.add('delite-of-queue');
       }
     } else {
       if (this.curentLanguage === 'en') {
         this.refs.modalQueueBt.innerHTML = 'add to queue';
+        this.refs.modalQueueBt.classList.remove('delite-of-queue');
       } else {
         this.refs.modalQueueBt.innerHTML = 'подивитись пізніше';
+        this.refs.modalQueueBt.classList.remove('delite-of-queue');
       }
     }
   };
