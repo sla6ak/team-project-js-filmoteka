@@ -34,7 +34,29 @@
   margin-right: 10px;
   width: 14px;
   height: 13px;
+  animation: heartbeat 1s infinite;
 }
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.5);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.5);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .footer__link {
   position: relative;
   &::after {
