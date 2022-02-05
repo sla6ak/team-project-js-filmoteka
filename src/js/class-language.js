@@ -1,14 +1,17 @@
-import { Render } from './class-render';
+import { Film } from './class-film';
 
-export class Language extends Render {
+export class Language extends Film {
   constructor() {
     super();
+    this.transleter = {}; // тут подменяеться ключь значение благодаря чему мы можем просто иметь один ключь для всех
+    this.curentLanguage = 'en';
   }
   onEnClick = () => {
     this.curentLanguage = 'en';
+    this.dinamikDOMlanguageEN();
+    //статические дом элементы меняют контент
     this.refs.enBox.classList.add('curent-language');
     this.refs.uaBox.classList.remove('curent-language');
-    console.log('en');
     this.refs.logoLang.textContent = 'Filmoteka';
     this.refs.homeBt.textContent = 'HOME';
     this.refs.libraryBt.textContent = 'MY LIBRARY';
@@ -28,15 +31,13 @@ export class Language extends Render {
     this.refs.headerWathedBtn.textContent = 'watched';
     this.refs.headerQueueBtn.textContent = 'queue';
     // this.refs.otherTitle.textContent = ', Other';
-    // this.refs.logoLang.innerHTML = 'Фiльмотека';
-    // this.refs.logoLang.innerHTML = 'Фiльмотека';
-    // this.refs.logoLang.innerHTML = 'Фiльмотека';
   };
   onUaClick = () => {
     this.curentLanguage = 'uk';
+    this.dinamikDOMlanguageUA();
+    //статические дом элементы меняют контент
     this.refs.uaBox.classList.add('curent-language');
     this.refs.enBox.classList.remove('curent-language');
-    console.log('ua');
     this.refs.logoLang.textContent = 'Фiльмотека';
     this.refs.homeBt.textContent = 'ГОЛОВНА';
     this.refs.libraryBt.textContent = 'МОЯ БІБЛІОТЕКА';
@@ -56,7 +57,29 @@ export class Language extends Render {
     this.refs.headerWathedBtn.textContent = 'Історія перегляду';
     this.refs.headerQueueBtn.textContent = 'на майбутне';
     // this.refs.otherTitle.textContent = ', Інші';
-    // this.refs.logoLang.innerHTML = 'Фiльмотека';
-    // this.refs.logoLang.innerHTML = 'Фiльмотека';
+  };
+
+  dinamikDOMlanguageEN = () => {
+    const dinamikDOMlanguageEN = {
+      modalWatchedBtDel: 'delite of Watched',
+      modalWatchedBtAdd: 'add to Watched',
+      modalQueueBtDel: 'delite of Queue',
+      modalQueueBtAdd: 'add to Queue',
+      aboutApi: 'i am sorry this info loose :(',
+      genreArr2: 'Other',
+    };
+    this.transleter = dinamikDOMlanguageEN;
+  };
+
+  dinamikDOMlanguageUA = () => {
+    const dinamikDOMlanguageUA = {
+      modalWatchedBtDel: 'видалити з історії',
+      modalWatchedBtAdd: 'додати в історію',
+      modalQueueBtDel: 'видалити з відкладенних',
+      modalQueueBtAdd: 'подивитись пізніше',
+      aboutApi: 'На жаль, опис фільму українською мовою відсутній :(',
+      genreArr2: 'Інші',
+    };
+    this.transleter = dinamikDOMlanguageUA;
   };
 }

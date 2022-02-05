@@ -4,11 +4,9 @@ export class Film {
     this.films = [];
     this.libraryTrue = false; // проверим находиться ли позьзователь в библиотеке?
     this.libraryTrueBt = true; //проверим находился ли пользователь в просмотреных или в отложеных
-    // this.argumentWatch = null;
     this.arrQueue = [];
     this.arrWatched = [];
     this.itemsPerPage = 20; //проверка количества страниц
-    this.curentLanguage = 'en';
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
       body: document.querySelector('.js-body'),
@@ -86,9 +84,6 @@ export class Film {
       modalVideo: document.querySelector('.js-modal-youtube__box'),
 
       // prew: document.querySelector('.js-prewiu-img'),
-      // logo: document.querySelector('.js-logo'),
-      // logo: document.querySelector('.js-logo'),
-      // logo: document.querySelector('.js-logo'),
       // logo: document.querySelector('.js-logo'),
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),

@@ -1,7 +1,7 @@
-import { Thema } from './class-thems';
+import { Render } from './class-render';
 import Pagination from 'tui-pagination';
 
-export class Paginations extends Thema {
+export class Paginations extends Render {
   constructor() {
     super();
   }

@@ -1,6 +1,6 @@
-import { Film } from './class-film';
+import { Thema } from './class-thems';
 
-export class Fetch extends Film {
+export class Fetch extends Thema {
   constructor() {
     super();
     this.BASE_URL = 'https://api.themoviedb.org/3/';
@@ -91,9 +91,4 @@ export class Fetch extends Film {
   getTotalPages = () => {
     return this.totalPages;
   };
-
-  // непонятно где эта переменная виделинк лежит и что в ней?
-  // returnVideoLink() {
-  //   return `https://www.youtube.com/watch?v=${this.videoLink}`;
-  // }
 }
