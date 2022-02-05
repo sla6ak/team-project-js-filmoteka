@@ -66,7 +66,7 @@ export class Language extends Film {
       modalQueueBtDel: 'delite of Queue',
       modalQueueBtAdd: 'add to Queue',
       aboutApi: 'i am sorry this info loose :(',
-      genreArr2: 'Other',
+      genreArr2: ' Other',
     };
     this.transleter = dinamikDOMlanguageEN;
   };
@@ -78,7 +78,7 @@ export class Language extends Film {
       modalQueueBtDel: 'видалити з відкладенних',
       modalQueueBtAdd: 'подивитись пізніше',
       aboutApi: 'На жаль, опис фільму українською мовою відсутній :(',
-      genreArr2: 'Інші',
+      genreArr2: ' Інші',
     };
     this.transleter = dinamikDOMlanguageUA;
   };

@@ -23,14 +23,10 @@ export class Fetch extends Thema {
       adult: this.adult,
     };
     const meta = new URLSearchParams(parametrs);
-    try {
-      const results = await fetch(`${this.BASE_URL}trending/movie/week?${meta}`);
-      const data = await results.json();
-      this.totalPages = data.total_results;
-      return data.results;
-    } catch (error) {
-      alert('Sorry, something went wrong');
-    }
+    const results = await fetch(`${this.BASE_URL}trending/movie/week?${meta}`);
+    const data = await results.json();
+    this.totalPages = data.total_results;
+    return data.results;
   }
 
   // get genres list
@@ -41,15 +37,11 @@ export class Fetch extends Thema {
     };
 
     const meta = new URLSearchParams(parametrs);
-    try {
-      const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
-      const data = await results.json();
-      this.ganresList = data.genres;
-      // console.log(this.ganresList);
-      return data.genres;
-    } catch (error) {
-      alert('Sorry, something went wrong');
-    }
+    const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
+    const data = await results.json();
+    this.ganresList = data.genres;
+    // console.log(this.ganresList);
+    return data.genres;
   }
 
   //films search by name
@@ -62,14 +54,10 @@ export class Fetch extends Thema {
       include_adult: this.adult,
     };
     const meta = new URLSearchParams(parametrs);
-    try {
-      const results = await fetch(`${this.BASE_URL}search/movie?${meta}`);
-      const data = await results.json();
-      this.totalPages = data.total_results;
-      return data.results;
-    } catch (error) {
-      alert('Sorry, something went wrong');
-    }
+    const results = await fetch(`${this.BASE_URL}search/movie?${meta}`);
+    const data = await results.json();
+    this.totalPages = data.total_results;
+    return data.results;
   }
 
   //Info about film and video
@@ -79,13 +67,9 @@ export class Fetch extends Thema {
       language: this.curentLanguage,
     };
     const meta = new URLSearchParams(parametrs);
-    try {
-      const result = await fetch(`${this.BASE_URL}/movie/${id}?${meta}&append_to_response=videos`);
-      const data = await result.json();
-      return data;
-    } catch (error) {
-      alert('Sorry, something went wrong');
-    }
+    const result = await fetch(`${this.BASE_URL}/movie/${id}?${meta}&append_to_response=videos`);
+    const data = await result.json();
+    return data;
   }
 
   getTotalPages = () => {

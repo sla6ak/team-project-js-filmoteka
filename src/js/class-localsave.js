@@ -116,6 +116,8 @@ export class LocalSave extends Paginations {
       } else {
         this.onUaClick();
       }
+    } else {
+      this.onEnClick();
     }
   };
 
