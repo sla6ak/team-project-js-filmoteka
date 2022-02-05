@@ -53,56 +53,52 @@ export class Paginations extends Render {
 
   // ************это просто фреймворк***********
   buildPagination = async () => {
-    try {
-      const optionPagin = {
-        totalItems: this.totalPages,
-        itemsPerPage: this.itemsPerPage,
-        visiblePages: 5,
-        page: this.currentPage,
-        centerAlign: true,
-        firstItemClassName: 'tui-first-child',
-        lastItemClassName: 'tui-last-child',
-        template: {
-          page: '<a href="#" class="tui-page-btn">{{page}}</a>',
-          currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
-          moveButton:
-            '<a href="#" class="tui-page-btn tui-{{type}}">' +
-            '<span class="tui-ico-{{type}}">{{type}}</span>' +
-            '</a>',
-          disabledMoveButton:
-            '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-            '<span class="tui-ico-{{type}}">{{type}}</span>' +
-            '</span>',
-          moreButton:
-            '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-            '<span class="tui-ico-ellip">...</span>' +
-            '</a>',
-        },
-      };
+    const optionPagin = {
+      totalItems: this.totalPages,
+      itemsPerPage: this.itemsPerPage,
+      visiblePages: 5,
+      page: this.currentPage,
+      centerAlign: true,
+      firstItemClassName: 'tui-first-child',
+      lastItemClassName: 'tui-last-child',
+      template: {
+        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+        moveButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</a>',
+        disabledMoveButton:
+          '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</span>',
+        moreButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+          '</a>',
+      },
+    };
 
-      this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
+    this.pagination = new Pagination(this.refs.containerPagination, optionPagin);
 
-      this.pagination.on('afterMove', async evt => {
-        this.currentPage = evt.page;
-        // console.log(this.currentPage);
-        this.setCurrentPage();
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth',
-        });
-
-        if (this.libraryTrue === true) {
-          this.paginationLibrarySave(this.argumentWatch);
-        } else if (this.searchQuery == null) {
-          this.paginationStart(false);
-        } else {
-          this.paginationStart(true);
-        }
+    this.pagination.on('afterMove', async evt => {
+      this.currentPage = evt.page;
+      // console.log(this.currentPage);
+      this.setCurrentPage();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
       });
-    } catch (error) {
-      alert('Sorry, something went wrong');
-    }
+
+      if (this.libraryTrue === true) {
+        this.paginationLibrarySave(this.argumentWatch);
+      } else if (this.searchQuery == null) {
+        this.paginationStart(false);
+      } else {
+        this.paginationStart(true);
+      }
+    });
   };
   // Зберігаєм в локалку вибрану сторінку
   setCurrentPage = () => {
