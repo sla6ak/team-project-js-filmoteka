@@ -8,16 +8,17 @@ export class Paginations extends Render {
 
   // этот метод для отрисовки нашей библиотеки
   paginationLibrarySave = argumentWatch => {
-    if (argumentWatch) {
+    // console.log(argumentWatch);
+    if (argumentWatch === true) {
       this.totalPages = this.arrWatched.length;
     } else {
       this.totalPages = this.arrQueue.length;
     }
-
     if (this.totalPages < 10) {
       this.refs.containerPagination.classList.add('visually-hidden');
-    }
-    if (this.totalPages >= 10) {
+      this.currentPage = 1;
+      // this.currentPage = 1;
+    } else if (this.totalPages >= 10) {
       this.refs.containerPagination.classList.remove('visually-hidden');
     }
 
@@ -92,7 +93,7 @@ export class Paginations extends Render {
       });
 
       if (this.libraryTrue === true) {
-        this.paginationLibrarySave(this.argumentWatch);
+        this.paginationLibrarySave(this.libraryTrueBt);
       } else if (this.searchQuery == null) {
         this.paginationStart(false);
       } else {
