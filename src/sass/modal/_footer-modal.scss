@@ -1,7 +1,6 @@
 .container-footer-modal {
   padding: 35px 20px;
-
-  background: #ffffff;
+  background: linear-gradient(221.87deg, #3a3041 1%, #191020 48%);
   position: relative;
   border-radius: 20px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
@@ -25,9 +24,7 @@
       width: auto;
   }
   @media screen and (min-width: 1024px) {
-    // position: absolute;
     max-width: 1440px;
-    // min-height: 700px;
     padding: 40px;
 }
 }
@@ -36,11 +33,15 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  background: #ffffff;
-  border: none;
+  background: #a3a3a3;
   cursor: pointer;
-  padding: 5px;
-
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
  
@@ -74,10 +75,8 @@
   overflow: hidden;
   flex-basis: calc(100% - 20px);
   margin: 10px;
-  border: 1px solid #5f0000;
-  filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+  filter: drop-shadow(0px 5px 5px rgba(255, 98, 0, 0.25));
   border-radius: 10px;
-  // background-color: #000;
  
 
   @media screen and (min-width: 768px){
@@ -94,11 +93,6 @@
     transform: scale(1.05);
   }
 }
-
-
-
- 
-
 
 .backdropFooterModal{
   position: fixed;
