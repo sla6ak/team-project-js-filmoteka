@@ -30,6 +30,9 @@ export class Listener extends LocalSave {
     // Лісенер на клік по мови
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
+      if (this.libraryTrue) {
+        this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
+      }
       this.setLocalLanguage();
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
         return;
@@ -39,6 +42,9 @@ export class Listener extends LocalSave {
 
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
+      if (this.libraryTrue) {
+        this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
+      }
       this.setLocalLanguage();
 
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {

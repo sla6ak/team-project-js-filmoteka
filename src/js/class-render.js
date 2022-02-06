@@ -254,6 +254,18 @@ export class Render extends Fetch {
       } else {
         this.arrQueue.slice(start, end).forEach(async elemt => {
           const respQ = await this.fetchFilmsInfo(elemt);
+          // код що нижче робить так, щоб у бубліотеці картки рендерились із жанрами.
+          // оскільки коли фетч іде по id то дані приходять у такому вилягді, що хендлбар не може їх підставити
+          let genre_ids = [];
+          respQ.genres.forEach(genre => {
+            genre_ids.push(' ' + genre.name);
+          });
+          if (genre_ids.length >= 3) {
+            genre_ids.length = 3;
+            genre_ids[2] = this.transleter.genreArr2;
+          }
+          respQ.genre_ids = genre_ids;
+          // =================== закінчується код заміни айді на жанри
           this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
         });
       }
