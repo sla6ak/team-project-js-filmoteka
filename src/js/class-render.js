@@ -7,9 +7,10 @@ export class Render extends Fetch {
     // это полная инфа о фильме
     this.fullModal = ''; // ответ сервера по запросу конкретного фильма
     this.videoKeyYoutube = null; // перезаписываемая url на youTube
-    this.youtubeImg = '../images/no-foto.png'; // презаписываемая ссылка на url картинок
+    this.youtubeImg = './images/no-foto.png'; // презаписываемая ссылка на url картинок
     this.titleCard = [];
     this.liID; // id фильма с которым работает модалка передаем в локальное хранение
+    this.srcImg = 'https://i.postimg.cc/6pzyh7Wc/pngwing-com.png';
   }
 
   // очистка всего рендера
@@ -85,12 +86,20 @@ export class Render extends Fetch {
         this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
       }
 
-      this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+      // перевіряємо чи до фільму є картинка.
+      // якщо немає то використати заглушку, якщо є - то взяти ту що прийла з серверу.
+      let srcImg = this.fullModal.poster_path;
+      this.refs.modalImage.src = !srcImg
+        ? this.srcImg
+        : `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+      // this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+
       if (this.fullModal.videos.results[0]) {
         this.videoKeyYoutube = this.fullModal.videos.results[0].key;
+        console.log(this.videoKeyYoutube);
       } else {
         this.videoKeyYoutube = null;
-        this.youtubeImg = '../images/no-foto.png';
+        this.youtubeImg = './images/no-foto.png';
       }
 
       this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -225,14 +234,38 @@ export class Render extends Fetch {
       const start = this.itemsPerPage * (y - 1);
       const end = this.itemsPerPage * y;
 
-      if (argumentWatch) {
+      if (argumentWatch == true) {
         this.arrWatched.slice(start, end).forEach(async element => {
           const respW = await this.fetchFilmsInfo(element);
+          // код що нижче робить так, щоб у бубліотеці картки рендерились із жанрами.
+          // оскільки коли фетч іде по id то дані приходять у такому вилягді, що хендлбар не може їх підставити
+          let genre_ids = [];
+          respW.genres.forEach(genre => {
+            genre_ids.push(' ' + genre.name);
+          });
+          if (genre_ids.length >= 3) {
+            genre_ids.length = 3;
+            genre_ids[2] = this.transleter.genreArr2;
+          }
+          respW.genre_ids = genre_ids;
+          // =================== закінчується код заміни айді на жанри
           this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
         });
       } else {
         this.arrQueue.slice(start, end).forEach(async elemt => {
           const respQ = await this.fetchFilmsInfo(elemt);
+          // код що нижче робить так, щоб у бубліотеці картки рендерились із жанрами.
+          // оскільки коли фетч іде по id то дані приходять у такому вилягді, що хендлбар не може їх підставити
+          let genre_ids = [];
+          respQ.genres.forEach(genre => {
+            genre_ids.push(' ' + genre.name);
+          });
+          if (genre_ids.length >= 3) {
+            genre_ids.length = 3;
+            genre_ids[2] = this.transleter.genreArr2;
+          }
+          respQ.genre_ids = genre_ids;
+          // =================== закінчується код заміни айді на жанри
           this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
         });
       }

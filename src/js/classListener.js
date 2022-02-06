@@ -30,6 +30,9 @@ export class Listener extends LocalSave {
     // Лісенер на клік по мови
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
+      if (this.libraryTrue) {
+        this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
+      }
       this.setLocalLanguage();
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
         return;
@@ -39,6 +42,9 @@ export class Listener extends LocalSave {
 
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
+      if (this.libraryTrue) {
+        this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
+      }
       this.setLocalLanguage();
 
       if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
@@ -76,7 +82,7 @@ export class Listener extends LocalSave {
           this.paginationLibrarySave(true);
         }
       }
-      this.setFilmWached();
+      this.setFilmWached(true);
       this.isFilmsSave();
     });
     // Лісенер по кліку на модалку кнопка черга
@@ -93,7 +99,7 @@ export class Listener extends LocalSave {
           this.paginationLibrarySave(false);
         }
       }
-      this.setFilmQueue();
+      this.setFilmQueue(false);
       this.isFilmsSave();
     });
 
@@ -109,7 +115,7 @@ export class Listener extends LocalSave {
       this.currentPage = 1;
       this.onQueueClick();
       this.setHeaderWatchedBtnTrue(false);
-      this.paginationLibrarySave(); //false для НЕ просмотреных фильмов
+      this.paginationLibrarySave(this.libraryTrueBt); //false для НЕ просмотреных фильмов
     });
   };
   //поиск фильма по введеному слову

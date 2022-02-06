@@ -33,27 +33,37 @@
   object-fit: cover;
   border-radius: 5px;
 }
-
+.film-image {
+transition: box-shadow 250ms;
+}
 .film-card {
   border-radius: 5px;
   transition: transform 250ms;
 
+
+  &:hover .film-image,
+  &:focus .film-image {
+  box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.45);
+}
   &:hover,
   &:focus {
     transform: scale(1.05);
-    
-    @media screen and (min-width: 768px) {
-      height: 410px;
-      box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.45);
-    }
-      
   }
+  
 
-  &__img-zaglushka {
-    height: 398px;
-    border-radius: 5px;
-    background-color: rgb(111, 175, 172);
-  }
+
+  // &__img-zaglushka {
+  //   height: 398px;
+  //   width: 280px;
+  //   border-radius: 5px;
+  //   // background-color: rgb(111, 175, 172);
+  //   @media screen and (min-width: 768px) {
+  //     width: 294px;
+  //   }
+  //   @media screen and (min-width: 1024px) {
+  //     width: 274px;
+  //   }
+  // }
 
   &__discribe-container {
     padding-top: 10px;
