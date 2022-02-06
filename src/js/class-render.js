@@ -97,9 +97,15 @@ export class Render extends Fetch {
       if (this.fullModal.videos.results[0]) {
         this.videoKeyYoutube = this.fullModal.videos.results[0].key;
         console.log(this.videoKeyYoutube);
+        this.refs.youtubeImg.classList.remove('visually-hidden');
+        // модалка з відео відкриється якщо є трейлер
+        this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
       } else {
         this.videoKeyYoutube = null;
         this.youtubeImg = './images/no-foto.png';
+        this.refs.youtubeImg.classList.add('visually-hidden');
+        // знімаю слухач з модалки відео бо з бекенду його немає
+        this.refs.prewiuModalka.removeEventListener('click', this.onTrailerClick);
       }
 
       this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -109,7 +115,6 @@ export class Render extends Fetch {
       this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
       let ganres = this.fullModal.genres.map(g => g.name).join(', ');
       this.refs.modalGanre.textContent = `${ganres}`;
-      this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
     } catch (error) {
       alert('Sorry, something went wrong');
     }

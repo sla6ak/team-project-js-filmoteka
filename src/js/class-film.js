@@ -57,6 +57,7 @@ export class Film {
       modalWatchedBt: document.querySelector('.js-watched-modal'),
       modalQueueBt: document.querySelector('.js-queue-modal'),
       backdropCardFilm: document.querySelector('#backdropFilmCard'),
+      youtubeImg: document.querySelector('.youtube-img'),
       // модалка з одним фільмом
       aboutApi: document.querySelector('.js-about__api'),
       aboutLang: document.querySelector('.js-about__leng'),
