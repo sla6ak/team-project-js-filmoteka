@@ -30,7 +30,18 @@
 .film-image {
   cursor: pointer;
   border-radius: 5px;
+  height: 398px;
+  width: 280px;
+  border-radius: 5px;
+  // background-color: rgb(111, 175, 172);
+  @media screen and (min-width: 768px) {
+    width: 294px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 274px;
+  }
 }
+
 .film-info {
   @media screen and (min-width: 768px) {
   }
