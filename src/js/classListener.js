@@ -31,7 +31,8 @@ export class Listener extends LocalSave {
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
       this.setLocalLanguage();
-      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
@@ -40,8 +41,8 @@ export class Listener extends LocalSave {
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       this.setLocalLanguage();
-
-      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
