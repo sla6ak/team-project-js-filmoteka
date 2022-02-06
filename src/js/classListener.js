@@ -34,7 +34,8 @@ export class Listener extends LocalSave {
         this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
       }
       this.setLocalLanguage();
-      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
@@ -46,8 +47,8 @@ export class Listener extends LocalSave {
         this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
       }
       this.setLocalLanguage();
-
-      if (this.refs.libraryBt.className == 'button-nav js-library button-nav--current') {
+      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
