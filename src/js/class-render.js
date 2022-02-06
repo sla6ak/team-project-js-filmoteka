@@ -19,83 +19,91 @@ export class Render extends Fetch {
 
   // рендер фільмів на головній сторінці
   renderFilmsCardMarkup = async results => {
-    const resultsFilms = await results;
-    if (resultsFilms == '') {
-      this.refs.notification.classList.remove('notification-none');
-      return;
-    }
-    this.refs.notification.classList.add('notification-none');
-    this.renderBoxCleaner();
+    try {
+      const resultsFilms = await results;
+      if (resultsFilms == '') {
+        this.refs.notification.classList.remove('notification-none');
+        return;
+      }
+      this.refs.notification.classList.add('notification-none');
+      this.renderBoxCleaner();
 
-    this.ganresList = await this.fetchGenresList();
+      this.ganresList = await this.fetchGenresList();
 
-    resultsFilms.forEach(film => {
-      let genreArr = [];
-      for (let genre_id of film.genre_ids) {
-        for (let i = 0; i < this.ganresList.length; i += 1) {
-          if (this.ganresList[i].id === genre_id) {
-            genreArr.push(' ' + this.ganresList[i].name);
+      resultsFilms.forEach(film => {
+        let genreArr = [];
+        for (let genre_id of film.genre_ids) {
+          for (let i = 0; i < this.ganresList.length; i += 1) {
+            if (this.ganresList[i].id === genre_id) {
+              genreArr.push(' ' + this.ganresList[i].name);
+            }
           }
         }
-      }
 
-      if (genreArr.length >= 3) {
-        genreArr.length = 3;
-        genreArr[2] = this.transleter.genreArr2;
-      }
+        if (genreArr.length >= 3) {
+          genreArr.length = 3;
+          genreArr[2] = this.transleter.genreArr2;
+        }
 
-      film.genre_ids = genreArr;
-    });
+        film.genre_ids = genreArr;
+      });
 
-    resultsFilms.forEach(element => {
-      this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
-      this.titleCard = document.querySelectorAll('.js-film-card__film-name');
-    });
+      resultsFilms.forEach(element => {
+        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ element }));
+        this.titleCard = document.querySelectorAll('.js-film-card__film-name');
+      });
 
-    this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
+      this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
+    } catch (error) {
+      alert('Sorry, something went wrong');
+    }
   };
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
-    // ли-ивент это элемент верстки хранящий идишку
-    let li = event.target.closest('.film-card');
-    if (!li) {
-      return;
+    try {
+      // ли-ивент это элемент верстки хранящий идишку
+      let li = event.target.closest('.film-card');
+      if (!li) {
+        return;
+      }
+      this.liID = li.dataset.source;
+      this.fullModal = await this.fetchFilmsInfo(this.liID);
+      this.refs.backdropCardFilm.classList.remove('visually-hidden');
+      this.refs.body.classList.add('no-scroll');
+      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
+      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
+      window.addEventListener('keydown', this.onEscKeyPres);
+
+      // проверим есть ли фильмы в массиве сохраненных
+      this.isFilmsSave();
+
+      //проверим есть ли описание к фильму на нашем языке
+      if (this.fullModal.overview.length == false) {
+        this.refs.aboutApi.textContent = this.transleter.aboutApi;
+      } else {
+        this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
+      }
+
+      this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+      if (this.fullModal.videos.results[0]) {
+        this.videoKeyYoutube = this.fullModal.videos.results[0].key;
+      } else {
+        this.videoKeyYoutube = null;
+        this.youtubeImg = '../images/no-foto.png';
+      }
+
+      this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
+      this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
+      this.refs.modalVotes.textContent = `${this.fullModal.vote_count}`;
+      this.refs.modalPopularity.textContent = `${this.fullModal.popularity.toFixed(1)}`;
+      this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
+      let ganres = this.fullModal.genres.map(g => g.name).join(', ');
+      this.refs.modalGanre.textContent = `${ganres}`;
+      this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
+    } catch (error) {
+      alert('Sorry, something went wrong');
     }
-    this.liID = li.dataset.source;
-    this.fullModal = await this.fetchFilmsInfo(this.liID);
-    this.refs.backdropCardFilm.classList.remove('visually-hidden');
-    this.refs.body.classList.add('no-scroll');
-    this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
-    this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
-    window.addEventListener('keydown', this.onEscKeyPres);
-
-    // проверим есть ли фильмы в массиве сохраненных
-    this.isFilmsSave();
-
-    //проверим есть ли описание к фильму на нашем языке
-    if (this.fullModal.overview.length == false) {
-      this.refs.aboutApi.textContent = this.transleter.aboutApi;
-    } else {
-      this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
-    }
-
-    this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
-    if (this.fullModal.videos.results[0]) {
-      this.videoKeyYoutube = this.fullModal.videos.results[0].key;
-    } else {
-      this.videoKeyYoutube = null;
-      this.youtubeImg = '../images/no-foto.png';
-    }
-
-    this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
-    this.refs.modalRate.textContent = `${this.fullModal.vote_average}`;
-    this.refs.modalVotes.textContent = `${this.fullModal.vote_count}`;
-    this.refs.modalPopularity.textContent = `${this.fullModal.popularity.toFixed(1)}`;
-    this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
-    let ganres = this.fullModal.genres.map(g => g.name).join(', ');
-    this.refs.modalGanre.textContent = `${ganres}`;
-    this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
   };
 
   onTrailerClick = () => {
@@ -210,30 +218,33 @@ export class Render extends Fetch {
 
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
   renderFilmsCardById = async argumentWatch => {
-    this.renderBoxCleaner();
+    try {
+      this.renderBoxCleaner();
 
-    const y = this.currentPage;
-    const start = this.itemsPerPage * (y - 1);
-    const end = this.itemsPerPage * y;
+      const y = this.currentPage;
+      const start = this.itemsPerPage * (y - 1);
+      const end = this.itemsPerPage * y;
 
-    if (argumentWatch) {
-      this.arrWatched.slice(start, end).forEach(async element => {
-        const respW = await this.fetchFilmsInfo(element);
-        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
-      });
-    } else {
-      this.arrQueue.slice(start, end).forEach(async elemt => {
-        const respQ = await this.fetchFilmsInfo(elemt);
-        this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
-      });
+      if (argumentWatch) {
+        this.arrWatched.slice(start, end).forEach(async element => {
+          const respW = await this.fetchFilmsInfo(element);
+          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
+        });
+      } else {
+        this.arrQueue.slice(start, end).forEach(async elemt => {
+          const respQ = await this.fetchFilmsInfo(elemt);
+          this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
+        });
+      }
+      this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
+    } catch (error) {
+      alert('Sorry, something went wrong');
     }
-    this.refs.renderBox.addEventListener('click', this.onRenderBoxClick);
   };
 
   //кнопки модалки
   isFilmsSave = () => {
     if (this.arrWatched.includes(this.liID)) {
-
       this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtDel;
       this.refs.modalWatchedBt.classList.add('delite-of-watched');
     } else {
@@ -242,13 +253,12 @@ export class Render extends Fetch {
     }
     if (this.arrQueue.includes(this.liID)) {
       this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtDel;
-      
-        this.refs.modalQueueBt.classList.add('delite-of-queue');
+
+      this.refs.modalQueueBt.classList.add('delite-of-queue');
     } else {
       this.refs.modalQueueBt.innerHTML = this.transleter.modalQueueBtAdd;
-      
-        this.refs.modalQueueBt.classList.remove('delite-of-queue');
 
+      this.refs.modalQueueBt.classList.remove('delite-of-queue');
     }
   };
 }

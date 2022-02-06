@@ -29,22 +29,26 @@ export class Paginations extends Render {
 
   // этот метод для отрисовки домашней странички
   paginationStart = async isSerch => {
-    let respons = null;
-    if (isSerch) {
-      respons = await this.fetchSearchFilms();
-    } else {
-      respons = await this.fetchPopularFilms();
-    }
+    try {
+      let respons = null;
+      if (isSerch) {
+        respons = await this.fetchSearchFilms();
+      } else {
+        respons = await this.fetchPopularFilms();
+      }
 
-    if (this.totalPages < 20) {
-      this.refs.containerPagination.classList.add('visually-hidden');
+      if (this.totalPages < 20) {
+        this.refs.containerPagination.classList.add('visually-hidden');
+      }
+      if (this.totalPages > 20) {
+        this.refs.containerPagination.classList.remove('visually-hidden');
+      }
+      this.renderFilmsCardMarkup(respons);
+      this.itemsPerPage = 20;
+      this.buildPagination();
+    } catch (error) {
+      alert('Sorry, something went wrong');
     }
-    if (this.totalPages > 20) {
-      this.refs.containerPagination.classList.remove('visually-hidden');
-    }
-    this.renderFilmsCardMarkup(respons);
-    this.itemsPerPage = 20;
-    this.buildPagination();
   };
 
   // ************это просто фреймворк***********
