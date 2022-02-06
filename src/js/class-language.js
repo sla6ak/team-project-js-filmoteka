@@ -61,9 +61,9 @@ export class Language extends Film {
 
   dinamikDOMlanguageEN = () => {
     const dinamikDOMlanguageEN = {
-      modalWatchedBtDel: 'delite of Watched',
+      modalWatchedBtDel: 'delete of Watched',
       modalWatchedBtAdd: 'add to Watched',
-      modalQueueBtDel: 'delite of Queue',
+      modalQueueBtDel: 'delete of Queue',
       modalQueueBtAdd: 'add to Queue',
       aboutApi: 'i am sorry this info loose :(',
       genreArr2: ' Other',
