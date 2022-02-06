@@ -71,8 +71,8 @@ export class Render extends Fetch {
       this.fullModal = await this.fetchFilmsInfo(this.liID);
       this.refs.backdropCardFilm.classList.remove('visually-hidden');
       this.refs.body.classList.add('no-scroll');
-      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
-      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
+      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross); // это карточка про фильм
+      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick); // это карточка про фильм
       window.addEventListener('keydown', this.onEscKeyPres);
 
       // проверим есть ли фильмы в массиве сохраненных
@@ -107,6 +107,7 @@ export class Render extends Fetch {
   };
 
   onTrailerClick = () => {
+    window.removeEventListener('keydown', this.onEscKeyFooter);
     this.refs.backdropVideo.classList.remove('visually-hidden');
     this.refs.modalVideo.innerHTML = `<div class="modal">
     <iframe class='iframe'
@@ -118,15 +119,26 @@ export class Render extends Fetch {
       allowfullscreen
       allow="autoplay; encrypted-media"></iframe>
     </div>`;
-    this.refs.backdropVideo.addEventListener('click', this.onVideoClouseClick);
+    this.closeModalYoutubeFooter();
   };
 
-  onVideoClouseClick = event => {
-    if (event.target !== this.refs.backdropVideo) {
-      return;
-    }
-    this.refs.backdropVideo.classList.add('visually-hidden');
-    this.refs.modalVideo.innerHTML = '';
+  // закрывание ютуба
+  closeModalYoutubeFooter = () => {
+    window.addEventListener('keydown', this.onEscKeyFooter);
+    this.refs.backdropVideo.addEventListener('click', event => {
+      if (event.target !== this.refs.backdropVideo) {
+        return;
+      }
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.modalVideo.innerHTML = '';
+      this.refs.body.classList.remove('no-scroll');
+    });
+    this.refs.closeModalYoutubeBtn.addEventListener('click', () => {
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+      this.refs.modalVideo.innerHTML = '';
+    });
+    window.addEventListener('keydown', this.onEscKeyVideo);
   };
 
   // функция закрывает модалку по бекдропу
@@ -137,6 +149,21 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+  };
+  // закрывание футера
+  closeModalFooter = () => {
+    this.refs.backdropFooter.addEventListener('click', event => {
+      if (event.target.className !== 'backdropFooterModal') {
+        return;
+      }
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
+    this.refs.closeFooterBt.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
+    window.addEventListener('keydown', this.onEscKeyFooter);
   };
 
   onEscKeyPres = evn => {
@@ -206,14 +233,24 @@ export class Render extends Fetch {
     });
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
-
+  //функция клавиатуры футер модалка
   onEscKeyFooter = evn => {
+    console.log(evn.code);
     if (evn.code !== 'Escape') {
       return;
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropFooter.classList.add('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
+  };
+  // трейлер клавиатура
+  onEscKeyVideo = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    window.removeEventListener('keydown', this.onEscKeyVideo);
   };
 
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
