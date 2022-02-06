@@ -8,7 +8,7 @@ export class Paginations extends Render {
 
   // этот метод для отрисовки нашей библиотеки
   paginationLibrarySave = argumentWatch => {
-    console.log(argumentWatch);
+    // console.log(argumentWatch);
     if (argumentWatch === true) {
       this.totalPages = this.arrWatched.length;
     } else {
