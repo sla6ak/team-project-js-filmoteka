@@ -16,6 +16,7 @@ export class Render extends Fetch {
   // очистка всего рендера
   renderBoxCleaner = () => {
     this.refs.renderBox.innerHTML = '';
+    this.refs.renderBox.removeEventListener('click', this.onRenderBoxClick);
   };
 
   // рендер фільмів на головній сторінці
@@ -62,6 +63,7 @@ export class Render extends Fetch {
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
+    this.refs.upScroll.classList.add('visually-hidden');
     try {
       // ли-ивент это элемент верстки хранящий идишку
       let li = event.target.closest('.film-card');
@@ -72,8 +74,8 @@ export class Render extends Fetch {
       this.fullModal = await this.fetchFilmsInfo(this.liID);
       this.refs.backdropCardFilm.classList.remove('visually-hidden');
       this.refs.body.classList.add('no-scroll');
-      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
-      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
+      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross); // это карточка про фильм
+      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick); // это карточка про фильм
       window.addEventListener('keydown', this.onEscKeyPres);
 
       // проверим есть ли фильмы в массиве сохраненных
@@ -97,9 +99,15 @@ export class Render extends Fetch {
       if (this.fullModal.videos.results[0]) {
         this.videoKeyYoutube = this.fullModal.videos.results[0].key;
         console.log(this.videoKeyYoutube);
+        this.refs.youtubeImg.classList.remove('visually-hidden');
+        // модалка з відео відкриється якщо є трейлер
+        this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
       } else {
         this.videoKeyYoutube = null;
         this.youtubeImg = './images/no-foto.png';
+        this.refs.youtubeImg.classList.add('visually-hidden');
+        // знімаю слухач з модалки відео бо з бекенду його немає
+        this.refs.prewiuModalka.removeEventListener('click', this.onTrailerClick);
       }
 
       this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -109,11 +117,12 @@ export class Render extends Fetch {
       this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
       let ganres = this.fullModal.genres.map(g => g.name).join(', ');
       this.refs.modalGanre.textContent = `${ganres}`;
-      this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
     } catch (error) {
       alert('Sorry, something went wrong');
     }
+    
   };
+  
 
   onTrailerClick = () => {
     this.refs.backdropVideo.classList.remove('visually-hidden');
@@ -127,18 +136,42 @@ export class Render extends Fetch {
       allowfullscreen
       allow="autoplay; encrypted-media"></iframe>
     </div>`;
-    this.refs.backdropVideo.addEventListener('click', this.onVideoClouseClick);
+    this.closeModalYoutube();
   };
 
-  onVideoClouseClick = event => {
-    if (event.target !== this.refs.backdropVideo) {
+  // ============закрывание ютуба===============
+  closeModalYoutube = () => {
+    window.removeEventListener('keydown', this.onEscKeyPres);
+    window.addEventListener('keydown', this.onEscKeyVideo);
+    this.refs.backdropVideo.addEventListener('click', this.onBackdropVideo);
+    this.refs.closeModalYoutubeBtn.addEventListener('click', this.onCloseModalYoutubeBtn);
+  }
+    onBackdropVideo = event => {
+      if (event.target !== this.refs.backdropVideo) {
+        return;
+      }
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.modalVideo.innerHTML = '';
+      window.removeEventListener('keydown', this.onEscKeyVideo);
+      this.refs.backdropVideo.removeEventListener('click', this.onBackdropVideo);
+    }
+    onCloseModalYoutubeBtn = () => {
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.modalVideo.innerHTML = '';
+      window.removeEventListener('keydown', this.onEscKeyVideo);
+      this.refs.closeModalYoutubeBtn.removeEventListener('click', this.onCloseModalYoutubeBtn);
+    }
+  // ===============закрыть ютуб клавиатура================
+  onEscKeyVideo = evn => {
+    if (evn.code !== 'Escape') {
       return;
     }
     this.refs.backdropVideo.classList.add('visually-hidden');
-    this.refs.modalVideo.innerHTML = '';
+    window.removeEventListener('keydown', this.onEscKeyVideo); //снимем слушатель с ютуба
+    window.addEventListener('keydown', this.onEscKeyPres); // добавим слушатель на нижнюю модалку
   };
 
-  // функция закрывает модалку по бекдропу
+  //====закрывает модалку фильма по бекдропу=======
   onModalClouseClick = evn => {
     if (evn.target.className !== 'backdrop') {
       return;
@@ -146,8 +179,9 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+    this.refs.upScroll.classList.remove('visually-hidden');
+    this.refs.backdropCardFilm.removeEventListener('click', this.onModalClouseClick); 
   };
-
   onEscKeyPres = evn => {
     if (evn.code !== 'Escape') {
       return;
@@ -155,29 +189,13 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+    this.refs.upScroll.classList.remove('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyPres);
-  };
-
-  onLibraryClick = () => {
-    this.refs.blokSearch.classList.add('visually-hidden');
-    this.refs.blokBtnHeader.classList.remove('visually-hidden');
-    this.refs.libraryBt.classList.add('button-nav--current');
-    this.refs.homeBt.classList.remove('button-nav--current');
-    this.refs.header.classList.add('header--library');
-    this.refs.renderBox.innerHTML = '';
-  };
-
-  onHomeClick = () => {
-    this.refs.containerPagination.classList.remove('visually-hidden');
-    this.refs.header.classList.remove('header--library');
-    this.refs.blokSearch.classList.remove('visually-hidden');
-    this.refs.blokBtnHeader.classList.add('visually-hidden');
-    this.refs.libraryBt.classList.remove('button-nav--current');
-    this.refs.homeBt.classList.add('button-nav--current');
   };
 
   // закрытие модалки по клику на крестик
   onModalCloseCross = () => {
+    this.refs.upScroll.classList.remove('visually-hidden');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.body.classList.remove('no-scroll');
     this.refs.modalImage.src = '';
@@ -192,37 +210,66 @@ export class Render extends Fetch {
     this.refs.headerWathedBtn.classList.replace('back-orange', 'back-dark');
     this.refs.headerQueueBtn.classList.replace('back-dark', 'back-orange');
   };
-
+  //=================================модалка футера========================
   openModalFooter = () => {
-    this.refs.ourTeam.addEventListener('click', () => {
-      this.refs.backdropFooter.classList.remove('visually-hidden');
-      this.refs.body.classList.add('no-scroll');
-      this.closeModalFooter();
-    });
+    this.refs.ourTeam.addEventListener('click', this.onOpenModalFooter);
   };
-
+  onOpenModalFooter = () => {
+    this.refs.upScroll.classList.add('visually-hidden');
+    this.refs.backdropFooter.classList.remove('visually-hidden');
+    this.refs.body.classList.add('no-scroll');
+    this.closeModalFooter();
+  };
+  // закрывание футера
   closeModalFooter = () => {
-    this.refs.backdropFooter.addEventListener('click', event => {
-      if (event.target.className !== 'backdropFooterModal') {
-        return;
-      }
-      this.refs.backdropFooter.classList.add('visually-hidden');
-      this.refs.body.classList.remove('no-scroll');
-    });
-    this.refs.closeFooterBt.addEventListener('click', () => {
-      this.refs.backdropFooter.classList.add('visually-hidden');
-      this.refs.body.classList.remove('no-scroll');
-    });
+    this.refs.backdropFooter.addEventListener('click', this.onCloseModalFooterBackdrop);
+    this.refs.closeFooterBt.addEventListener('click', this.onCloseModalFooterBt);
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
-
+  onCloseModalFooterBackdrop = event => {
+    if (event.target.className !== 'backdropFooterModal') {
+      return;
+    }
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.upScroll.classList.remove('visually-hidden');
+    this.refs.backdropFooter.removeEventListener('click', this.onCloseModalFooterBackdrop);
+    console.log('onCloseModalFooterBackdrop');
+  };
+    onCloseModalFooterBt = () => {
+       this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+      this.refs.upScroll.classList.remove('visually-hidden');
+      this.refs.closeFooterBt.removeEventListener('click', this.onCloseModalFooterBt);
+    }
+  //функция клавиатуры футер модалка
   onEscKeyFooter = evn => {
+    console.log(evn.code);
     if (evn.code !== 'Escape') {
       return;
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.upScroll.classList.remove('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
+  };
+  onLibraryClick = () => {
+    this.refs.blokSearch.classList.add('visually-hidden');
+    this.refs.blokBtnHeader.classList.remove('visually-hidden');
+    this.refs.libraryBt.classList.add('button-nav--current');
+    this.refs.homeBt.classList.remove('button-nav--current');
+    this.refs.header.classList.add('header--library');
+    this.refs.renderBox.innerHTML = '';
+    this.refs.renderBox.removeEventListener('click', this.onRenderBoxClick);
+  };
+
+  onHomeClick = () => {
+    this.refs.containerPagination.classList.remove('visually-hidden');
+    this.refs.header.classList.remove('header--library');
+    this.refs.blokSearch.classList.remove('visually-hidden');
+    this.refs.blokBtnHeader.classList.add('visually-hidden');
+    this.refs.libraryBt.classList.remove('button-nav--current');
+    this.refs.homeBt.classList.add('button-nav--current');
   };
 
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
@@ -275,7 +322,7 @@ export class Render extends Fetch {
     }
   };
 
-  //кнопки модалки
+  //===========================кнопки модалки о фильме============================
   isFilmsSave = () => {
     if (this.arrWatched.includes(this.liID)) {
       this.refs.modalWatchedBt.innerHTML = this.transleter.modalWatchedBtDel;

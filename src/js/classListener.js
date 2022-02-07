@@ -11,6 +11,7 @@ export class Listener extends LocalSave {
   };
 
   EventListenerAll = () => {
+    this.scrollWindow();
     // Лісенер лого
     this.refs.logo.addEventListener('click', () => {
       this.onWatchedClick(); //это заглушка перекидывающая пользователя всегда в просмотренные так как стартовая функция рендерит просмотренные
@@ -34,7 +35,7 @@ export class Listener extends LocalSave {
         this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
       }
       this.setLocalLanguage();
-      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      const libraryBtClasses = this.refs.libraryBt.className.split(' ');
       if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
@@ -47,7 +48,7 @@ export class Listener extends LocalSave {
         this.paginationLibrarySave(this.libraryTrueBt); // перерендерінг бібілотеки в залежності від обраної мови
       }
       this.setLocalLanguage();
-      const libraryBtClasses = this.refs.libraryBt.className.split(" ")
+      const libraryBtClasses = this.refs.libraryBt.className.split(' ');
       if (libraryBtClasses.includes('button-nav--current')) {
         return;
       }
@@ -141,5 +142,28 @@ export class Listener extends LocalSave {
     this.refs.inputFilm.value = '';
     this.currentPage = 1;
     this.paginationStart(false);
+  };
+
+  //=========скролл окна==========
+  scrollWindow = () => {
+    // window.addEventListener('DOMContentLoaded', () => {
+    //
+    //   this.refs.upScroll.classList.add('visually-hidden');
+    // });
+    this.refs.upScroll.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
+
+    window.addEventListener(
+      'scroll',
+      debounce(() => {
+        scrollY > 200
+          ? this.refs.upScroll.classList.remove('visually-hidden')
+          : this.refs.upScroll.classList.add('visually-hidden');
+      }, 250),
+    );
   };
 }

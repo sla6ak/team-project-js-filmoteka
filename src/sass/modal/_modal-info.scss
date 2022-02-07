@@ -48,6 +48,7 @@
 }
 
 .pic {
+  position: relative;
   width: 240px;
   height: 356px;
   // overflow: hidden;
@@ -234,4 +235,22 @@ td {
     background-color: #ff3333;
     color: black;
   }
+}
+.youtube-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25%;
+  transform: translateX(-50%) translateY(-50%) scale(1);
+  transition: all 0.25s linear;
+}
+.pic:hover {
+  cursor: pointer;
+  & .youtube-img {
+    transform: translateX(-50%) translateY(-50%) scale(1.15);
+  }
+}
+.modall-thema {
+  background: linear-gradient(221.87deg, #9078a0 1%, #24172e 68%);
+  box-shadow: 0 0 15px 5px rgba(255, 123, 71, 0.521);
 }
