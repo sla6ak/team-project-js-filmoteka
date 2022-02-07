@@ -10,6 +10,7 @@ export class Film {
     this.refs = {
       // это объект ссылок к DOM элементам сверстаным статически(не динамически)
       body: document.querySelector('.js-body'),
+      upScroll: document.querySelector('#scrollup'),
       // *******************хедер************************
       inputFilm: document.querySelector('#inputname'),
       logo: document.querySelector('.js-logo'),
