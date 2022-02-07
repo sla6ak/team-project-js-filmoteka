@@ -141,7 +141,7 @@ export class Render extends Fetch {
 
   // ============закрывание ютуба===============
   closeModalYoutube = () => {
-    window.removeEventListener('keydown', this.onEscKeyPres);
+    window.addEventListener('keydown', this.onEscKeyPres);
     window.addEventListener('keydown', this.onEscKeyVideo);
     this.refs.backdropVideo.addEventListener('click', this.onBackdropVideo);
     this.refs.closeModalYoutubeBtn.addEventListener('click', this.onCloseModalYoutubeBtn);
@@ -234,7 +234,6 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.upScroll.classList.remove('visually-hidden');
     this.refs.backdropFooter.removeEventListener('click', this.onCloseModalFooterBackdrop);
-    console.log('onCloseModalFooterBackdrop');
   };
     onCloseModalFooterBt = () => {
        this.refs.backdropFooter.classList.add('visually-hidden');
