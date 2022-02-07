@@ -16,6 +16,7 @@ export class Render extends Fetch {
   // очистка всего рендера
   renderBoxCleaner = () => {
     this.refs.renderBox.innerHTML = '';
+    this.refs.renderBox.removeEventListener('click', this.onRenderBoxClick);
   };
 
   // рендер фільмів на головній сторінці
@@ -119,7 +120,9 @@ export class Render extends Fetch {
     } catch (error) {
       alert('Sorry, something went wrong');
     }
+    
   };
+  
 
   onTrailerClick = () => {
     this.refs.backdropVideo.classList.remove('visually-hidden');
@@ -140,20 +143,24 @@ export class Render extends Fetch {
   closeModalYoutube = () => {
     window.removeEventListener('keydown', this.onEscKeyPres);
     window.addEventListener('keydown', this.onEscKeyVideo);
-    this.refs.backdropVideo.addEventListener('click', event => {
+    this.refs.backdropVideo.addEventListener('click', this.onBackdropVideo);
+    this.refs.closeModalYoutubeBtn.addEventListener('click', this.onCloseModalYoutubeBtn);
+  }
+    onBackdropVideo = event => {
       if (event.target !== this.refs.backdropVideo) {
         return;
       }
       this.refs.backdropVideo.classList.add('visually-hidden');
       this.refs.modalVideo.innerHTML = '';
       window.removeEventListener('keydown', this.onEscKeyVideo);
-    });
-    this.refs.closeModalYoutubeBtn.addEventListener('click', () => {
+      this.refs.backdropVideo.removeEventListener('click', this.onBackdropVideo);
+    }
+    onCloseModalYoutubeBtn = () => {
       this.refs.backdropVideo.classList.add('visually-hidden');
       this.refs.modalVideo.innerHTML = '';
       window.removeEventListener('keydown', this.onEscKeyVideo);
-    });
-  };
+      this.refs.closeModalYoutubeBtn.removeEventListener('click', this.onCloseModalYoutubeBtn);
+    }
   // ===============закрыть ютуб клавиатура================
   onEscKeyVideo = evn => {
     if (evn.code !== 'Escape') {
@@ -173,6 +180,7 @@ export class Render extends Fetch {
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
     this.refs.upScroll.classList.remove('visually-hidden');
+    this.refs.backdropCardFilm.removeEventListener('click', this.onModalClouseClick); 
   };
   onEscKeyPres = evn => {
     if (evn.code !== 'Escape') {
@@ -204,30 +212,36 @@ export class Render extends Fetch {
   };
   //=================================модалка футера========================
   openModalFooter = () => {
-    this.refs.ourTeam.addEventListener('click', () => {
-      this.refs.upScroll.classList.add('visually-hidden');
-      this.refs.backdropFooter.classList.remove('visually-hidden');
-      this.refs.body.classList.add('no-scroll');
-      this.closeModalFooter();
-    });
+    this.refs.ourTeam.addEventListener('click', this.onOpenModalFooter);
+  };
+  onOpenModalFooter = () => {
+    this.refs.upScroll.classList.add('visually-hidden');
+    this.refs.backdropFooter.classList.remove('visually-hidden');
+    this.refs.body.classList.add('no-scroll');
+    this.closeModalFooter();
   };
   // закрывание футера
   closeModalFooter = () => {
-    this.refs.backdropFooter.addEventListener('click', event => {
-      if (event.target.className !== 'backdropFooterModal') {
-        return;
-      }
-      this.refs.backdropFooter.classList.add('visually-hidden');
-      this.refs.body.classList.remove('no-scroll');
-      this.refs.upScroll.classList.remove('visually-hidden');
-    });
-    this.refs.closeFooterBt.addEventListener('click', () => {
-      this.refs.backdropFooter.classList.add('visually-hidden');
-      this.refs.body.classList.remove('no-scroll');
-      this.refs.upScroll.classList.remove('visually-hidden');
-    });
+    this.refs.backdropFooter.addEventListener('click', this.onCloseModalFooterBackdrop);
+    this.refs.closeFooterBt.addEventListener('click', this.onCloseModalFooterBt);
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
+  onCloseModalFooterBackdrop = event => {
+    if (event.target.className !== 'backdropFooterModal') {
+      return;
+    }
+    this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.upScroll.classList.remove('visually-hidden');
+    this.refs.backdropFooter.removeEventListener('click', this.onCloseModalFooterBackdrop);
+    console.log('onCloseModalFooterBackdrop');
+  };
+    onCloseModalFooterBt = () => {
+       this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+      this.refs.upScroll.classList.remove('visually-hidden');
+      this.refs.closeFooterBt.removeEventListener('click', this.onCloseModalFooterBt);
+    }
   //функция клавиатуры футер модалка
   onEscKeyFooter = evn => {
     console.log(evn.code);
@@ -246,6 +260,7 @@ export class Render extends Fetch {
     this.refs.homeBt.classList.remove('button-nav--current');
     this.refs.header.classList.add('header--library');
     this.refs.renderBox.innerHTML = '';
+    this.refs.renderBox.removeEventListener('click', this.onRenderBoxClick);
   };
 
   onHomeClick = () => {
