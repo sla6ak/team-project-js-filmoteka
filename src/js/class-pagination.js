@@ -105,4 +105,12 @@ export class Paginations extends Render {
   setCurrentPage = () => {
     localStorage.setItem('currentPage', JSON.stringify(this.currentPage));
   };
+
+  loaderShow = () => {
+    console.log(this.refs.loader);
+    this.refs.loader.classList.remove('visually-hidden');
+  };
+  loaderHide = () => {
+    this.refs.loader.classList.add('visually-hidden');
+  };
 }

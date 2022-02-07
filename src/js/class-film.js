@@ -90,6 +90,9 @@ export class Film {
       closeFooterBt: document.querySelector('.js-close-footer'),
       bakgroundFooter: document.querySelector('.js-footer-bakground'),
       bakgroundComandCard: document.querySelectorAll('.comand__card'),
+
+      // ******************* Загрузчик ************
+      loader: document.querySelector('.spin-wrapper'),
     };
   }
   // проверочный метод который я запустил в самом индексе сквозь все классы чтоб убедиться что все настроено
