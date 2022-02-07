@@ -57,6 +57,7 @@ export class Film {
       modalWatchedBt: document.querySelector('.js-watched-modal'),
       modalQueueBt: document.querySelector('.js-queue-modal'),
       backdropCardFilm: document.querySelector('#backdropFilmCard'),
+      youtubeImg: document.querySelector('.youtube-img'),
       // модалка з одним фільмом
       aboutApi: document.querySelector('.js-about__api'),
       aboutLang: document.querySelector('.js-about__leng'),
@@ -77,11 +78,11 @@ export class Film {
       modalGanre: document.querySelector('.js-current-film-ganre'),
       // modalAbout: document.querySelector('.js-current-film-overview'),
 
+      //***************** модалка для трейлера********************
       // backdropVideo: document.querySelector('.modal-youtube'),
-      // modalVideo: document.querySelector('.modal-youtube__box'),
-
+      modalVideo: document.querySelector('.js-modal-youtube__frame'),
+      closeModalYoutubeBtn: document.querySelector('.js-close-modal-treiler'),
       backdropVideo: document.querySelector('.js-modal-youtube__backdrop'),
-      modalVideo: document.querySelector('.js-modal-youtube__box'),
 
       // prew: document.querySelector('.js-prewiu-img'),
       // logo: document.querySelector('.js-logo'),

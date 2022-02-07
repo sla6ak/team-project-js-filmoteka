@@ -7,9 +7,10 @@ export class Render extends Fetch {
     // это полная инфа о фильме
     this.fullModal = ''; // ответ сервера по запросу конкретного фильма
     this.videoKeyYoutube = null; // перезаписываемая url на youTube
-    this.youtubeImg = '../images/no-foto.png'; // презаписываемая ссылка на url картинок
+    this.youtubeImg = './images/no-foto.png'; // презаписываемая ссылка на url картинок
     this.titleCard = [];
     this.liID; // id фильма с которым работает модалка передаем в локальное хранение
+    this.srcImg = 'https://i.postimg.cc/6pzyh7Wc/pngwing-com.png';
   }
 
   // очистка всего рендера
@@ -71,8 +72,8 @@ export class Render extends Fetch {
       this.fullModal = await this.fetchFilmsInfo(this.liID);
       this.refs.backdropCardFilm.classList.remove('visually-hidden');
       this.refs.body.classList.add('no-scroll');
-      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross);
-      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick);
+      this.refs.closeModalInfoBtn.addEventListener('click', this.onModalCloseCross); // это карточка про фильм
+      this.refs.backdropCardFilm.addEventListener('click', this.onModalClouseClick); // это карточка про фильм
       window.addEventListener('keydown', this.onEscKeyPres);
 
       // проверим есть ли фильмы в массиве сохраненных
@@ -85,12 +86,26 @@ export class Render extends Fetch {
         this.refs.aboutApi.textContent = `${this.fullModal.overview}`;
       }
 
-      this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+      // перевіряємо чи до фільму є картинка.
+      // якщо немає то використати заглушку, якщо є - то взяти ту що прийла з серверу.
+      let srcImg = this.fullModal.poster_path;
+      this.refs.modalImage.src = !srcImg
+        ? this.srcImg
+        : `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+      // this.refs.modalImage.src = `${this.BASE_IMG_URL}${this.fullModal.poster_path}`;
+
       if (this.fullModal.videos.results[0]) {
         this.videoKeyYoutube = this.fullModal.videos.results[0].key;
+        console.log(this.videoKeyYoutube);
+        this.refs.youtubeImg.classList.remove('visually-hidden');
+        // модалка з відео відкриється якщо є трейлер
+        this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
       } else {
         this.videoKeyYoutube = null;
-        this.youtubeImg = '../images/no-foto.png';
+        this.youtubeImg = './images/no-foto.png';
+        this.refs.youtubeImg.classList.add('visually-hidden');
+        // знімаю слухач з модалки відео бо з бекенду його немає
+        this.refs.prewiuModalka.removeEventListener('click', this.onTrailerClick);
       }
 
       this.refs.modalName.textContent = `${this.fullModal.title.toUpperCase()}`;
@@ -100,13 +115,13 @@ export class Render extends Fetch {
       this.refs.modalTitle.textContent = `${this.fullModal.original_title.toUpperCase()}`;
       let ganres = this.fullModal.genres.map(g => g.name).join(', ');
       this.refs.modalGanre.textContent = `${ganres}`;
-      this.refs.prewiuModalka.addEventListener('click', this.onTrailerClick);
     } catch (error) {
       alert('Sorry, something went wrong');
     }
   };
 
   onTrailerClick = () => {
+    window.removeEventListener('keydown', this.onEscKeyFooter);
     this.refs.backdropVideo.classList.remove('visually-hidden');
     this.refs.modalVideo.innerHTML = `<div class="modal">
     <iframe class='iframe'
@@ -118,15 +133,26 @@ export class Render extends Fetch {
       allowfullscreen
       allow="autoplay; encrypted-media"></iframe>
     </div>`;
-    this.refs.backdropVideo.addEventListener('click', this.onVideoClouseClick);
+    this.closeModalYoutubeFooter();
   };
 
-  onVideoClouseClick = event => {
-    if (event.target !== this.refs.backdropVideo) {
-      return;
-    }
-    this.refs.backdropVideo.classList.add('visually-hidden');
-    this.refs.modalVideo.innerHTML = '';
+  // закрывание ютуба
+  closeModalYoutubeFooter = () => {
+    window.addEventListener('keydown', this.onEscKeyFooter);
+    this.refs.backdropVideo.addEventListener('click', event => {
+      if (event.target !== this.refs.backdropVideo) {
+        return;
+      }
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.modalVideo.innerHTML = '';
+      this.refs.body.classList.remove('no-scroll');
+    });
+    this.refs.closeModalYoutubeBtn.addEventListener('click', () => {
+      this.refs.backdropVideo.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+      this.refs.modalVideo.innerHTML = '';
+    });
+    window.addEventListener('keydown', this.onEscKeyVideo);
   };
 
   // функция закрывает модалку по бекдропу
@@ -137,6 +163,21 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+  };
+  // закрывание футера
+  closeModalFooter = () => {
+    this.refs.backdropFooter.addEventListener('click', event => {
+      if (event.target.className !== 'backdropFooterModal') {
+        return;
+      }
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
+    this.refs.closeFooterBt.addEventListener('click', () => {
+      this.refs.backdropFooter.classList.add('visually-hidden');
+      this.refs.body.classList.remove('no-scroll');
+    });
+    window.addEventListener('keydown', this.onEscKeyFooter);
   };
 
   onEscKeyPres = evn => {
@@ -206,14 +247,24 @@ export class Render extends Fetch {
     });
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
-
+  //функция клавиатуры футер модалка
   onEscKeyFooter = evn => {
+    console.log(evn.code);
     if (evn.code !== 'Escape') {
       return;
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropFooter.classList.add('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
+  };
+  // трейлер клавиатура
+  onEscKeyVideo = evn => {
+    if (evn.code !== 'Escape') {
+      return;
+    }
+    this.refs.body.classList.remove('no-scroll');
+    this.refs.backdropVideo.classList.add('visually-hidden');
+    window.removeEventListener('keydown', this.onEscKeyVideo);
   };
 
   //тут нам прилетает аргумент булен и мы знаем рендерить просмотреные карточки либо еще нет
@@ -225,14 +276,38 @@ export class Render extends Fetch {
       const start = this.itemsPerPage * (y - 1);
       const end = this.itemsPerPage * y;
 
-      if (argumentWatch) {
+      if (argumentWatch == true) {
         this.arrWatched.slice(start, end).forEach(async element => {
           const respW = await this.fetchFilmsInfo(element);
+          // код що нижче робить так, щоб у бубліотеці картки рендерились із жанрами.
+          // оскільки коли фетч іде по id то дані приходять у такому вилягді, що хендлбар не може їх підставити
+          let genre_ids = [];
+          respW.genres.forEach(genre => {
+            genre_ids.push(' ' + genre.name);
+          });
+          if (genre_ids.length >= 3) {
+            genre_ids.length = 3;
+            genre_ids[2] = this.transleter.genreArr2;
+          }
+          respW.genre_ids = genre_ids;
+          // =================== закінчується код заміни айді на жанри
           this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respW }));
         });
       } else {
         this.arrQueue.slice(start, end).forEach(async elemt => {
           const respQ = await this.fetchFilmsInfo(elemt);
+          // код що нижче робить так, щоб у бубліотеці картки рендерились із жанрами.
+          // оскільки коли фетч іде по id то дані приходять у такому вилягді, що хендлбар не може їх підставити
+          let genre_ids = [];
+          respQ.genres.forEach(genre => {
+            genre_ids.push(' ' + genre.name);
+          });
+          if (genre_ids.length >= 3) {
+            genre_ids.length = 3;
+            genre_ids[2] = this.transleter.genreArr2;
+          }
+          respQ.genre_ids = genre_ids;
+          // =================== закінчується код заміни айді на жанри
           this.refs.renderBox.insertAdjacentHTML('beforeend', render({ respQ }));
         });
       }

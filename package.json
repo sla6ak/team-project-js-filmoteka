@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "homepage": "https://sla6ak.github.io/team-project-js-filmoteka",
+  "svgSpriteOptions": {
+    "include": [
+      "src/**/*"
+    ]
+  },
   "scripts": {
     "dev": "parcel src/*.html -p 1234 --open",
     "clean": "rm -rf dist/*",
@@ -26,6 +31,7 @@
     "parcel-plugin-imagemin": "^4.0.2",
     "parcel-plugin-nuke-dist": "^1.0.1",
     "parcel-plugin-svg-sprite": "^1.4.1",
+    "parcel-transformer-svg-sprite": "^2.0.0",
     "posthtml-include": "^1.6.2",
     "sass": "^1.32.8",
     "tui-pagination": "^3.4.1"

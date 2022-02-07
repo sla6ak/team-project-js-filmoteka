@@ -36,14 +36,16 @@ export class LocalSave extends Paginations {
     localStorage.setItem('thema', JSON.stringify(this.refs.themaBt.hasAttribute('checked')));
   };
   // Записую в локалку дані про фільм перглянуті
-  setFilmWached = () => {
+  setFilmWached = argument => {
     localStorage.setItem('wached-film', JSON.stringify(this.arrWatched));
+    this.libraryTrue = argument;
   };
   // Записую в локалку дані про фільм додані в чергу
-  setFilmQueue = () => {
+  setFilmQueue = argument => {
     localStorage.setItem('queue-film', JSON.stringify(this.arrQueue));
+    this.libraryTrue = argument;
   };
-  // мутод записывает где находиться пользователь. тру либо фолс - library
+  // метод записывает где находиться пользователь. тру либо фолс - library
   setLibraryTrue = argument => {
     localStorage.setItem('is-library', JSON.stringify(argument));
     this.libraryTrue = argument;
