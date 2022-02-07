@@ -64,9 +64,7 @@ export class Film {
       aboutLang: document.querySelector('.js-about__leng'),
       // контейнер для пагинации
       containerPagination: document.querySelector('#tui-pagination-container'),
-
       prewiuModalka: document.querySelector('.js-prewiu-img'),
-
       closeModalInfoBtn: document.querySelector('.js-close-modal-info'),
 
       // ========= поля для заміни на модалці фільму ========
@@ -77,20 +75,21 @@ export class Film {
       modalPopularity: document.querySelector('.js-current-film-popul'),
       modalTitle: document.querySelector('.js-current-film-title'),
       modalGanre: document.querySelector('.js-current-film-ganre'),
-      // modalAbout: document.querySelector('.js-current-film-overview'),
+      backgroundModalThema: document.querySelector('.js-modal-film__full-info'),
 
       //***************** модалка для трейлера********************
-      // backdropVideo: document.querySelector('.modal-youtube'),
+      bakgroundVideo: document.querySelector('.js-modal-youtube__box'),
       modalVideo: document.querySelector('.js-modal-youtube__frame'),
       closeModalYoutubeBtn: document.querySelector('.js-close-modal-treiler'),
       backdropVideo: document.querySelector('.js-modal-youtube__backdrop'),
 
       // prew: document.querySelector('.js-prewiu-img'),
-      // logo: document.querySelector('.js-logo'),
       // *******************подвал и модалка с командой************
       ourTeam: document.querySelector('.js-our-team'),
       backdropFooter: document.querySelector('#js-backdrop-footer'),
       closeFooterBt: document.querySelector('.js-close-footer'),
+      bakgroundFooter: document.querySelector('.js-footer-bakground'),
+      bakgroundComandCard: document.querySelectorAll('.comand__card'),
     };
   }
   // проверочный метод который я запустил в самом индексе сквозь все классы чтоб убедиться что все настроено
