@@ -141,7 +141,7 @@ export class Render extends Fetch {
 
   // ============закрывание ютуба===============
   closeModalYoutube = () => {
-    window.addEventListener('keydown', this.onEscKeyPres);
+    window.removeEventListener('keydown', this.onEscKeyPres);
     window.addEventListener('keydown', this.onEscKeyVideo);
     this.refs.backdropVideo.addEventListener('click', this.onBackdropVideo);
     this.refs.closeModalYoutubeBtn.addEventListener('click', this.onCloseModalYoutubeBtn);
@@ -154,12 +154,14 @@ export class Render extends Fetch {
       this.refs.modalVideo.innerHTML = '';
       window.removeEventListener('keydown', this.onEscKeyVideo);
       this.refs.backdropVideo.removeEventListener('click', this.onBackdropVideo);
+      window.addEventListener('keydown', this.onEscKeyPres);
     }
     onCloseModalYoutubeBtn = () => {
       this.refs.backdropVideo.classList.add('visually-hidden');
       this.refs.modalVideo.innerHTML = '';
       window.removeEventListener('keydown', this.onEscKeyVideo);
       this.refs.closeModalYoutubeBtn.removeEventListener('click', this.onCloseModalYoutubeBtn);
+      window.addEventListener('keydown', this.onEscKeyPres);
     }
   // ===============закрыть ютуб клавиатура================
   onEscKeyVideo = evn => {
