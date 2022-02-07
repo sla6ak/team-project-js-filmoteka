@@ -92,4 +92,11 @@ export class Fetch extends Thema {
   getTotalPages = () => {
     return this.totalPages;
   };
+
+  loaderShow = () => {
+    this.refs.loader.classList.remove('visually-hidden');
+  };
+  loaderHide = () => {
+    this.refs.loader.classList.add('visually-hidden');
+  };
 }
