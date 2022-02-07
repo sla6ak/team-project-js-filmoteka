@@ -20,7 +20,12 @@ export class Thema extends Language {
     this.refs.imgMoon.classList.toggle('curent-time');
     this.refs.renderBox.classList.toggle('render-box--dark');
     this.refs.footer.classList.toggle('footer--dark');
-
+    this.refs.backgroundModalThema.classList.toggle('modall-thema');
+    this.refs.bakgroundVideo.classList.toggle('modall-thema');
+    this.refs.bakgroundFooter.classList.toggle('modall-thema');
+    this.refs.bakgroundComandCard.forEach(elem => {
+      elem.classList.toggle('comand__card-dark');
+    });
     console.log('день-ночь');
   };
 }

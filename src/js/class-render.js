@@ -62,6 +62,7 @@ export class Render extends Fetch {
 
   // отрисовка модалки с полной инфой о фильме
   onRenderBoxClick = async event => {
+    this.refs.upScroll.classList.add('visually-hidden');
     try {
       // ли-ивент это элемент верстки хранящий идишку
       let li = event.target.closest('.film-card');
@@ -171,6 +172,7 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+    this.refs.upScroll.classList.remove('visually-hidden');
   };
   onEscKeyPres = evn => {
     if (evn.code !== 'Escape') {
@@ -179,11 +181,13 @@ export class Render extends Fetch {
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.modalImage.src = '';
+    this.refs.upScroll.classList.remove('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyPres);
   };
 
   // закрытие модалки по клику на крестик
   onModalCloseCross = () => {
+    this.refs.upScroll.classList.remove('visually-hidden');
     this.refs.backdropCardFilm.classList.add('visually-hidden');
     this.refs.body.classList.remove('no-scroll');
     this.refs.modalImage.src = '';
@@ -201,6 +205,7 @@ export class Render extends Fetch {
   //=================================модалка футера========================
   openModalFooter = () => {
     this.refs.ourTeam.addEventListener('click', () => {
+      this.refs.upScroll.classList.add('visually-hidden');
       this.refs.backdropFooter.classList.remove('visually-hidden');
       this.refs.body.classList.add('no-scroll');
       this.closeModalFooter();
@@ -214,10 +219,12 @@ export class Render extends Fetch {
       }
       this.refs.backdropFooter.classList.add('visually-hidden');
       this.refs.body.classList.remove('no-scroll');
+      this.refs.upScroll.classList.remove('visually-hidden');
     });
     this.refs.closeFooterBt.addEventListener('click', () => {
       this.refs.backdropFooter.classList.add('visually-hidden');
       this.refs.body.classList.remove('no-scroll');
+      this.refs.upScroll.classList.remove('visually-hidden');
     });
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
@@ -229,6 +236,7 @@ export class Render extends Fetch {
     }
     this.refs.body.classList.remove('no-scroll');
     this.refs.backdropFooter.classList.add('visually-hidden');
+    this.refs.upScroll.classList.remove('visually-hidden');
     window.removeEventListener('keydown', this.onEscKeyFooter);
   };
   onLibraryClick = () => {
