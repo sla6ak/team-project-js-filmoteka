@@ -152,12 +152,14 @@ export class Render extends Fetch {
     this.refs.modalVideo.innerHTML = '';
     window.removeEventListener('keydown', this.onEscKeyVideo);
     this.refs.backdropVideo.removeEventListener('click', this.onBackdropVideo);
+    window.addEventListener('keydown', this.onEscKeyPres);
   };
   onCloseModalYoutubeBtn = () => {
     this.refs.backdropVideo.classList.add('visually-hidden');
     this.refs.modalVideo.innerHTML = '';
     window.removeEventListener('keydown', this.onEscKeyVideo);
     this.refs.closeModalYoutubeBtn.removeEventListener('click', this.onCloseModalYoutubeBtn);
+    window.addEventListener('keydown', this.onEscKeyPres);
   };
   // ===============закрыть ютуб клавиатура================
   onEscKeyVideo = evn => {
@@ -225,14 +227,13 @@ export class Render extends Fetch {
     window.addEventListener('keydown', this.onEscKeyFooter);
   };
   onCloseModalFooterBackdrop = event => {
-    if (event.target.className !== 'backdropFooterModal') {
+    if (event.target.className !== 'backdrop-footer-modal') {
       return;
     }
     this.refs.backdropFooter.classList.add('visually-hidden');
     this.refs.body.classList.remove('no-scroll');
     this.refs.upScroll.classList.remove('visually-hidden');
     this.refs.backdropFooter.removeEventListener('click', this.onCloseModalFooterBackdrop);
-    console.log('onCloseModalFooterBackdrop');
   };
   onCloseModalFooterBt = () => {
     this.refs.backdropFooter.classList.add('visually-hidden');
