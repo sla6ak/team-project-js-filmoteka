@@ -23,8 +23,12 @@ export class Fetch extends Thema {
       adult: this.adult,
     };
     const meta = new URLSearchParams(parametrs);
+
+    this.loaderShow();
     const results = await fetch(`${this.BASE_URL}trending/movie/week?${meta}`);
     const data = await results.json();
+    this.loaderHide();
+
     this.totalPages = data.total_results;
     return data.results;
   }
@@ -37,8 +41,12 @@ export class Fetch extends Thema {
     };
 
     const meta = new URLSearchParams(parametrs);
+
+    this.loaderShow();
     const results = await fetch(`${this.BASE_URL}genre/movie/list?${meta}`);
     const data = await results.json();
+    this.loaderHide();
+
     this.ganresList = data.genres;
     // console.log(this.ganresList);
     return data.genres;
@@ -54,9 +62,14 @@ export class Fetch extends Thema {
       include_adult: this.adult,
     };
     const meta = new URLSearchParams(parametrs);
+
+    this.loaderShow();
     const results = await fetch(`${this.BASE_URL}search/movie?${meta}`);
     const data = await results.json();
+    this.loaderHide();
+
     this.totalPages = data.total_results;
+
     return data.results;
   }
 
@@ -67,12 +80,23 @@ export class Fetch extends Thema {
       language: this.curentLanguage,
     };
     const meta = new URLSearchParams(parametrs);
+
+    this.loaderShow();
     const result = await fetch(`${this.BASE_URL}/movie/${id}?${meta}&append_to_response=videos`);
     const data = await result.json();
+    this.loaderHide();
+
     return data;
   }
 
   getTotalPages = () => {
     return this.totalPages;
+  };
+
+  loaderShow = () => {
+    this.refs.loader.classList.remove('visually-hidden');
+  };
+  loaderHide = () => {
+    this.refs.loader.classList.add('visually-hidden');
   };
 }
