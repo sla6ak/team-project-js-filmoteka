@@ -8,7 +8,7 @@ export class Fetch extends Thema {
     // this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300';
     this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w440_and_h660_face';
     this.currentPage = 1;
-    this.searchQuery = null;
+    this.searchQuery = null; // это поисковое слово
     this.adult = false;
     this.totalPages = 1;
     this.ganresList = '';

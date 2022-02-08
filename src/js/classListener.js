@@ -126,11 +126,12 @@ export class Listener extends LocalSave {
     this.setCurrentPage();
     if (!evt.target.value.trim()) {
       localStorage.removeItem('search-input-text');
+      this.searchQuery = evt.target.value.trim().toLowerCase(); // записываем значение в переменную
       this.paginationStart(evt.target.value.trim().toLowerCase()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
       return;
     }
     this.searchQuery = evt.target.value.trim().toLowerCase();
-    this.data = evt.target.value.trim().toLowerCase();
+    this.searchQuery = evt.target.value.trim().toLowerCase(); // записываем значение в переменную
     this.setLocalInput();
     this.paginationStart(evt.target.value.trim().toLowerCase()); //от того есть ли поисковое слово будет тру либо фолс и метод поймет какой запрос нужен
   };
