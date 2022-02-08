@@ -95,6 +95,7 @@
 .comand__card {
   padding: 10px;
   background-color: $modal-votes-bg-color;
+  flex-grow: 1;
 }
 .comand__card-dark {
   background-color: #101010;
@@ -139,6 +140,17 @@
   padding: 0px 0px 150% 0px;
   overflow: hidden;
   position: relative;
-
   flex-grow: 1;
+}
+.footer-modal__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.ourTeamPhoto__git {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  height: 35px;
+  width: 50px;
 }
