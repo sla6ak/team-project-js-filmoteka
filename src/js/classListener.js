@@ -28,6 +28,7 @@ export class Listener extends LocalSave {
     });
     // Лісенер на інпут
     this.refs.inputFilm.addEventListener('input', debounce(this.onInputSearch, 1000));
+
     // Лісенер на клік по мови
     this.refs.enBox.addEventListener('click', () => {
       this.onEnClick();
@@ -41,7 +42,7 @@ export class Listener extends LocalSave {
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
     });
-
+    // Лісенер на клік по мови
     this.refs.uaBox.addEventListener('click', () => {
       this.onUaClick();
       if (this.libraryTrue) {
@@ -54,6 +55,7 @@ export class Listener extends LocalSave {
       }
       this.paginationStart(this.searchQuery); // если пользователь сменил язык и у него сохранено поисковое слово значит передаем тру а иначе популярные фильмы найдет
     });
+
     // Лісенер на кліки по вибору теми
     this.refs.themaBt.addEventListener('click', () => {
       this.onThemaClick();
@@ -69,36 +71,44 @@ export class Listener extends LocalSave {
       this.onLibraryClick();
       this.paginationLibrarySave(true); //true для просмотреных фильмов
     });
+
     // Лісенер по кліку на модалку кнопка переглянуті
     this.refs.modalWatchedBt.addEventListener('click', () => {
       if (this.arrWatched.includes(this.liID)) {
         this.arrWatched.splice(this.arrWatched.indexOf(this.liID), 1);
-        // це треба додавати тільки якщо ми відкрили модалку
-        // коли знаходимось у бібліотеці(виправить баг зі зниканням карточок)
         if (this.libraryTrue) {
-          this.paginationLibrarySave(true);
+          if (this.libraryTrueBt) {
+            this.paginationLibrarySave(true);
+          }
         }
       } else {
         this.arrWatched.push(this.liID);
         if (this.libraryTrue) {
-          this.paginationLibrarySave(true);
+          if (this.libraryTrueBt) {
+            this.paginationLibrarySave(true);
+          }
         }
       }
       this.setFilmWached(true);
       this.isFilmsSave();
     });
+
     // Лісенер по кліку на модалку кнопка черга
     this.refs.modalQueueBt.addEventListener('click', () => {
       if (this.arrQueue.includes(this.liID)) {
         this.arrQueue.splice(this.arrQueue.indexOf(this.liID), 1);
         // це треба додавати тільки якщо ми відкрили библиотеку
         if (this.libraryTrue) {
-          this.paginationLibrarySave(false);
+          if (!this.libraryTrueBt) {
+            this.paginationLibrarySave(false);
+          }
         }
       } else {
         this.arrQueue.push(this.liID);
         if (this.libraryTrue) {
-          this.paginationLibrarySave(false);
+          if (!this.libraryTrueBt) {
+            this.paginationLibrarySave(false);
+          }
         }
       }
       this.setFilmQueue(false);
