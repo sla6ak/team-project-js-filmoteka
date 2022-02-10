@@ -22,12 +22,12 @@ export class Language extends Film {
     this.refs.footerTextСopyrightFour.textContent = 'GoIT Students';
     this.refs.voteTitle.textContent = 'Vote / Votes';
     this.refs.popularityTitle.textContent = 'Popularity';
-    this.refs.originalTitle.textContent = 'Originat Title';
+    this.refs.originalTitle.textContent = 'Original Title';
     this.refs.genreTitle.textContent = 'Genre';
     this.refs.aboutTitle.textContent = 'ABOUT';
     this.refs.inputFilm.placeholder = 'Search film';
     this.refs.notificationText.textContent =
-      'Search result failed. Enter the correct movie title and';
+      'Search result not successful. Enter the correct movie name and';
     this.refs.headerWathedBtn.textContent = 'watched';
     this.refs.headerQueueBtn.textContent = 'queue';
     // this.refs.otherTitle.textContent = ', Other';
@@ -55,15 +55,15 @@ export class Language extends Film {
     this.refs.notificationText.textContent =
       'Помилка результату пошуку. Введіть правильну назву фільму';
     this.refs.headerWathedBtn.textContent = 'Історія перегляду';
-    this.refs.headerQueueBtn.textContent = 'на майбутне';
+    this.refs.headerQueueBtn.textContent = 'на майбутнє';
     // this.refs.otherTitle.textContent = ', Інші';
   };
 
   dinamikDOMlanguageEN = () => {
     const dinamikDOMlanguageEN = {
-      modalWatchedBtDel: 'delete of Watched',
+      modalWatchedBtDel: 'delete from Watched',
       modalWatchedBtAdd: 'add to Watched',
-      modalQueueBtDel: 'delete of Queue',
+      modalQueueBtDel: 'delete from Queue',
       modalQueueBtAdd: 'add to Queue',
       aboutApi: 'i am sorry this info loose :(',
       genreArr2: ' Other',
