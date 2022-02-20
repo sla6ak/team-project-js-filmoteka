@@ -3,7 +3,6 @@ import { Paginations } from './class-pagination';
 export class LocalSave extends Paginations {
   constructor() {
     super();
-    this.data = '';
   }
   // ***************стартует всю логику *******************************************
   lokalStart = () => {
@@ -25,7 +24,7 @@ export class LocalSave extends Paginations {
   // *********************запись данных в локалку********************************
   // Додаємо дані в локалку з інпуту
   setLocalInput = () => {
-    localStorage.setItem('search-input-text', this.data);
+    localStorage.setItem('search-input-text', this.searchQuery);
   };
   // Додаємо дані в локалку з мови
   setLocalLanguage = () => {
